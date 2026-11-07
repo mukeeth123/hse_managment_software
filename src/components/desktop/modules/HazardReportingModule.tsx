@@ -23,6 +23,7 @@ import { Modal } from '../../common/Modal';
 import { PhotoViewerModal } from '../../common/PhotoViewerModal';
 import { HazardRecord, HazardCategory, SeverityLevel, HazardStatus } from '../../../types';
 import { exportToExcel, exportToCSV } from '../../../utils/exportUtils';
+import { getSafeImageUrl, getFallbackHazardImage } from '../../../data/imageAssets';
 
 export const HazardReportingModule: React.FC = () => {
   const {
@@ -398,15 +399,19 @@ export const HazardReportingModule: React.FC = () => {
 
               {selectedHazard.imageUrl && (
                 <div className="mt-3">
-                  <div className="relative rounded-lg overflow-hidden border border-gray-300 max-w-md group">
+                  <div className="relative rounded-xl overflow-hidden border border-gray-300 max-w-md group bg-slate-900 shadow-sm">
                     <img
-                      src={selectedHazard.imageUrl}
+                      src={getSafeImageUrl(selectedHazard.imageUrl, selectedHazard.category)}
                       alt="Hazard evidence"
-                      className="w-full h-44 object-cover cursor-pointer hover:opacity-95 transition-opacity"
+                      className="w-full h-48 object-cover cursor-pointer hover:opacity-95 transition-opacity"
+                      onError={(e) => {
+                        e.currentTarget.onerror = null;
+                        e.currentTarget.src = getFallbackHazardImage(selectedHazard.category);
+                      }}
                       onClick={() =>
                         setPhotoViewerState({
                           isOpen: true,
-                          url: selectedHazard.imageUrl!,
+                          url: getSafeImageUrl(selectedHazard.imageUrl, selectedHazard.category),
                           title: selectedHazard.title,
                           caption: selectedHazard.imageCaption,
                           location: selectedHazard.location,
@@ -419,7 +424,7 @@ export const HazardReportingModule: React.FC = () => {
                       onClick={() =>
                         setPhotoViewerState({
                           isOpen: true,
-                          url: selectedHazard.imageUrl!,
+                          url: getSafeImageUrl(selectedHazard.imageUrl, selectedHazard.category),
                           title: selectedHazard.title,
                           caption: selectedHazard.imageCaption,
                           location: selectedHazard.location,

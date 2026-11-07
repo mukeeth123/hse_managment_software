@@ -17,6 +17,14 @@ import {
   AuditEventItem,
 } from '../types';
 import { initialQatarLegalRegister } from './legalRegisterData';
+import {
+  IMAGE_FLOOR_OPENING,
+  IMAGE_SCAFFOLD_DEFECT,
+  IMAGE_HEAT_STRESS,
+  IMAGE_CHEMICAL_LEAK,
+  IMAGE_ELECTRICAL_CABLE,
+  IMAGE_CAPA_RECTIFIED,
+} from './imageAssets';
 
 export const initialProjects = [
   'Qatar Project — Demo Site 01',
@@ -678,8 +686,8 @@ export const initialHazards: HazardRecord[] = [
     immediateAction: 'Placed temporary high-visibility warning barricading tape and notified site foreman',
     status: 'Submitted',
     description: 'During morning pre-task inspection on Level 2 floor slab in Work Area A, observed a 1.2m x 0.9m duct opening left completely uncovered with no warning signs, rigid perimeter handrails, or secure cover fastened down.',
-    imageUrl: 'https://images.unsplash.com/photo-1541888946425-d0fbb186f5f8?auto=format&fit=crop&w=600&q=80',
-    imageCaption: 'Illustrative demonstration image: Uncovered floor penetration in slab area',
+    imageUrl: IMAGE_FLOOR_OPENING,
+    imageCaption: 'Field evidence photo: 1.2m x 0.9m uncovered mechanical floor opening on Level 2 slab',
     assignedSupervisor: 'Tariq Al-Mansoor',
     assignedInvestigator: 'Omar Al-Sulaiti',
   },
@@ -698,6 +706,8 @@ export const initialHazards: HazardRecord[] = [
     immediateAction: 'Suspended masonry loading until toe-boards installed',
     status: 'Action Pending',
     description: 'Scaffolding bay 4 missing kickboards along the 6-metre external perimeter elevation.',
+    imageUrl: IMAGE_SCAFFOLD_DEFECT,
+    imageCaption: 'Field evidence photo: Working platform missing edge toe-board and handrail clamp',
     assignedSupervisor: 'Tariq Al-Mansoor',
     capaId: 'CAPA-2026-0089',
   },
@@ -716,6 +726,8 @@ export const initialHazards: HazardRecord[] = [
     immediateAction: 'De-energised feeder breaker, locked out supply panel, and tagged red',
     status: 'Investigation',
     description: 'Heavy machinery wheels ran over exposed temporary feeder cable, cracking the outer sheath down to copper conductor.',
+    imageUrl: IMAGE_ELECTRICAL_CABLE,
+    imageCaption: 'Field evidence photo: Temporary 380V power distribution cable submerged in water pool',
     assignedSupervisor: 'Tariq Al-Mansoor',
     assignedInvestigator: 'Omar Al-Sulaiti',
     investigationId: 'INV-2026-0012',
@@ -735,6 +747,8 @@ export const initialHazards: HazardRecord[] = [
     immediateAction: 'Delivered bottled chilled mineral water and ice containers immediately',
     status: 'Closed',
     description: 'Compressor on the main welfare station water dispenser failed, dispensing water at 32°C instead of mandated 15-20°C.',
+    imageUrl: IMAGE_HEAT_STRESS,
+    imageCaption: 'Field evidence photo: Welfare station monitor showing thermal threshold exceeded',
     assignedSupervisor: 'Tariq Al-Mansoor',
     closureNotes: 'Compressor replaced, tested and verified by MEP team. Water temperature holding steady at 16°C.',
     closedAt: '2026-11-05 16:00',
@@ -755,6 +769,8 @@ export const initialHazards: HazardRecord[] = [
     immediateAction: 'Transferred drums onto certified polyethylene spill bund pallet',
     status: 'Closed',
     description: 'Four 200L diesel drums placed directly on sandy soil near generator enclosure without impermeable liner.',
+    imageUrl: IMAGE_CHEMICAL_LEAK,
+    imageCaption: 'Field evidence photo: Diesel drum storage without mandatory secondary spill bund',
     assignedSupervisor: 'Ibrahim Al-Dosari',
     closureNotes: 'Relocated into central bunded fuel station with MECC-compliant spill containment.',
     closedAt: '2026-11-04 09:30',

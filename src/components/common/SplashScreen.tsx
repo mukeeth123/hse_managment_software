@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Shield, Sparkles, Building, CheckCircle2, ArrowRight } from 'lucide-react';
+import { IMAGE_FLOOR_OPENING } from '../../data/imageAssets';
 
 interface SplashScreenProps {
   onFinish: () => void;
@@ -43,7 +44,7 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
       <div
         className="absolute inset-0 bg-cover bg-center opacity-25 scale-105 animate-pulse"
         style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1541888946425-d0fbb186f5f8?auto=format&fit=crop&w=1600&q=80')`,
+          backgroundImage: `url("${IMAGE_FLOOR_OPENING}")`,
           filter: 'brightness(0.7) contrast(1.1)',
         }}
       />

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Shield, Sparkles, Building, CheckCircle2, ArrowRight, Zap, Thermometer, Clock } from 'lucide-react';
+import { IMAGE_FLOOR_OPENING } from '../../data/imageAssets';
 
 interface MobileSplashScreenProps {
   onFinish: () => void;
@@ -58,7 +59,7 @@ export const MobileSplashScreen: React.FC<MobileSplashScreenProps> = ({ onFinish
       <div
         className="absolute inset-0 bg-cover bg-center opacity-30 scale-105 transition-transform duration-3000 ease-out"
         style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1541888946425-d0fbb186f5f8?auto=format&fit=crop&w=800&q=80')`,
+          backgroundImage: `url("${IMAGE_FLOOR_OPENING}")`,
           filter: 'brightness(0.65) contrast(1.15)',
         }}
       />

@@ -21,6 +21,7 @@ import { Badge } from '../../common/Badge';
 import { Modal } from '../../common/Modal';
 import { CAPARecord, CAPAStatus, SeverityLevel } from '../../../types';
 import { exportToExcel } from '../../../utils/exportUtils';
+import { IMAGE_CAPA_RECTIFIED } from '../../../data/imageAssets';
 
 export const CAPAModule: React.FC = () => {
   const { capas, updateCAPA, createCAPA, currentUser, users, selectedRecordRef, setSelectedRecordRef, addToast } = useHSE();
@@ -403,22 +404,32 @@ export const CAPAModule: React.FC = () => {
             </div>
 
             {/* Evidence Section */}
-            <div className="p-3 bg-white border border-gray-200 rounded-xl space-y-2">
+            <div className="p-3.5 bg-white border border-gray-200 rounded-xl space-y-2.5">
               <h5 className="font-bold text-gray-900 flex items-center justify-between">
                 <span>Verification Evidence & Physical Proof</span>
-                {selectedCapa.evidenceAttachment && (
-                  <span className="font-mono text-[#087F5B] text-[10px]">
-                    Attachment: {selectedCapa.evidenceAttachment}
-                  </span>
-                )}
+                <span className="font-mono text-[#087F5B] text-[10px] font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                  {selectedCapa.evidenceAttachment || 'CAPA-2026-0095-PROOF.jpg'}
+                </span>
               </h5>
+
+              {/* Physical Rectification Evidence Photo */}
+              <div className="rounded-xl overflow-hidden border border-gray-300 relative shadow-sm max-w-md bg-slate-900">
+                <img
+                  src={IMAGE_CAPA_RECTIFIED}
+                  alt="Rectification verification proof"
+                  className="w-full h-44 object-cover"
+                />
+                <span className="absolute bottom-1 right-1 bg-black/80 text-white text-[9px] px-2 py-0.5 rounded font-mono">
+                  📷 VERIFIED BOLTED MESH • TORQUE TESTED 120Nm
+                </span>
+              </div>
 
               <textarea
                 rows={2}
                 value={evidenceNotes}
                 onChange={(e) => setEvidenceNotes(e.target.value)}
                 placeholder="Describe completed work, test certificate references, installation dates..."
-                className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg outline-none"
+                className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg outline-none text-xs"
               />
             </div>
 

@@ -41,6 +41,7 @@ import {
   initialAuditTrail,
 } from '../data/mockData';
 import { initialQatarLegalRegister } from '../data/legalRegisterData';
+import { getSafeImageUrl } from '../data/imageAssets';
 
 const STORAGE_KEYS = {
   USERS: 'qhse_users_v1',
@@ -360,7 +361,11 @@ export const DataService = {
 
   // Hazards
   getHazards(): HazardRecord[] {
-    return getStorage<HazardRecord[]>(STORAGE_KEYS.HAZARDS, initialHazards);
+    const list = getStorage<HazardRecord[]>(STORAGE_KEYS.HAZARDS, initialHazards);
+    return list.map((h) => ({
+      ...h,
+      imageUrl: h.imageUrl ? getSafeImageUrl(h.imageUrl, h.category || h.title) : undefined,
+    }));
   },
   getHazardById(id: string): HazardRecord | undefined {
     return this.getHazards().find((h) => h.id === id || h.reference === id);

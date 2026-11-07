@@ -1,5 +1,6 @@
 import React from 'react';
 import { X, Image as ImageIcon, Download, ZoomIn, Shield, MapPin, Calendar, User } from 'lucide-react';
+import { getSafeImageUrl, getFallbackHazardImage } from '../../data/imageAssets';
 
 interface PhotoViewerModalProps {
   isOpen: boolean;
@@ -51,9 +52,13 @@ export const PhotoViewerModal: React.FC<PhotoViewerModalProps> = ({
         {/* Image Display Area */}
         <div className="relative flex-1 bg-black/60 flex items-center justify-center p-2 min-h-[280px] max-h-[55vh] overflow-hidden">
           <img
-            src={imageUrl}
+            src={getSafeImageUrl(imageUrl, title)}
             alt={title}
             className="max-h-full max-w-full object-contain rounded-lg shadow-lg border border-white/10"
+            onError={(e) => {
+              e.currentTarget.onerror = null;
+              e.currentTarget.src = getFallbackHazardImage(title);
+            }}
           />
           {/* Timestamp Watermark */}
           <div className="absolute bottom-4 right-4 bg-black/75 backdrop-blur-sm text-white px-2.5 py-1 rounded text-[10px] font-mono border border-white/10 shadow">

@@ -17,6 +17,15 @@ import {
 } from 'lucide-react';
 import { HazardCategory, SeverityLevel } from '../../types';
 import { PhotoViewerModal } from '../common/PhotoViewerModal';
+import {
+  IMAGE_FLOOR_OPENING,
+  IMAGE_SCAFFOLD_DEFECT,
+  IMAGE_HEAT_STRESS,
+  IMAGE_CHEMICAL_LEAK,
+  IMAGE_ELECTRICAL_CABLE,
+  getSafeImageUrl,
+  getFallbackHazardImage,
+} from '../../data/imageAssets';
 
 export const MobileReportHazard: React.FC = () => {
   const {
@@ -42,9 +51,7 @@ export const MobileReportHazard: React.FC = () => {
   const [immediateAction, setImmediateAction] = useState('');
 
   // Image / Photo State
-  const [imageUrl, setImageUrl] = useState<string | null>(
-    'https://images.unsplash.com/photo-1541888946425-d0fbb186f5f8?auto=format&fit=crop&w=800&q=80'
-  );
+  const [imageUrl, setImageUrl] = useState<string | null>(IMAGE_FLOOR_OPENING);
   const [imageCaption, setImageCaption] = useState('Evidence: Uncovered slab penetration in Work Area A');
   const [isPhotoViewerOpen, setIsPhotoViewerOpen] = useState(false);
 
@@ -54,26 +61,26 @@ export const MobileReportHazard: React.FC = () => {
   const [isParsingVoice, setIsParsingVoice] = useState(false);
   const [submittedRef, setSubmittedRef] = useState<string | null>(null);
 
-  // Curated Qatar Safety Photo Presets
+  // Curated Qatar Safety Photo Presets (100% Offline-Resilient Vector SVGs)
   const photoPresets = [
     {
       title: 'Floor Void Opening',
-      url: 'https://images.unsplash.com/photo-1541888946425-d0fbb186f5f8?auto=format&fit=crop&w=800&q=80',
+      url: IMAGE_FLOOR_OPENING,
       caption: 'Mechanical floor penetration without rigid cover on slab level',
     },
     {
       title: 'Scaffold Defect',
-      url: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80',
+      url: IMAGE_SCAFFOLD_DEFECT,
       caption: 'Working platform missing edge toe-board and handrail clamp',
     },
     {
       title: 'Electrical Hazard',
-      url: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80',
+      url: IMAGE_ELECTRICAL_CABLE,
       caption: 'Temporary 380V power distribution cable submerged in water',
     },
     {
       title: 'Chemical Leak',
-      url: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=800&q=80',
+      url: IMAGE_CHEMICAL_LEAK,
       caption: 'Solvent drum leaking near perimeter drainage channel',
     },
   ];
@@ -91,7 +98,7 @@ export const MobileReportHazard: React.FC = () => {
       location: 'Building Zone 01',
       consequence: 'Worker fall from height (4.5m) to lower concrete basement level.',
       immediateAction: 'Placed temporary warning barricade tape and warned nearby civil crew.',
-      photoUrl: 'https://images.unsplash.com/photo-1541888946425-d0fbb186f5f8?auto=format&fit=crop&w=800&q=80',
+      photoUrl: IMAGE_FLOOR_OPENING,
       photoCaption: 'Evidence: Open mechanical floor penetration on Level 2 slab',
       qatarLaw: 'Qatar Labour Law 14/2004 Art. 100',
     },
@@ -106,7 +113,7 @@ export const MobileReportHazard: React.FC = () => {
       location: 'External Work Area 01',
       consequence: 'Heat stroke, severe hyperthermia, and potential medical emergency.',
       immediateAction: 'Issued Stop Work Authority, escorted crew to cooled rest shelter, provided cold electrolytes.',
-      photoUrl: 'https://images.unsplash.com/photo-1508873696983-2df5293cb395?auto=format&fit=crop&w=800&q=80',
+      photoUrl: IMAGE_HEAT_STRESS,
       photoCaption: 'Evidence: Outdoor unshaded concrete pouring during 10:00–15:30 ban',
       qatarLaw: 'Ministerial Decision No. 17 of 2021 (Heat Stress)',
     },
@@ -121,7 +128,7 @@ export const MobileReportHazard: React.FC = () => {
       location: 'Work Area A',
       consequence: 'Dropped objects causing severe head trauma to ground personnel.',
       immediateAction: 'Barricaded drop exclusion zone below scaffold and tagged scaffold with Red Do Not Use tag.',
-      photoUrl: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80',
+      photoUrl: IMAGE_SCAFFOLD_DEFECT,
       photoCaption: 'Evidence: Scaffold staging missing edge protection & toe-board',
       qatarLaw: 'Civil Defence & Work at Height Standard',
     },
@@ -136,7 +143,7 @@ export const MobileReportHazard: React.FC = () => {
       location: 'Storage Area 01',
       consequence: 'Soil contamination and flammable flash fire hazard.',
       immediateAction: 'Deployed hazardous spill absorbent boom, isolated area, and notified Environmental Officer.',
-      photoUrl: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=800&q=80',
+      photoUrl: IMAGE_CHEMICAL_LEAK,
       photoCaption: 'Evidence: Punctured solvent drum leaking liquid onto soil',
       qatarLaw: 'Qatar Environmental Protection Law No. 30 of 2002',
     },
@@ -151,7 +158,7 @@ export const MobileReportHazard: React.FC = () => {
       location: 'Excavation Zone 01',
       consequence: 'Electrocution, arc flash explosion, and potential worker fatality.',
       immediateAction: 'Emergency trip activated at main distribution board, danger tags installed, area cordoned off.',
-      photoUrl: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80',
+      photoUrl: IMAGE_ELECTRICAL_CABLE,
       photoCaption: 'Evidence: Exposed 380V high-voltage cable in standing water',
       qatarLaw: 'Qatar Civil Defence Electrical Precaution Standards',
     },
@@ -286,7 +293,7 @@ export const MobileReportHazard: React.FC = () => {
         setSeverity('High');
         setPotentialConsequence('Object fall resulting in head trauma to personnel below.');
         setImmediateAction('Barricaded drop exclusion zone below scaffold.');
-        setImageUrl('https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80');
+        setImageUrl(IMAGE_SCAFFOLD_DEFECT);
         setImageCaption('Photo Evidence: Scaffold staging missing edge protection');
       } else if (text.toLowerCase().includes('chemical') || text.toLowerCase().includes('leak')) {
         setTitle('Chemical solvent container leaking near drainage');
@@ -295,7 +302,7 @@ export const MobileReportHazard: React.FC = () => {
         setSeverity('Critical');
         setPotentialConsequence('Soil contamination and toxic vapor exposure.');
         setImmediateAction('Applied spill kit absorbent pads and notified Environmental Officer.');
-        setImageUrl('https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=800&q=80');
+        setImageUrl(IMAGE_CHEMICAL_LEAK);
         setImageCaption('Photo Evidence: Chemical leak demarcated with absorbent boom');
       } else {
         setTitle('Uncovered floor duct opening without barricades');
@@ -305,7 +312,7 @@ export const MobileReportHazard: React.FC = () => {
         setSeverity('High');
         setPotentialConsequence('Worker fall from height (4.5m) to lower concrete basement level.');
         setImmediateAction('Placed temporary warning barricade tape and warned nearby civil crew.');
-        setImageUrl('https://images.unsplash.com/photo-1541888946425-d0fbb186f5f8?auto=format&fit=crop&w=800&q=80');
+        setImageUrl(IMAGE_FLOOR_OPENING);
         setImageCaption('Photo Evidence: Uncovered floor void in Work Area A');
       }
 
@@ -367,11 +374,19 @@ export const MobileReportHazard: React.FC = () => {
 
         {/* Attached Photo Preview on Submission Card */}
         {imageUrl && (
-          <div className="mt-3 w-full rounded-xl overflow-hidden border border-gray-200 relative shadow-xs">
-            <img src={imageUrl} alt="Hazard photo" className="w-full h-32 object-cover" />
+          <div className="mt-3 w-full rounded-xl overflow-hidden border border-gray-200 relative shadow-xs bg-slate-900">
+            <img
+              src={getSafeImageUrl(imageUrl, category)}
+              alt="Hazard photo"
+              className="w-full h-36 object-cover"
+              onError={(e) => {
+                e.currentTarget.onerror = null;
+                e.currentTarget.src = getFallbackHazardImage(category);
+              }}
+            />
             <button
               onClick={() => setIsPhotoViewerOpen(true)}
-              className="absolute top-2 right-2 p-1.5 bg-black/70 hover:bg-black text-white rounded-lg text-[10px] flex items-center gap-1 backdrop-blur-sm"
+              className="absolute top-2 right-2 p-1.5 bg-black/75 hover:bg-black text-white rounded-lg text-[10px] flex items-center gap-1 backdrop-blur-sm shadow"
             >
               <ZoomIn className="w-3.5 h-3.5" />
               <span>Inspect Photo</span>
@@ -747,7 +762,15 @@ export const MobileReportHazard: React.FC = () => {
                       : 'border-gray-200 bg-gray-50 hover:bg-gray-100'
                   }`}
                 >
-                  <img src={p.url} alt={p.title} className="w-full h-8 object-cover rounded" />
+                  <img
+                    src={getSafeImageUrl(p.url, p.title)}
+                    alt={p.title}
+                    className="w-full h-8 object-cover rounded bg-slate-800"
+                    onError={(e) => {
+                      e.currentTarget.onerror = null;
+                      e.currentTarget.src = getFallbackHazardImage(p.title);
+                    }}
+                  />
                   <span className="text-[8px] font-semibold text-gray-700 truncate w-full text-center">
                     {p.title}
                   </span>
@@ -758,8 +781,16 @@ export const MobileReportHazard: React.FC = () => {
 
           {/* Live Photo Preview Card with Zoom */}
           {imageUrl && (
-            <div className="mt-2 relative rounded-xl overflow-hidden border border-gray-300 shadow-xs">
-              <img src={imageUrl} alt="Uploaded preview" className="w-full h-28 object-cover" />
+            <div className="mt-2 relative rounded-xl overflow-hidden border border-gray-300 shadow-xs bg-slate-900">
+              <img
+                src={getSafeImageUrl(imageUrl, category)}
+                alt="Uploaded preview"
+                className="w-full h-32 object-cover"
+                onError={(e) => {
+                  e.currentTarget.onerror = null;
+                  e.currentTarget.src = getFallbackHazardImage(category);
+                }}
+              />
               <button
                 type="button"
                 onClick={() => setIsPhotoViewerOpen(true)}
