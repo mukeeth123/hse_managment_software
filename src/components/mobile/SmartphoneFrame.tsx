@@ -172,8 +172,8 @@ export const SmartphoneFrame: React.FC = () => {
             {renderScreen()}
           </div>
 
-          {/* Mobile Bottom Navigation Bar */}
-          {isAuthenticated && (
+          {/* Mobile Bottom Navigation Bar (Hidden during Splash Screen and Welcome Tour) */}
+          {isAuthenticated && !showMobileSplash && !showMobileWelcome && (
             <div className="absolute bottom-0 left-0 right-0 h-14 bg-white/95 backdrop-blur-md border-t border-gray-200 px-3 flex items-center justify-around z-20 shadow-lg">
               <button
                 onClick={() => setMobileScreen('home')}
