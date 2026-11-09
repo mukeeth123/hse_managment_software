@@ -14,6 +14,7 @@ import {
   ZoomIn,
   Trash2,
   Volume2,
+  ChevronDown,
 } from 'lucide-react';
 import { HazardCategory, SeverityLevel } from '../../types';
 import { PhotoViewerModal } from '../common/PhotoViewerModal';
@@ -527,38 +528,48 @@ export const MobileReportHazard: React.FC = () => {
             </button>
           </div>
 
-          {/* Quick Voice Simulation Templates */}
+          {/* Quick Voice Simulation Templates - Sleek & Compact */}
           <div className="pt-1 space-y-1.5">
             <div className="flex items-center justify-between">
               <span className="text-[10px] text-gray-700 font-bold uppercase tracking-wider flex items-center gap-1">
-                <span>Select 1-Click Speech Scenario:</span>
+                <Sparkles className="w-3 h-3 text-[#087F5B]" />
+                <span>1-Tap Voice AI Scenario:</span>
               </span>
               <span className="text-[9px] text-[#087F5B] font-mono font-bold">5 Qatar Presets</span>
             </div>
-            <div className="grid grid-cols-1 gap-1">
-              {mockSpeechScenarios.map((sc) => (
+
+            {/* Compact Scenario Selector Dropdown */}
+            <div className="relative">
+              <select
+                onChange={(e) => {
+                  const sc = mockSpeechScenarios.find((s) => s.id === e.target.value);
+                  if (sc) runMockSpeechScenario(sc);
+                }}
+                defaultValue=""
+                className="w-full pl-3 pr-8 py-2 bg-white border border-emerald-300 rounded-lg text-xs font-bold text-[#073B2F] outline-none appearance-none cursor-pointer focus:ring-2 focus:ring-[#087F5B] shadow-2xs"
+              >
+                <option value="" disabled>⚡ Choose Voice Scenario to Auto-Dictate...</option>
+                {mockSpeechScenarios.map((sc) => (
+                  <option key={sc.id} value={sc.id}>
+                    {sc.shortLabel} — [{sc.severity}]
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className="w-4 h-4 text-[#087F5B] absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+            </div>
+
+            {/* Quick 1-Tap Pills for Instant Demonstrations */}
+            <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5">
+              {mockSpeechScenarios.slice(0, 3).map((sc) => (
                 <button
                   key={sc.id}
                   type="button"
                   onClick={() => runMockSpeechScenario(sc)}
-                  className="w-full text-left p-2 rounded-lg bg-white hover:bg-emerald-50 border border-emerald-200 text-gray-800 transition-all flex items-start gap-2 shadow-xs group active:scale-98"
+                  className="px-2 py-1 rounded-md bg-white hover:bg-emerald-100 border border-emerald-200 text-[#073B2F] text-[10px] font-semibold whitespace-nowrap flex items-center gap-1 shadow-2xs active:scale-95 transition-all flex-shrink-0"
+                  title={sc.spokenText}
                 >
-                  <div className="w-5 h-5 rounded-full bg-emerald-100 text-[#087F5B] flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:bg-[#087F5B] group-hover:text-white transition-colors">
-                    <Mic className="w-3 h-3" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center justify-between">
-                      <span className="font-bold text-[11px] text-gray-900 group-hover:text-[#087F5B] truncate">
-                        {sc.shortLabel}
-                      </span>
-                      <span className="text-[9px] text-[#087F5B] font-mono font-semibold ml-1 flex-shrink-0">
-                        {sc.severity}
-                      </span>
-                    </div>
-                    <p className="text-[10px] text-gray-500 truncate mt-0.5 italic">
-                      "{sc.spokenText}"
-                    </p>
-                  </div>
+                  <Mic className="w-2.5 h-2.5 text-[#087F5B]" />
+                  <span>{sc.shortLabel.split('(')[0].trim()}</span>
                 </button>
               ))}
             </div>

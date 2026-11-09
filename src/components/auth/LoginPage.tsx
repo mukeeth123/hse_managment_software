@@ -51,6 +51,7 @@ export const LoginPage: React.FC = () => {
   const [password, setPassword] = useState('qhse@2026');
   const [selectedProject, setSelectedProject] = useState<string>(projects[0] || 'Commercial Tower Lusail');
   const [rememberMe, setRememberMe] = useState(true);
+  const [showDirectory, setShowDirectory] = useState(false);
 
   // Sign Up form state
   const [signUpName, setSignUpName] = useState('');
@@ -727,43 +728,54 @@ export const LoginPage: React.FC = () => {
       {/* ========================================================================= */}
       {/* BELOW: DEDICATED MOCK DATA DIRECTORY FOR BOTH CONTROLLED DESKTOP & MOBILE */}
       {/* ========================================================================= */}
-      <div className="max-w-4xl xl:max-w-5xl w-full flex flex-col gap-4">
-        {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between bg-[#06241D] text-white p-4 rounded-2xl border border-white/10 shadow-lg gap-2">
+      <div className="max-w-4xl xl:max-w-5xl w-full flex flex-col gap-3">
+        {/* Sleek Collapsible Header Bar */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between bg-[#06241D] text-white p-3.5 px-4 rounded-2xl border border-white/10 shadow-md gap-3">
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-[#20A887] text-white flex items-center justify-center font-bold shadow-md">
-              <Cpu className="w-5 h-5 text-[#DDF5EA]" />
+            <div className="w-8 h-8 rounded-xl bg-[#20A887] text-white flex items-center justify-center font-bold shadow-xs">
+              <Cpu className="w-4 h-4 text-[#DDF5EA]" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="font-bold text-sm text-white">
-                  Seeded Demonstration Mock Data & Controlled Environments
+                <h3 className="font-bold text-xs text-white">
+                  Seeded Demonstration Dataset & Controlled Scenarios
                 </h3>
-                <span className="text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2 py-0.2 rounded-full font-mono uppercase">
-                  Zero Backend
+                <span className="text-[9px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2 py-0.2 rounded-full font-mono uppercase">
+                  40 Personas • Zero Backend
                 </span>
               </div>
-              <p className="text-[11px] text-[#DDF5EA]/80 mt-0.5">
-                Pre-configured records, speech scenarios, and sample credentials for both Desktop Control Centre and Mobile Workforce App.
+              <p className="text-[10px] text-[#DDF5EA]/70 mt-0.5">
+                Pre-configured records, speech scenarios, and sample credentials for Desktop & Mobile environments.
               </p>
             </div>
           </div>
 
-          <button
-            onClick={() => {
-              resetAllData();
-              addToast('info', 'Demo Data Reset', 'All mock data restored to clean demonstration baseline.');
-            }}
-            className="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white text-xs font-semibold flex items-center gap-1.5 border border-white/15 transition-all self-start sm:self-auto"
-            title="Reset demonstration records to baseline"
-          >
-            <RotateCcw className="w-3.5 h-3.5 text-emerald-400" />
-            <span>Reset Baseline Data</span>
-          </button>
+          <div className="flex items-center gap-2 self-end sm:self-auto">
+            <button
+              onClick={() => {
+                resetAllData();
+                addToast('info', 'Demo Data Reset', 'All mock data restored to clean demonstration baseline.');
+              }}
+              className="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-white text-xs font-semibold flex items-center gap-1 border border-white/15 transition-all"
+              title="Reset demonstration records to baseline"
+            >
+              <RotateCcw className="w-3 h-3 text-emerald-400" />
+              <span>Reset Data</span>
+            </button>
+
+            <button
+              onClick={() => setShowDirectory(!showDirectory)}
+              className="px-3 py-1 rounded-lg bg-[#20A887] hover:bg-[#087F5B] text-white text-xs font-bold transition-all flex items-center gap-1.5 shadow-sm"
+              title="Expand or collapse mock data records and personas"
+            >
+              <span>{showDirectory ? 'Hide Directory ▴' : 'View Seeded Directory ▾'}</span>
+            </button>
+          </div>
         </div>
 
         {/* Two-Column Mock Data Grid: Desktop Control Centre vs Mobile Workforce App */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {showDirectory && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 animate-in fade-in duration-200">
           {/* ========================================= */}
           {/* CARD 1: CONTROLLED DESKTOP HSE CONTROL CENTRE */}
           {/* ========================================= */}
@@ -963,6 +975,7 @@ export const LoginPage: React.FC = () => {
             </button>
           </div>
         </div>
+        )}
       </div>
     </div>
   );

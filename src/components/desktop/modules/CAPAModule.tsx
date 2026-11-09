@@ -243,13 +243,13 @@ export const CAPAModule: React.FC = () => {
         </div>
       </div>
 
-      {/* Kanban Board View */}
+      {/* Kanban Board View with horizontal scroll to prevent squishing */}
       {viewMode === 'kanban' ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3">
+        <div className="flex gap-3 overflow-x-auto pb-4 items-stretch">
           {kanbanColumns.map((col) => {
             const colItems = filtered.filter((c) => c.status === col);
             return (
-              <div key={col} className="bg-[#F4F7F5] p-2.5 rounded-xl border border-[#E3EAE6] flex flex-col min-h-[500px]">
+              <div key={col} className="bg-[#F4F7F5] p-2.5 rounded-xl border border-[#E3EAE6] flex flex-col min-h-[480px] w-64 flex-shrink-0 shadow-2xs">
                 <div className="flex items-center justify-between pb-2 mb-2 border-b border-gray-200">
                   <span className="font-bold text-[11px] text-gray-800 uppercase tracking-wider truncate">
                     {col === 'Submitted for Verification' ? 'Under Verif.' : col}

@@ -36,8 +36,8 @@ export const MobileLoginScreen: React.FC = () => {
     addToast,
   } = useHSE();
 
-  // Mode: 'signin' (Credentials) | 'signup' (Register Account) | 'quick' (Role Personas Dropdown)
-  const [screenMode, setScreenMode] = useState<'signin' | 'signup' | 'quick'>('signin');
+  // Mode: 'quick' (1-Tap Role Personas - Recommended for Demos) | 'signin' (Credentials) | 'signup' (Register Account)
+  const [screenMode, setScreenMode] = useState<'quick' | 'signin' | 'signup'>('quick');
 
   // Selected persona state
   const [selectedPersonaId, setSelectedPersonaId] = useState<string>('USR-001'); // Default to Ahmed Hassan
@@ -123,62 +123,41 @@ export const MobileLoginScreen: React.FC = () => {
       </div>
 
       <div className="p-3.5 space-y-3.5">
-        {/* ========================================================= */}
-        {/* PROMINENT DROPDOWN / SWITCHER: SELECT AUTHENTICATION MODE */}
-        {/* ========================================================= */}
-        <div className="bg-white p-2.5 rounded-xl border border-gray-200 shadow-xs">
-          <label className="block text-[10px] font-bold uppercase tracking-wider text-gray-500 mb-1 flex items-center justify-between">
-            <span>Authentication Screen Mode:</span>
-            <span className="text-emerald-700 font-semibold lowercase">Select Below</span>
-          </label>
-
-          {/* Mode Selector Dropdown */}
-          <div className="relative">
-            <select
-              value={screenMode}
-              onChange={(e) => setScreenMode(e.target.value as 'signin' | 'signup' | 'quick')}
-              className="w-full pl-3 pr-8 py-2 bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-300 rounded-lg text-xs font-bold text-[#073B2F] outline-none appearance-none cursor-pointer focus:ring-2 focus:ring-[#087F5B]"
-            >
-              <option value="signin">🔑 Sign In / Login (Enterprise Credentials)</option>
-              <option value="signup">📝 Sign Up (Register New Profile)</option>
-              <option value="quick">⚡ 1-Tap Role Personas (Dropdown Selector)</option>
-            </select>
-            <ChevronDown className="w-4 h-4 text-[#087F5B] absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-          </div>
-
-          {/* Quick Segmented Buttons as Instant Shortcuts */}
-          <div className="grid grid-cols-3 gap-1 mt-2 text-[10px]">
-            <button
-              onClick={() => setScreenMode('signin')}
-              className={`py-1 rounded font-bold transition-all text-center ${
-                screenMode === 'signin'
-                  ? 'bg-[#073B2F] text-white shadow-xs'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-              }`}
-            >
-              Log In
-            </button>
-            <button
-              onClick={() => setScreenMode('signup')}
-              className={`py-1 rounded font-bold transition-all text-center ${
-                screenMode === 'signup'
-                  ? 'bg-[#073B2F] text-white shadow-xs'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-              }`}
-            >
-              Sign Up
-            </button>
-            <button
-              onClick={() => setScreenMode('quick')}
-              className={`py-1 rounded font-bold transition-all text-center ${
-                screenMode === 'quick'
-                  ? 'bg-[#073B2F] text-white shadow-xs'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-              }`}
-            >
-              Personas
-            </button>
-          </div>
+        {/* Sleek Segmented Control for Authentication Mode */}
+        <div className="bg-slate-200/80 p-1 rounded-xl flex items-center gap-1 text-[11px] font-bold">
+          <button
+            type="button"
+            onClick={() => setScreenMode('quick')}
+            className={`flex-1 py-1.5 rounded-lg transition-all text-center flex items-center justify-center gap-1 ${
+              screenMode === 'quick'
+                ? 'bg-[#073B2F] text-white shadow-sm'
+                : 'text-slate-700 hover:text-slate-900'
+            }`}
+          >
+            <span>⚡ 1-Tap Personas</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setScreenMode('signin')}
+            className={`flex-1 py-1.5 rounded-lg transition-all text-center flex items-center justify-center gap-1 ${
+              screenMode === 'signin'
+                ? 'bg-[#073B2F] text-white shadow-sm'
+                : 'text-slate-700 hover:text-slate-900'
+            }`}
+          >
+            <span>🔑 Sign In</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setScreenMode('signup')}
+            className={`flex-1 py-1.5 rounded-lg transition-all text-center flex items-center justify-center gap-1 ${
+              screenMode === 'signup'
+                ? 'bg-[#073B2F] text-white shadow-sm'
+                : 'text-slate-700 hover:text-slate-900'
+            }`}
+          >
+            <span>📝 Sign Up</span>
+          </button>
         </div>
 
         {/* ========================================================= */}
@@ -511,79 +490,41 @@ export const MobileLoginScreen: React.FC = () => {
           </div>
         )}
 
-        {/* ========================================================= */}
-        {/* BELOW: MOCK DATA DIRECTORY (DESKTOP & MOBILE CONNECTED)   */}
-        {/* ========================================================= */}
-        <div className="space-y-2 pt-1">
-          <div className="flex items-center justify-between">
-            <span className="font-bold text-[11px] uppercase tracking-wider text-gray-700 flex items-center gap-1.5">
-              <Cpu className="w-3.5 h-3.5 text-[#087F5B]" />
-              <span>Connected Mock Data Directory</span>
+        {/* Subtle, Compact Tour & Statutory Footer */}
+        <div className="pt-2 space-y-2">
+          <div className="grid grid-cols-2 gap-2">
+            <button
+              onClick={() => {
+                setShowMobileWelcome(false);
+                setShowMobileSplash(true);
+              }}
+              className="py-1.5 px-2 bg-white hover:bg-slate-50 text-slate-700 font-semibold text-[10px] rounded-xl transition-all flex items-center justify-center gap-1.5 border border-slate-200 shadow-2xs active:scale-95"
+              title="Preview native 3-second startup splash screen"
+            >
+              <Sparkles className="w-3 h-3 text-[#087F5B]" />
+              <span>Splash Screen (3s)</span>
+            </button>
+
+            <button
+              onClick={() => {
+                setShowMobileSplash(false);
+                setShowMobileWelcome(true);
+              }}
+              className="py-1.5 px-2 bg-emerald-50/80 hover:bg-emerald-100/80 text-[#073B2F] font-semibold text-[10px] rounded-xl transition-all flex items-center justify-center gap-1.5 border border-emerald-200/80 shadow-2xs active:scale-95"
+              title="Preview onboarding welcome slides tour"
+            >
+              <Sparkles className="w-3 h-3 text-[#20A887]" />
+              <span>Welcome Tour</span>
+            </button>
+          </div>
+
+          <div className="p-2 rounded-xl bg-white/70 border border-slate-200/80 text-center">
+            <span className="text-[10px] font-semibold text-slate-700 block">
+              Qatar Labour Law No. 14/2004 • MD 17/2021
             </span>
-            <span className="text-[9px] bg-emerald-100 text-emerald-900 px-1.5 py-0.2 rounded font-mono font-bold">
-              Shared State
+            <span className="text-[9px] text-slate-400">
+              Field Workforce Demonstration Environment (Zero Backend)
             </span>
-          </div>
-
-          {/* Card: Mobile Speech AI Scenarios */}
-          <div className="bg-white p-2.5 rounded-xl border border-gray-200 shadow-xs space-y-1">
-            <div className="flex items-center justify-between text-[11px] font-bold text-gray-900">
-              <span className="flex items-center gap-1.5">
-                <Mic className="w-3.5 h-3.5 text-emerald-600" />
-                <span>5 Works-Ready Speech AI Scenarios</span>
-              </span>
-              <span className="text-[9px] text-[#087F5B] font-mono">Qatar</span>
-            </div>
-            <p className="text-[10px] text-gray-500 leading-snug">
-              Instant voice reporting with live typewriter streaming & audio synthesis (Floor voids, MD 17/2021 heat stress, scaffold defect).
-            </p>
-          </div>
-
-          {/* Card: Cross-Device Desktop Link */}
-          <div className="bg-white p-2.5 rounded-xl border border-gray-200 shadow-xs space-y-1">
-            <div className="flex items-center justify-between text-[11px] font-bold text-gray-900">
-              <span className="flex items-center gap-1.5">
-                <Monitor className="w-3.5 h-3.5 text-blue-600" />
-                <span>Real-Time Desktop Control Centre Link</span>
-              </span>
-              <span className="text-[9px] text-blue-700 font-mono">Synced</span>
-            </div>
-            <p className="text-[10px] text-gray-500 leading-snug">
-              Reports from mobile push immediately to Desktop Review with 5×5 risk matrix and CAPA verification.
-            </p>
-          </div>
-
-          {/* Action buttons */}
-          <div className="space-y-1.5 pt-1">
-            <div className="grid grid-cols-2 gap-1.5">
-              <button
-                onClick={() => {
-                  setShowMobileWelcome(false);
-                  setShowMobileSplash(true);
-                }}
-                className="py-1.5 px-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-[10px] rounded-lg transition-all flex items-center justify-center gap-1 border border-slate-300 active:scale-95"
-                title="Preview native 3-second startup splash screen"
-              >
-                <Sparkles className="w-3 h-3 text-[#087F5B]" />
-                <span>Splash (3s)</span>
-              </button>
-
-              <button
-                onClick={() => {
-                  setShowMobileSplash(false);
-                  setShowMobileWelcome(true);
-                }}
-                className="py-1.5 px-2 bg-emerald-50 hover:bg-emerald-100 text-[#073B2F] font-semibold text-[10px] rounded-lg transition-all flex items-center justify-center gap-1 border border-emerald-300 active:scale-95"
-                title="Preview onboarding welcome slides tour"
-              >
-                <Sparkles className="w-3 h-3 text-[#20A887]" />
-                <span>Welcome Tour</span>
-              </button>
-            </div>
-
-            <p className="text-[9px] text-center text-gray-400">
-              Demonstration environment — Strict local browser state persistence.
-            </p>
           </div>
         </div>
       </div>

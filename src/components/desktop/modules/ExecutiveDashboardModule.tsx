@@ -180,7 +180,7 @@ export const ExecutiveDashboardModule: React.FC = () => {
       </div>
 
       {/* Primary KPI Grid (All computed dynamically from shared demo dataset) */}
-      <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-3">
+      <div className="grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-6 gap-3.5">
         {/* Total Reports */}
         <div
           onClick={() => setActiveDesktopModule('Hazard Reporting')}

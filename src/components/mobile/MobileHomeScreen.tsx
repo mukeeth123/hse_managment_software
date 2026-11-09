@@ -99,20 +99,6 @@ export const MobileHomeScreen: React.FC = () => {
           </div>
         </div>
 
-        {/* Demo Walkthrough Trigger Card */}
-        <div className="bg-[#087F5B]/10 border border-[#087F5B]/30 rounded-xl p-3 flex items-center justify-between">
-          <div>
-            <span className="font-bold text-[11px] text-[#073B2F] block">Connected Case: HAZ-2026-0042</span>
-            <span className="text-[10px] text-gray-600">Uncovered opening reported by Ahmed Hassan</span>
-          </div>
-          <button
-            onClick={() => setIsScenarioModalOpen(true)}
-            className="px-2.5 py-1 bg-[#073B2F] text-white rounded-lg text-[10px] font-bold shadow hover:bg-[#092B24]"
-          >
-            Walkthrough
-          </button>
-        </div>
-
         {/* Assigned Tasks for User */}
         <div>
           <div className="flex items-center justify-between mb-2">

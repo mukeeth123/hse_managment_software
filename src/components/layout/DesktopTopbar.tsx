@@ -47,29 +47,52 @@ export const DesktopTopbar: React.FC = () => {
   const unreadCount = notifications.filter((n) => !n.read).length;
 
   return (
-    <header className="min-h-[72px] h-[72px] py-2 px-4 bg-[#073B2F] border-b border-[#092B24] text-white flex items-center justify-between z-30 shadow-md flex-shrink-0 gap-3">
-      {/* Left: User Profile Switcher (positioned on the left as requested) & Product Brand */}
+    <header className="h-[62px] px-4 bg-gradient-to-r from-[#062921] via-[#073B2F] to-[#084739] border-b border-[#0D4E3E] text-white flex items-center justify-between z-30 shadow-md flex-shrink-0 gap-3">
+      {/* Left: Product Brand & Role Identity */}
       <div className="flex items-center gap-3 flex-shrink-0 min-w-0">
+        {/* Product Brand */}
+        <div className="flex items-center gap-2.5 flex-shrink-0">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#087F5B] to-[#20A887] flex items-center justify-center text-white shadow-md font-bold flex-shrink-0">
+            <Shield className="w-5 h-5 text-white" />
+          </div>
+          <div className="flex-shrink-0 leading-tight">
+            <div className="flex items-center gap-1.5">
+              <h1 className="text-sm font-bold tracking-tight text-white">
+                QHSE Platform
+              </h1>
+              <span className="text-[9px] font-semibold bg-[#20A887]/25 text-[#DDF5EA] px-1.5 py-0.2 rounded border border-[#20A887]/40 uppercase tracking-wider font-mono">
+                Qatar
+              </span>
+            </div>
+            <p className="text-[10px] text-[#DDF5EA]/70 hidden md:block">
+              Health, Safety & Environment
+            </p>
+          </div>
+        </div>
+
+        {/* Divider */}
+        <div className="h-6 w-px bg-white/15 flex-shrink-0 hidden sm:block" />
+
         {/* RBAC Role & User Profile Switcher */}
         <div className="relative flex-shrink-0">
           <button
             onClick={() => setIsUserDropdownOpen(!isUserDropdownOpen)}
-            className="flex items-center gap-2.5 pl-2 pr-3 py-1.5 rounded-lg bg-black/25 hover:bg-black/35 border border-white/15 transition-all text-left shadow-sm group"
+            className="flex items-center gap-2 pl-1.5 pr-2.5 py-1 rounded-lg bg-black/30 hover:bg-black/45 border border-white/15 transition-all text-left shadow-xs group"
             title="Logged In Profile — Click to Switch RBAC Role"
           >
-            <div className="w-8 h-8 rounded-full bg-[#20A887] text-white flex items-center justify-center font-bold text-sm uppercase shadow-sm flex-shrink-0 group-hover:ring-2 group-hover:ring-[#DDF5EA]/40 transition-all">
+            <div className="w-7 h-7 rounded-full bg-[#20A887] text-white flex items-center justify-center font-bold text-xs uppercase shadow-sm flex-shrink-0 group-hover:ring-2 group-hover:ring-emerald-300 transition-all">
               {currentUser.name.charAt(0)}
             </div>
             <div className="leading-tight whitespace-nowrap">
-              <div className="text-xs font-bold text-white flex items-center gap-1.5">
-                <span className="font-semibold text-white">{currentUser.name}</span>
-                <span className="text-[10px] px-1.5 py-0.2 bg-[#087F5B] text-white rounded font-medium border border-white/10 uppercase tracking-wide">
+              <div className="text-xs font-bold text-white flex items-center gap-1">
+                <span>{currentUser.name}</span>
+                <span className="text-[9px] px-1 py-0.1 bg-[#087F5B] text-white rounded font-medium border border-white/10 uppercase">
                   {currentUser.roleCategory}
                 </span>
               </div>
-              <div className="text-[10px] text-[#DDF5EA]/85 font-medium">{currentUser.role}</div>
+              <div className="text-[10px] text-[#DDF5EA]/80 font-medium truncate max-w-[140px]">{currentUser.role}</div>
             </div>
-            <ChevronDown className="w-3.5 h-3.5 text-[#DDF5EA]/80 flex-shrink-0 ml-0.5" />
+            <ChevronDown className="w-3 h-3 text-[#DDF5EA]/80 flex-shrink-0 ml-0.5" />
           </button>
 
           {isUserDropdownOpen && (
@@ -154,44 +177,14 @@ export const DesktopTopbar: React.FC = () => {
           )}
         </div>
 
-        {/* Divider */}
-        <div className="h-8 w-px bg-white/20 flex-shrink-0 hidden md:block" />
-
-        {/* Product Name & Neutral Enterprise Identity */}
-        <div className="flex items-center gap-3 flex-shrink-0">
-          <div className="w-10 h-10 rounded-xl bg-[#087F5B] flex items-center justify-center text-white shadow-inner font-bold text-lg flex-shrink-0">
-            <Shield className="w-6 h-6 text-[#DDF5EA]" />
-          </div>
-          <div className="flex-shrink-0">
-            <div className="flex items-center gap-2">
-              <h1 className="text-base font-bold tracking-tight text-white leading-none">
-                QHSE Management Platform
-              </h1>
-              <span className="text-[10px] font-semibold bg-[#20A887]/30 text-[#DDF5EA] px-2 py-0.5 rounded border border-[#20A887]/40 uppercase tracking-wider">
-                Qatar Edition
-              </span>
-            </div>
-            <p className="text-xs text-[#DDF5EA] mt-1 leading-snug font-normal">
-              Integrated Health, Safety and Environment Management
-            </p>
-          </div>
-        </div>
-
-        {/* Client Demo Label - Only on extra large screens */}
-        <div className="hidden 3xl:flex items-center gap-1.5 ml-2 px-2.5 py-1 bg-black/20 rounded-md border border-white/10 text-xs text-[#DDF5EA]/90 flex-shrink-0">
-          <Building className="w-3.5 h-3.5 text-[#20A887]" />
-          <span>Client Organisation — Qatar Demonstration Environment</span>
-        </div>
-
         {/* Back to Corporate Website / HSE Services */}
         <button
           onClick={() => setPortalView('homepage')}
-          className="hidden sm:flex items-center gap-1.5 ml-1 px-2.5 py-1 bg-[#20A887]/20 hover:bg-[#20A887]/35 rounded-md border border-[#20A887]/40 text-xs font-semibold text-white transition-all flex-shrink-0 shadow-sm"
+          className="hidden xl:flex items-center gap-1.5 ml-1 px-2.5 py-1 bg-white/10 hover:bg-white/20 rounded-md border border-white/15 text-xs font-semibold text-[#DDF5EA] transition-all flex-shrink-0 shadow-xs"
           title="Return to Corporate Website & HSE Services"
         >
           <Home className="w-3.5 h-3.5 text-[#20A887]" />
-          <span className="hidden md:inline">Website & Services</span>
-          <span className="md:hidden">Website</span>
+          <span>Website & Services</span>
         </button>
       </div>
 
