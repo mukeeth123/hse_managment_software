@@ -143,7 +143,7 @@ export const ExecutiveDashboardModule: React.FC = () => {
           <div className="flex items-center gap-2">
             <h2 className="text-xl font-bold text-[#172B25]">Executive HSE Dashboard</h2>
             <span className="text-xs bg-[#DDF5EA] text-[#073B2F] px-2.5 py-0.5 rounded-full font-semibold border border-[#20A887]/30">
-              Live Local Dataset
+              Qatar Operational Scope
             </span>
           </div>
           <p className="text-xs text-[#65756D] mt-0.5">

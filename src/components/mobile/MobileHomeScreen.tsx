@@ -12,6 +12,7 @@ import {
   ArrowRight,
   Flame,
   Award,
+  CheckCircle2,
 } from 'lucide-react';
 import { Badge } from '../common/Badge';
 
@@ -38,33 +39,37 @@ export const MobileHomeScreen: React.FC = () => {
             </div>
           </div>
           <div className="text-right">
-            <span className="text-[9px] bg-[#087F5B] text-white px-2 py-0.5 rounded font-medium border border-white/10">
-              Demo Site 01
+            <span className="text-[9px] bg-black/25 text-[#DDF5EA] px-2 py-0.5 rounded-full font-medium border border-white/10 truncate max-w-[120px] block">
+              {currentUser.project || 'Lusail Tower Zone 4'}
             </span>
           </div>
         </div>
 
-        {/* Heat Stress Alert Card (Aligned with Qatar MD 17/2021) */}
-        <div className="mt-3.5 bg-gradient-to-r from-amber-900/60 to-orange-800/60 p-3 rounded-xl border border-amber-400/30 flex items-start gap-2.5">
-          <ThermometerSun className="w-5 h-5 text-amber-300 flex-shrink-0 mt-0.5" />
-          <div className="flex-1">
-            <div className="flex items-center justify-between">
-              <span className="font-bold text-[11px] text-amber-200">Qatar MD 17/2021 Heat Index</span>
-              <span className="text-[10px] bg-amber-500 text-white font-bold px-1.5 py-0.2 rounded">WBGT 30.2°C</span>
+        {/* Heat Stress Alert Bar - Compact, High-Impact & Compliant with MD 17/2021 */}
+        <div className="mt-2.5 bg-gradient-to-r from-amber-500/20 via-amber-600/20 to-orange-500/20 px-2.5 py-1.5 rounded-xl border border-amber-400/35 flex items-center justify-between gap-2 shadow-xs">
+          <div className="flex items-center gap-2 min-w-0">
+            <ThermometerSun className="w-4 h-4 text-amber-300 flex-shrink-0" />
+            <div className="leading-tight truncate">
+              <div className="flex items-center gap-1.5">
+                <span className="font-bold text-[10px] text-amber-200">MD 17/2021 Heat Index</span>
+                <span className="text-[9px] text-amber-100/80">• 45m Work / 15m Rest</span>
+              </div>
+              <p className="text-[9px] text-amber-100/70 truncate">
+                Drink 500ml/hr • Max Threshold 32.1°C
+              </p>
             </div>
-            <p className="text-[10px] text-amber-100/90 mt-1 leading-snug">
-              Work-Rest Regimen: 45 min work / 15 min shaded rest. Drink 500ml cold water hourly. Outdoor stoppage threshold is 32.1°C.
-            </p>
           </div>
+          <span className="text-[10px] bg-amber-500 text-white font-bold px-2 py-0.5 rounded-full flex-shrink-0 shadow-xs font-mono">
+            WBGT 30.2°C
+          </span>
         </div>
       </div>
 
       {/* Quick Reporting Actions */}
-      <div className="p-4 space-y-4">
+      <div className="p-3.5 space-y-3.5">
         <div>
-          <h4 className="font-bold text-xs text-gray-800 uppercase tracking-wider mb-2 flex items-center justify-between">
-            <span>Instant Safety Actions</span>
-            <span className="text-[10px] text-emerald-700 font-normal">Stop Work Authority</span>
+          <h4 className="font-bold text-xs text-gray-800 uppercase tracking-wider mb-2">
+            Instant Safety Actions
           </h4>
           <div className="grid grid-cols-3 gap-2.5">
             <button
@@ -101,7 +106,7 @@ export const MobileHomeScreen: React.FC = () => {
 
         {/* Assigned Tasks for User */}
         <div>
-          <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center justify-between mb-1.5">
             <h4 className="font-bold text-xs text-gray-800 uppercase tracking-wider">
               My Action Items ({userCapas.length})
             </h4>
@@ -114,8 +119,14 @@ export const MobileHomeScreen: React.FC = () => {
           </div>
 
           {userCapas.length === 0 ? (
-            <div className="bg-white p-3 rounded-xl border border-gray-200 text-center text-gray-500 text-[11px]">
-              No pending CAPA actions currently assigned to your account.
+            <div className="bg-white px-3 py-2 rounded-xl border border-gray-200 flex items-center justify-between text-[11px] text-gray-600 shadow-2xs">
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" />
+                <span>All assigned CAPA actions up to date</span>
+              </div>
+              <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                0 Pending
+              </span>
             </div>
           ) : (
             <div className="space-y-2">
