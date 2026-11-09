@@ -27,6 +27,7 @@ export type PortalView = 'homepage' | 'services' | 'platform';
 
 export type DesktopModule =
   | 'Executive Dashboard'
+  | 'HSE AI Chat Copilot'
   | 'Incident Management'
   | 'Near Miss Management'
   | 'Hazard Reporting'
@@ -49,6 +50,7 @@ export type DesktopModule =
 
 export type MobileScreen =
   | 'home'
+  | 'chat'
   | 'report-hazard'
   | 'report-incident'
   | 'report-nearmiss'

@@ -17,6 +17,7 @@ import {
   FolderLock,
   BarChart3,
   Sparkles,
+  MessageSquare,
   Bell,
   Users,
   History,
@@ -34,6 +35,7 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { id: 'Executive Dashboard', label: 'Executive Dashboard', icon: LayoutDashboard, category: 'Overview' },
+  { id: 'HSE AI Chat Copilot', label: 'HSE AI Chat Copilot', icon: MessageSquare, category: 'Overview' },
   { id: 'AI-Assisted HSE Search', label: 'AI-Assisted HSE Search', icon: Sparkles, category: 'Overview' },
   { id: 'Analytics and Reports', label: 'Analytics and Reports', icon: BarChart3, category: 'Overview' },
 
@@ -155,6 +157,14 @@ export const DesktopSidebar: React.FC = () => {
                         />
                         <span className="truncate">{item.label}</span>
                       </div>
+
+                      {item.id === 'HSE AI Chat Copilot' && (
+                        <span className={`text-[9px] font-bold px-1.5 py-0.2 rounded font-mono ${
+                          isActive ? 'bg-white text-[#073B2F]' : 'bg-[#20A887]/30 text-[#DDF5EA] border border-[#20A887]/50'
+                        }`}>
+                          LIVE
+                        </span>
+                      )}
 
                       {count !== undefined && count > 0 && (
                         <span

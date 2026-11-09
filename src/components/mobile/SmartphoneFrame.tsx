@@ -23,6 +23,7 @@ import { MobileMyReports } from './MobileMyReports';
 import { MobileMyTasks } from './MobileMyTasks';
 import { MobileSafetyInfo } from './MobileSafetyInfo';
 import { MobileProfile } from './MobileProfile';
+import { MobileChatScreen } from './MobileChatScreen';
 import { MobileLoginScreen } from './MobileLoginScreen';
 import { MobileSplashScreen } from './MobileSplashScreen';
 import { MobileWelcomeSlides } from './MobileWelcomeSlides';
@@ -70,6 +71,8 @@ export const SmartphoneFrame: React.FC = () => {
     switch (mobileScreen) {
       case 'home':
         return <MobileHomeScreen />;
+      case 'chat':
+        return <MobileChatScreen />;
       case 'report-hazard':
         return <MobileReportHazard />;
       case 'report-incident':
@@ -119,6 +122,23 @@ export const SmartphoneFrame: React.FC = () => {
         >
           <Sparkles className="w-3 h-3 text-emerald-400" />
           <span>Welcome Tour</span>
+        </button>
+
+        <button
+          onClick={() => {
+            setShowMobileSplash(false);
+            setShowMobileWelcome(false);
+            setMobileScreen(mobileScreen === 'chat' ? 'home' : 'chat');
+          }}
+          className={`px-2.5 py-1 rounded-full text-[10px] font-semibold transition-all shadow-sm flex items-center gap-1 active:scale-95 ${
+            mobileScreen === 'chat'
+              ? 'bg-[#20A887] text-white border border-[#20A887]'
+              : 'bg-slate-800/90 hover:bg-[#087F5B] text-slate-200 hover:text-white border border-slate-700/80'
+          }`}
+          title="Toggle Mobile AI Safety Chat"
+        >
+          <Sparkles className="w-3 h-3 text-emerald-300" />
+          <span>AI Chat</span>
         </button>
       </div>
 

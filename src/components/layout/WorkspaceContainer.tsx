@@ -27,6 +27,7 @@ import { QatarLegalComplianceModule } from '../desktop/modules/QatarLegalComplia
 import { DocumentControlModule } from '../desktop/modules/DocumentControlModule';
 import { AnalyticsReportsModule } from '../desktop/modules/AnalyticsReportsModule';
 import { AISearchModule } from '../desktop/modules/AISearchModule';
+import { AIChatModule } from '../desktop/modules/AIChatModule';
 import { NotificationsModule } from '../desktop/modules/NotificationsModule';
 import { UsersRolesModule } from '../desktop/modules/UsersRolesModule';
 import { AuditTrailModule } from '../desktop/modules/AuditTrailModule';
@@ -82,6 +83,8 @@ export const WorkspaceContainer: React.FC = () => {
         return <AnalyticsReportsModule />;
       case 'AI-Assisted HSE Search':
         return <AISearchModule />;
+      case 'HSE AI Chat Copilot':
+        return <AIChatModule />;
       case 'Notifications and Alerts':
         return <NotificationsModule />;
       case 'Users and Roles':

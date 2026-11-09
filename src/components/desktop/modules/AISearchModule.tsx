@@ -13,6 +13,7 @@ import {
   ThermometerSun,
   Building,
   RotateCcw,
+  MessageSquare,
 } from 'lucide-react';
 import { Badge } from '../../common/Badge';
 
@@ -260,9 +261,19 @@ export const AISearchModule: React.FC = () => {
           </div>
         </div>
 
-        <div className="hidden sm:flex items-center gap-2 text-[11px] text-gray-500 font-mono bg-[#F4F7F5] px-3 py-1.5 rounded-xl border border-gray-200">
-          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span>Indexed: 40 Hazards • 25 Incidents • Qatar Register</span>
+        <div className="flex items-center gap-2.5">
+          <div className="hidden lg:flex items-center gap-2 text-[11px] text-gray-500 font-mono bg-[#F4F7F5] px-3 py-1.5 rounded-xl border border-gray-200">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>Indexed: 40 Hazards • 25 Incidents</span>
+          </div>
+
+          <button
+            onClick={() => setActiveDesktopModule('HSE AI Chat Copilot')}
+            className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-gradient-to-r from-[#073B2F] to-[#087F5B] text-white hover:opacity-95 transition-all shadow-sm active:scale-95 font-semibold text-xs border border-[#20A887]/40"
+          >
+            <MessageSquare className="w-4 h-4 text-emerald-300 animate-pulse" />
+            <span>Launch AI Chat Copilot →</span>
+          </button>
         </div>
       </div>
 

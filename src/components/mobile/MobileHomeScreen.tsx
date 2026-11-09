@@ -13,6 +13,7 @@ import {
   Flame,
   Award,
   CheckCircle2,
+  Sparkles,
 } from 'lucide-react';
 import { Badge } from '../common/Badge';
 
@@ -66,7 +67,31 @@ export const MobileHomeScreen: React.FC = () => {
       </div>
 
       {/* Quick Reporting Actions */}
-      <div className="p-3.5 space-y-3.5">
+      <div className="p-3.5 space-y-3">
+        {/* AI Safety Copilot Card */}
+        <div
+          onClick={() => setMobileScreen('chat')}
+          className="bg-gradient-to-r from-[#073B2F] via-[#087F5B] to-[#0A4537] text-white p-3 rounded-2xl shadow-sm border border-[#20A887]/40 cursor-pointer hover:border-emerald-300 transition-all active:scale-98 flex items-center justify-between gap-2.5 group"
+        >
+          <div className="flex items-center gap-2.5 min-w-0">
+            <div className="w-8 h-8 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center flex-shrink-0 shadow-inner">
+              <Sparkles className="w-4 h-4 text-emerald-300 animate-pulse" />
+            </div>
+            <div className="min-w-0">
+              <div className="flex items-center gap-1.5">
+                <span className="font-bold text-xs text-white">Ask HSE AI Copilot</span>
+                <span className="text-[8px] bg-white/20 text-emerald-200 px-1.5 py-0.2 rounded-full font-mono border border-white/10">
+                  Qatar AI
+                </span>
+              </div>
+              <p className="text-[10px] text-emerald-100/80 truncate mt-0.5">
+                Instant statutory guidance, hazard checks & PTW standards
+              </p>
+            </div>
+          </div>
+          <ArrowRight className="w-4 h-4 text-emerald-300 group-hover:translate-x-0.5 transition-transform flex-shrink-0" />
+        </div>
+
         <div>
           <h4 className="font-bold text-xs text-gray-800 uppercase tracking-wider mb-2">
             Instant Safety Actions
