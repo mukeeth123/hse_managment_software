@@ -80,10 +80,14 @@ export const MobileChatScreen: React.FC = () => {
   }, [messages, isTyping]);
 
   const quickPills = [
-    { label: '☀️ Heat Ban Hours', query: 'What are the outdoor work ban hours today?' },
-    { label: '🏗️ Work Area A Void', query: 'Check status of floor opening in Work Area A' },
-    { label: '📋 Pending CAPAs', query: 'Are there any overdue CAPA actions in Zone 4?' },
-    { label: '🪜 Scaffolding QCS', query: 'What is the minimum guardrail height under QCS 2014?' },
+    { label: '☀️ Heat Ban Hours (MD 17/2021)', query: 'What are the outdoor work ban hours today?' },
+    { label: '🏗️ Work Area A Void (HAZ-0042)', query: 'Check status of floor opening in Work Area A' },
+    { label: '🪜 Scaffolding QCS Height', query: 'What is the minimum guardrail height under QCS 2014?' },
+    { label: '🔥 Hot Work PTW Gas Check', query: 'What gas test readings are required for Hot Work PTW?' },
+    { label: '📋 Pending CAPA Actions', query: 'Are there any overdue CAPA actions in Zone 4?' },
+    { label: '⚖️ Art. 100 PPE Mandates', query: 'What are employer obligations for PPE under Qatar Labour Law Article 100?' },
+    { label: '🚨 24h Incident Report', query: 'When must an incident be reported to the Ministry of Labour under Article 108?' },
+    { label: '🏥 Assembly & Clinic', query: 'Where is the assembly point and first aid clinic for Zone 4?' },
   ];
 
   const handleSend = (queryText?: string) => {
@@ -135,6 +139,29 @@ export const MobileChatScreen: React.FC = () => {
 • Toe-board height: ≥ 150mm.
 • Green Scafftag required every 7 days.`;
         badge = 'QCS 2014 Section 11';
+      } else if (q.includes('permit') || q.includes('ptw') || q.includes('hot work') || q.includes('gas')) {
+        replyText = `Hot Work & Confined Space (PTW):
+• Gas testing: O₂ 19.5%–23.5%, LEL < 10%, H₂S < 10ppm.
+• Fire watch: 60 minutes post-work continuous watch.
+• QCDD: 2× 9kg certified dry powder extinguishers present.`;
+        badge = 'QCDD PTW Mandate';
+      } else if (q.includes('article 100') || q.includes('art. 100') || q.includes('ppe')) {
+        replyText = `Qatar Labour Law Art. 100:
+• Employers must provide free certified PPE without payroll deduction.
+• Multi-lingual hazard boards (Arabic, English, Hindi).
+• Chilled drinking water and shaded rest within 50m of workface.`;
+        badge = 'Law 14/2004 Art. 100';
+      } else if (q.includes('article 108') || q.includes('art. 108') || q.includes('report') || q.includes('24')) {
+        replyText = `Statutory Incident Reporting (Art. 108):
+• 24-hour mandatory notification to Ministry of Labour for any serious accident or hospitalization (>3 days LTI).
+• Capital Police notified immediately for structural failures.`;
+        badge = 'Law 14/2004 Art. 108';
+      } else if (q.includes('emergency') || q.includes('assembly') || q.includes('clinic')) {
+        replyText = `Lusail Tower Zone 4 Emergency Plan:
+• Assembly Point: Point C (North Perimeter Gate 2).
+• Site Clinic: Ground Mezzanine staffed by licensed Nurse (EMP-2041).
+• Internal Emergency Hotline: Dial 999 or Radio Ch. 1.`;
+        badge = 'Zone 4 ERP Plan';
       }
 
       setMessages((prev) => [
@@ -205,6 +232,10 @@ export const MobileChatScreen: React.FC = () => {
 
       {/* Suggested Query Chips */}
       <div className="bg-white px-3 py-1.5 border-b border-gray-200 flex items-center gap-1.5 overflow-x-auto no-scrollbar flex-shrink-0">
+        <span className="text-[9px] font-bold text-gray-500 uppercase tracking-wider flex-shrink-0 flex items-center gap-1">
+          <Sparkles className="w-2.5 h-2.5 text-[#087F5B]" />
+          Demo Q&A:
+        </span>
         {quickPills.map((pill, idx) => (
           <button
             key={idx}

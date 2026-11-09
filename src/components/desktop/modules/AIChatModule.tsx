@@ -21,6 +21,13 @@ import {
   Clock,
   Layers,
   Search,
+  Zap,
+  HelpCircle,
+  ChevronDown,
+  ChevronUp,
+  Play,
+  FileText,
+  Building,
 } from 'lucide-react';
 import { Badge } from '../../common/Badge';
 
@@ -31,7 +38,7 @@ export interface ChatMessage {
   text: string;
   statutoryReference?: string;
   structuredCard?: {
-    type: 'hazard-capa' | 'heat-ban' | 'scaffold' | 'permit' | 'capa-velocity' | 'general';
+    type: 'hazard-capa' | 'heat-ban' | 'scaffold' | 'permit' | 'capa-velocity' | 'general' | 'ppe' | 'reporting' | 'emergency' | 'kpis';
     title: string;
     subtitle?: string;
     pillars?: Array<{
@@ -49,10 +56,96 @@ export interface ChatMessage {
   };
 }
 
+export interface DemoQA {
+  id: string;
+  category: 'Statutory' | 'Hazards' | 'High-Risk' | 'Governance';
+  icon: string;
+  title: string;
+  question: string;
+  statutoryRef: string;
+  summaryAnswer: string;
+}
+
 export const AIChatModule: React.FC = () => {
   const { currentUser, setActiveDesktopModule, setSelectedRecordRef } = useHSE();
 
-  // Initial rich mock conversation history
+  // 8 Curated Client Demo Questions & Answers
+  const demoQABank: DemoQA[] = [
+    {
+      id: 'demo-1',
+      category: 'Statutory',
+      icon: '🌡️',
+      title: 'MD 17/2021 Summer Heat Work Stoppage',
+      question: 'What are the mandatory work stoppage hours and WBGT threshold under Qatar MD 17/2021?',
+      statutoryRef: 'Ministerial Decision 17/2021 • Art. 2 & 3',
+      summaryAnswer: 'Prohibited outdoor work: 10:00–15:30 (1 June–15 Sept). Universal stoppage when WBGT exceeds 32.1°C.',
+    },
+    {
+      id: 'demo-2',
+      category: 'Hazards',
+      icon: '🏗️',
+      title: 'Work Area A Floor Opening Hazard',
+      question: 'What is the status and mitigation of the floor opening in Work Area A (HAZ-2026-0042)?',
+      statutoryRef: 'Qatar Law 14/2004 Art. 100',
+      summaryAnswer: 'Risk score 16 (High). Mitigated by CAPA-2026-0095 steel mesh bolted to slab. Awaiting supervisor torque check.',
+    },
+    {
+      id: 'demo-3',
+      category: 'High-Risk',
+      icon: '🪜',
+      title: 'Scaffolding Guardrail Standards (QCS 2014)',
+      question: 'What are the statutory guardrail and toe-board height requirements under QCS 2014 Section 11?',
+      statutoryRef: 'QCS 2014 Section 11',
+      summaryAnswer: 'Top rail 950–1150mm, mid-rail required, toe-board ≥ 150mm. Green Scafftag inspection every 7 days.',
+    },
+    {
+      id: 'demo-4',
+      category: 'High-Risk',
+      icon: '🔥',
+      title: 'Hot Work & Confined Space PTW Prerequisites',
+      question: 'What atmospheric gas tests and fire-watch precautions are mandatory for Hot Work PTW?',
+      statutoryRef: 'QCDD Fire Code & PTW Standard',
+      summaryAnswer: 'O₂ 19.5%–23.5%, LEL < 10%, H₂S < 10ppm. 60-min fire watch post-welding, 2× 9kg QCDD extinguishers.',
+    },
+    {
+      id: 'demo-5',
+      category: 'Governance',
+      icon: '📋',
+      title: 'CAPA Resolution Velocity & SLA Tracking',
+      question: 'Which CAPA corrective actions are pending verification and what is our closure velocity?',
+      statutoryRef: 'ISO 45001 & Corporate SLA',
+      summaryAnswer: '7 active actions in Zone 4, 92% on-time resolution, 1 item pending sign-off (CAPA-2026-0095), 0 overdue.',
+    },
+    {
+      id: 'demo-6',
+      category: 'Statutory',
+      icon: '⚖️',
+      title: 'Qatar Labour Law Art. 100 Employer Obligations',
+      question: 'What employer safety obligations are mandated under Qatar Labour Law No. 14/2004 Article 100?',
+      statutoryRef: 'Qatar Labour Law 14/2004 Art. 100',
+      summaryAnswer: 'Employers must supply free certified PPE, clear safety signage in primary workforce languages, and free chilled water.',
+    },
+    {
+      id: 'demo-7',
+      category: 'Statutory',
+      icon: '🚨',
+      title: 'Mandatory Incident Reporting to Ministry of Labour',
+      question: 'When must an occupational accident or injury be reported to the Qatar Ministry of Labour?',
+      statutoryRef: 'Qatar Labour Law 14/2004 Art. 108',
+      summaryAnswer: 'Any serious accident, hospitalization, or lost-time injury (>3 days) must be notified within 24 hours pursuant to Article 108.',
+    },
+    {
+      id: 'demo-8',
+      category: 'Governance',
+      icon: '🏥',
+      title: 'Emergency Assembly & Lusail Zone 4 First Aid',
+      question: 'Where is the designated emergency assembly point and clinic for Lusail Tower Zone 4?',
+      statutoryRef: 'Lusail Tower Zone 4 ERP',
+      summaryAnswer: 'Assembly Point C (North Perimeter Gate 2); Ground Mezzanine on-site clinic; emergency hotline 999.',
+    },
+  ];
+
+  // Preloaded rich conversation demonstrating full multi-turn capabilities
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: 'm1',
@@ -62,13 +155,13 @@ export const AIChatModule: React.FC = () => {
 
 I maintain continuous real-time indexing across Qatar Labour Law No. 14/2004, Ministerial Decision 17/2021 (Heat Stress Orders), Qatar Construction Specifications (QCS 2014), and active project hazard registers.
 
-You can ask me any statutory question, query recurring hazards, or verify CAPA engineering controls.`,
+You can ask me any statutory question, query recurring hazards, or click any of the curated Demo Questions below.`,
     },
     {
       id: 'm2',
       sender: 'user',
       timestamp: '10:15 AM',
-      text: 'What are the mandatory heat stress stoppage protocols under Qatar MD 17/2021 today?',
+      text: 'What are the mandatory work stoppage hours and WBGT threshold under Qatar MD 17/2021?',
     },
     {
       id: 'm3',
@@ -114,7 +207,7 @@ You can ask me any statutory question, query recurring hazards, or verify CAPA e
       id: 'm4',
       sender: 'user',
       timestamp: '10:18 AM',
-      text: 'Are there any active high-risk hazards in Work Area A?',
+      text: 'What is the status and mitigation of the floor opening in Work Area A (HAZ-2026-0042)?',
     },
     {
       id: 'm5',
@@ -162,12 +255,63 @@ You can ask me any statutory question, query recurring hazards, or verify CAPA e
         ],
       },
     },
+    {
+      id: 'm6',
+      sender: 'user',
+      timestamp: '10:20 AM',
+      text: 'What are the statutory guardrail and toe-board height requirements under QCS 2014 Section 11?',
+    },
+    {
+      id: 'm7',
+      sender: 'ai',
+      timestamp: '10:20 AM',
+      text: 'Under Qatar Construction Specifications (QCS 2014) Section 11, working at height and perimeter scaffolding require continuous physical edge containment:',
+      statutoryReference: 'QCS 2014 Section 11 • Edge Protection & Access',
+      structuredCard: {
+        type: 'scaffold',
+        title: 'QCS 2014 Scaffolding & Edge Protection Standards',
+        subtitle: 'State of Qatar Building Specifications • Structural Fall Safeguards',
+        pillars: [
+          {
+            label: 'Top Guardrail',
+            value: '950 – 1150 mm',
+            sub: 'Rigid tubing tested to withstand 200kg point load',
+            color: 'text-blue-800 bg-blue-50 border-blue-200',
+          },
+          {
+            label: 'Toe-Board Height',
+            value: '≥ 150 mm',
+            sub: 'Solid kickboard preventing tool drops to lower levels',
+            color: 'text-purple-800 bg-purple-50 border-purple-200',
+          },
+          {
+            label: 'Inspection Cycle',
+            value: '7-Day Scafftag',
+            sub: 'Certified third-party inspection sign-off tag',
+            color: 'text-emerald-800 bg-emerald-50 border-emerald-200',
+          },
+        ],
+        recommendation:
+          'Ensure all access scaffold platforms on Level 4 have green Scafftags displayed at the access ladder. Any tag dated older than 7 days must be quarantined.',
+        recordLinks: [
+          {
+            module: 'Inspections and Audits',
+            label: 'Open Scaffolding Inspection Log →',
+          },
+        ],
+      },
+    },
   ]);
 
   const [inputQuery, setInputQuery] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  // Demo Q&A Controls
+  const [showDemoQABank, setShowDemoQABank] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState<'All' | 'Statutory' | 'Hazards' | 'High-Risk' | 'Governance'>('All');
+  const [expandedDemoId, setExpandedDemoId] = useState<string | null>(null);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -179,34 +323,8 @@ You can ask me any statutory question, query recurring hazards, or verify CAPA e
     scrollToBottom();
   }, [messages, isTyping]);
 
-  // Suggested 1-click prompt questions
-  const promptSuggestions = [
-    {
-      id: 'p1',
-      label: '☀️ Summer Work Ban Hours (MD 17/2021)',
-      query: 'What are the exact statutory hours and temperature thresholds for summer work ban under MD 17/2021?',
-    },
-    {
-      id: 'p2',
-      label: '🏗️ Work Area A Floor Opening Hazard',
-      query: 'What is the mitigation status of the floor opening in Work Area A (HAZ-2026-0042)?',
-    },
-    {
-      id: 'p3',
-      label: '📋 Overdue CAPA Trajectories',
-      query: 'Which CAPA actions are currently pending verification or closeout?',
-    },
-    {
-      id: 'p4',
-      label: '🪜 Scaffolding Guardrail Standards',
-      query: 'What are the QCS 2014 guardrail and toe-board height requirements for working at heights?',
-    },
-    {
-      id: 'p5',
-      label: '🔥 Hot Work & PTW Safety Protocols',
-      query: 'What atmospheric gas tests and fire-watch conditions are required for a hot work permit?',
-    },
-  ];
+  const filteredDemoQA =
+    selectedCategory === 'All' ? demoQABank : demoQABank.filter((item) => item.category === selectedCategory);
 
   // Intelligent mock response generator
   const generateMockReply = (queryText: string): ChatMessage => {
@@ -305,49 +423,6 @@ You can ask me any statutory question, query recurring hazards, or verify CAPA e
       };
     }
 
-    if (q.includes('capa') || q.includes('overdue') || q.includes('action') || q.includes('0095')) {
-      return {
-        id: `m-${Date.now()}`,
-        sender: 'ai',
-        timestamp: timeNow,
-        text: 'Summary of active Corrective and Preventive Actions (CAPA) across Lusail Commercial Tower Zone 4:',
-        statutoryReference: 'ISO 45001:2018 Cl. 10.2 & Enterprise Safety Governance',
-        structuredCard: {
-          type: 'capa-velocity',
-          title: 'Active CAPA Trajectories & Resolution Velocity',
-          subtitle: 'Tracking 7 active corrective measures across Zone 4',
-          pillars: [
-            {
-              label: 'On-Time Velocity',
-              value: '92% On-Time',
-              sub: 'Average close-out SLA: 4.8 days',
-              color: 'text-emerald-800 bg-emerald-50 border-emerald-200',
-            },
-            {
-              label: 'Pending Verification',
-              value: '1 Action Item',
-              sub: 'CAPA-2026-0095 (Steel mesh installation)',
-              color: 'text-amber-800 bg-amber-50 border-amber-200',
-            },
-            {
-              label: 'Overdue Trajectory',
-              value: '0 Overdue',
-              sub: 'All mandatory milestones within SLA target',
-              color: 'text-blue-800 bg-blue-50 border-blue-200',
-            },
-          ],
-          recommendation:
-            'Expedite photographic verification for CAPA-2026-0095 to achieve 100% resolution for Level 2 Work Area A.',
-          recordLinks: [
-            {
-              module: 'Corrective and Preventive Actions',
-              label: 'Open Full CAPA Action Tracker →',
-            },
-          ],
-        },
-      };
-    }
-
     if (q.includes('scaffold') || q.includes('height') || q.includes('fall') || q.includes('guardrail')) {
       return {
         id: `m-${Date.now()}`,
@@ -391,7 +466,7 @@ You can ask me any statutory question, query recurring hazards, or verify CAPA e
       };
     }
 
-    if (q.includes('permit') || q.includes('ptw') || q.includes('hot work') || q.includes('confined')) {
+    if (q.includes('permit') || q.includes('ptw') || q.includes('hot work') || q.includes('gas test') || q.includes('confined')) {
       return {
         id: `m-${Date.now()}`,
         sender: 'ai',
@@ -428,6 +503,221 @@ You can ask me any statutory question, query recurring hazards, or verify CAPA e
             {
               module: 'Permit to Work',
               label: 'Open Permit to Work Register →',
+            },
+          ],
+        },
+      };
+    }
+
+    if (q.includes('capa') || q.includes('overdue') || q.includes('velocity') || q.includes('action')) {
+      return {
+        id: `m-${Date.now()}`,
+        sender: 'ai',
+        timestamp: timeNow,
+        text: 'Summary of active Corrective and Preventive Actions (CAPA) across Lusail Commercial Tower Zone 4:',
+        statutoryReference: 'ISO 45001:2018 Cl. 10.2 & Enterprise Safety Governance',
+        structuredCard: {
+          type: 'capa-velocity',
+          title: 'Active CAPA Trajectories & Resolution Velocity',
+          subtitle: 'Tracking 7 active corrective measures across Zone 4',
+          pillars: [
+            {
+              label: 'On-Time Velocity',
+              value: '92% On-Time',
+              sub: 'Average close-out SLA: 4.8 days',
+              color: 'text-emerald-800 bg-emerald-50 border-emerald-200',
+            },
+            {
+              label: 'Pending Verification',
+              value: '1 Action Item',
+              sub: 'CAPA-2026-0095 (Steel mesh installation)',
+              color: 'text-amber-800 bg-amber-50 border-amber-200',
+            },
+            {
+              label: 'Overdue Trajectory',
+              value: '0 Overdue',
+              sub: 'All mandatory milestones within SLA target',
+              color: 'text-blue-800 bg-blue-50 border-blue-200',
+            },
+          ],
+          recommendation:
+            'Expedite photographic verification for CAPA-2026-0095 to achieve 100% resolution for Level 2 Work Area A.',
+          recordLinks: [
+            {
+              module: 'Corrective and Preventive Actions',
+              label: 'Open Full CAPA Action Tracker →',
+            },
+          ],
+        },
+      };
+    }
+
+    if (q.includes('article 100') || q.includes('art. 100') || q.includes('ppe') || q.includes('employer obligation')) {
+      return {
+        id: `m-${Date.now()}`,
+        sender: 'ai',
+        timestamp: timeNow,
+        text: 'Legal breakdown of Employer Safety Obligations pursuant to Qatar Labour Law No. 14 of 2004 Article 100:',
+        statutoryReference: 'Qatar Labour Law No. 14 of 2004 • Article 100 (Occupational Safety)',
+        structuredCard: {
+          type: 'ppe',
+          title: 'Article 100 • Employer Occupational Protection Mandates',
+          subtitle: 'State of Qatar Statutory Workforce Safeguards',
+          pillars: [
+            {
+              label: 'Free Certified PPE',
+              value: 'EN / ANSI Standard',
+              sub: 'No payroll deduction permitted for safety gear',
+              color: 'text-emerald-800 bg-emerald-50 border-emerald-200',
+            },
+            {
+              label: 'Multilingual Notice',
+              value: 'Arabic / English / Hindi',
+              sub: 'Hazard instruction boards at all site gates',
+              color: 'text-blue-800 bg-blue-50 border-blue-200',
+            },
+            {
+              label: 'Hydration & Rest',
+              value: 'Potable Chilled Water',
+              sub: 'Shaded resting stations within 50m of workface',
+              color: 'text-amber-800 bg-amber-50 border-amber-200',
+            },
+          ],
+          recommendation:
+            'Ensure all newly onboarded sub-contractor tradesmen receive certified safety footwear, high-visibility vests, and eye protection before receiving site access badges.',
+          recordLinks: [
+            {
+              module: 'Qatar Legal Compliance',
+              label: 'Inspect Law 14/2004 in Legal Register →',
+            },
+          ],
+        },
+      };
+    }
+
+    if (q.includes('article 108') || q.includes('art. 108') || q.includes('report') || q.includes('injury') || q.includes('24 hour') || q.includes('notification')) {
+      return {
+        id: `m-${Date.now()}`,
+        sender: 'ai',
+        timestamp: timeNow,
+        text: 'Qatar statutory incident notification timelines under Labour Law No. 14/2004 Article 108:',
+        statutoryReference: 'Qatar Labour Law No. 14 of 2004 • Article 108',
+        structuredCard: {
+          type: 'reporting',
+          title: 'Article 108 • Mandatory Incident Notification Timelines',
+          subtitle: 'Ministry of Labour & Capital Police Statutory Notification',
+          pillars: [
+            {
+              label: 'Reporting Window',
+              value: 'Within 24 Hours',
+              sub: 'Formal submission to Ministry Labour Inspection',
+              color: 'text-red-800 bg-red-50 border-red-200',
+            },
+            {
+              label: 'Threshold Event',
+              value: 'Hospitalization / >3 Days LTI',
+              sub: 'Any fracture, concussion, or serious injury',
+              color: 'text-amber-800 bg-amber-50 border-amber-200',
+            },
+            {
+              label: 'Police Liaison',
+              value: 'Capital Police',
+              sub: 'Immediate phone notification for severe incidents',
+              color: 'text-blue-800 bg-blue-50 border-blue-200',
+            },
+          ],
+          recommendation:
+            'Use the Incident Management module to generate a pre-formatted Ministry of Labour digital accident report within the 24-hour window.',
+          recordLinks: [
+            {
+              module: 'Incident Management',
+              label: 'Open Incident Management Module →',
+            },
+          ],
+        },
+      };
+    }
+
+    if (q.includes('emergency') || q.includes('assembly') || q.includes('clinic') || q.includes('first aid')) {
+      return {
+        id: `m-${Date.now()}`,
+        sender: 'ai',
+        timestamp: timeNow,
+        text: 'Lusail Commercial Tower Zone 4 Emergency Response & On-Site Medical Protocol:',
+        statutoryReference: 'Lusail Tower Zone 4 Emergency Response Plan (ERP-2026)',
+        structuredCard: {
+          type: 'emergency',
+          title: 'Emergency Assembly & Zone 4 Medical Infrastructure',
+          subtitle: 'Licensed On-Site Clinic and Evacuation Master Plan',
+          pillars: [
+            {
+              label: 'Assembly Point',
+              value: 'Assembly Point C',
+              sub: 'North Perimeter Gate 2 (Clear of overhead cranes)',
+              color: 'text-emerald-800 bg-emerald-50 border-emerald-200',
+            },
+            {
+              label: 'On-Site Clinic',
+              value: 'Ground Mezzanine',
+              sub: 'Licensed Nurse EMP-2041 with oxygen resuscitation',
+              color: 'text-blue-800 bg-blue-50 border-blue-200',
+            },
+            {
+              label: 'Emergency Hotline',
+              value: 'Dial 999 / Radio Ch. 1',
+              sub: 'Internal Security Control Room direct line',
+              color: 'text-red-800 bg-red-50 border-red-200',
+            },
+          ],
+          recommendation:
+            'Verify all 12 floor wardens have active VHF radios set to Channel 1 and conduct monthly emergency roll-call drill at Assembly Point C.',
+          recordLinks: [
+            {
+              module: 'Emergency Preparedness',
+              label: 'Inspect Emergency Preparedness Plan →',
+            },
+          ],
+        },
+      };
+    }
+
+    if (q.includes('man-hour') || q.includes('safe') || q.includes('ltifr') || q.includes('kpi') || q.includes('milestone')) {
+      return {
+        id: `m-${Date.now()}`,
+        sender: 'ai',
+        timestamp: timeNow,
+        text: 'Lusail Commercial Tower Zone 4 Executive Safety Scorecard & Milestone Verification:',
+        statutoryReference: 'Enterprise Safety Governance & Ministry of Labour Audit',
+        structuredCard: {
+          type: 'kpis',
+          title: 'Executive Safety Performance & Governance Metrics',
+          subtitle: 'Certified statistics for Lusail Commercial Tower Zone 4',
+          pillars: [
+            {
+              label: 'Safe Man-Hours',
+              value: '1,250,000 Hours',
+              sub: 'Zero lost time injuries logged to date',
+              color: 'text-emerald-800 bg-emerald-50 border-emerald-200',
+            },
+            {
+              label: 'LTIFR Rate',
+              value: '0.00 LTIFR',
+              sub: 'Industry benchmark: < 0.15 across GCC',
+              color: 'text-blue-800 bg-blue-50 border-blue-200',
+            },
+            {
+              label: 'Qatar Statutory Audit',
+              value: '100% Compliant',
+              sub: 'Full compliance across Law 14/2004 & MD 17/2021',
+              color: 'text-purple-800 bg-purple-50 border-purple-200',
+            },
+          ],
+          recommendation:
+            'Present these metrics to client stakeholders during the upcoming quarterly executive safety review.',
+          recordLinks: [
+            {
+              module: 'Executive Dashboard',
+              label: 'Return to Executive Dashboard →',
             },
           ],
         },
@@ -532,7 +822,7 @@ You can ask me any statutory question, query recurring hazards, or verify CAPA e
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-140px)] min-h-[580px] bg-white rounded-2xl border border-[#E3EAE6] shadow-sm overflow-hidden text-xs animate-in fade-in duration-150">
+    <div className="flex flex-col h-[calc(100vh-140px)] min-h-[620px] bg-white rounded-2xl border border-[#E3EAE6] shadow-sm overflow-hidden text-xs animate-in fade-in duration-150">
       {/* Top Header */}
       <div className="px-5 py-3.5 bg-gradient-to-r from-[#073B2F] via-[#087F5B] to-[#0A4537] text-white flex items-center justify-between flex-shrink-0 shadow-sm">
         <div className="flex items-center gap-3 min-w-0">
@@ -555,18 +845,28 @@ You can ask me any statutory question, query recurring hazards, or verify CAPA e
         </div>
 
         <div className="flex items-center gap-2 flex-shrink-0">
-          <div className="hidden lg:flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/25 text-emerald-200 text-[11px] font-mono border border-white/10">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span>Deterministic Engine (12ms)</span>
-          </div>
+          {/* Client Demo Q&A Toggle Pill */}
+          <button
+            onClick={() => setShowDemoQABank(!showDemoQABank)}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-bold text-xs transition-all border shadow-xs active:scale-95 ${
+              showDemoQABank
+                ? 'bg-amber-400 text-gray-950 border-amber-300 shadow-md ring-2 ring-amber-300/40'
+                : 'bg-gradient-to-r from-emerald-500/30 to-teal-500/30 hover:bg-emerald-500/40 text-emerald-100 hover:text-white border-emerald-400/40'
+            }`}
+            title="Toggle Client Demo Questions & Answers Bank"
+          >
+            <Zap className={`w-3.5 h-3.5 ${showDemoQABank ? 'text-gray-950' : 'text-amber-300 animate-pulse'}`} />
+            <span>Demo Q&A Bank (8)</span>
+            {showDemoQABank ? <ChevronUp className="w-3 h-3 ml-0.5" /> : <ChevronDown className="w-3 h-3 ml-0.5" />}
+          </button>
 
           <button
             onClick={() => setActiveDesktopModule('AI-Assisted HSE Search')}
-            className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white font-medium text-xs transition-colors border border-white/15"
+            className="hidden sm:flex items-center gap-1 px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white font-medium text-xs transition-colors border border-white/15"
             title="Open Structured Semantic Search Dossier"
           >
             <Search className="w-3.5 h-3.5 text-emerald-200" />
-            <span className="hidden sm:inline">Search Dossier</span>
+            <span>Search Dossier</span>
           </button>
 
           <button
@@ -580,19 +880,115 @@ You can ask me any statutory question, query recurring hazards, or verify CAPA e
         </div>
       </div>
 
+      {/* Expandable Client Demo Questions & Answers Showcase Panel */}
+      {showDemoQABank && (
+        <div className="bg-gradient-to-b from-[#F0F7F4] to-[#F8FAF9] border-b border-emerald-200/80 p-3.5 flex-shrink-0 space-y-2.5 animate-in slide-in-from-top-2 duration-150">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+              <h3 className="font-bold text-xs text-gray-900 tracking-tight flex items-center gap-1.5">
+                <span>Client Demo Questions & Instant Answers</span>
+                <span className="text-[10px] font-normal text-gray-500">
+                  (Click any scenario to ask AI or view verified response)
+                </span>
+              </h3>
+            </div>
+
+            {/* Category Filter Pills */}
+            <div className="flex items-center gap-1 overflow-x-auto no-scrollbar">
+              {(['All', 'Statutory', 'Hazards', 'High-Risk', 'Governance'] as const).map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setSelectedCategory(cat)}
+                  className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold transition-all border whitespace-nowrap ${
+                    selectedCategory === cat
+                      ? 'bg-[#073B2F] text-white border-[#073B2F] shadow-xs'
+                      : 'bg-white text-gray-600 hover:text-gray-900 border-gray-200 hover:border-gray-300'
+                  }`}
+                >
+                  {cat === 'All' ? 'All (8)' : cat}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Curated Demo Q&A Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
+            {filteredDemoQA.map((demo) => {
+              const isExpanded = expandedDemoId === demo.id;
+
+              return (
+                <div
+                  key={demo.id}
+                  className="bg-white p-2.5 rounded-xl border border-gray-200 hover:border-[#087F5B] transition-all shadow-2xs hover:shadow-xs flex flex-col justify-between group"
+                >
+                  <div>
+                    <div className="flex items-center justify-between gap-1 mb-1">
+                      <div className="flex items-center gap-1.5 min-w-0">
+                        <span className="text-sm flex-shrink-0">{demo.icon}</span>
+                        <span className="font-bold text-[11px] text-gray-900 truncate">
+                          {demo.title}
+                        </span>
+                      </div>
+                      <span className="text-[9px] font-semibold bg-emerald-50 text-[#073B2F] px-1.5 py-0.2 rounded border border-emerald-200/80 flex-shrink-0">
+                        {demo.category}
+                      </span>
+                    </div>
+
+                    <p className="text-[11px] text-gray-700 font-medium line-clamp-2 leading-snug">
+                      "{demo.question}"
+                    </p>
+
+                    {/* Inline Answer Preview */}
+                    {isExpanded && (
+                      <div className="mt-2 p-2 bg-[#F4F7F5] rounded-lg border border-gray-200 text-[10px] space-y-1 animate-in fade-in duration-100">
+                        <div className="flex items-center justify-between text-gray-500 font-mono">
+                          <span>⚖️ {demo.statutoryRef}</span>
+                          <span className="text-emerald-700 font-bold">Verified</span>
+                        </div>
+                        <p className="text-gray-800 leading-relaxed font-normal">{demo.summaryAnswer}</p>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="mt-2 pt-2 border-t border-gray-100 flex items-center justify-between gap-1.5">
+                    <button
+                      onClick={() => setExpandedDemoId(isExpanded ? null : demo.id)}
+                      className="text-[10px] text-gray-500 hover:text-gray-800 underline font-medium"
+                    >
+                      {isExpanded ? 'Hide Answer' : 'Preview Answer'}
+                    </button>
+
+                    <button
+                      onClick={() => handleSendMessage(demo.question)}
+                      className="px-2.5 py-1 bg-gradient-to-r from-[#073B2F] to-[#087F5B] hover:opacity-95 text-white rounded-lg text-[10px] font-bold transition-all shadow-2xs flex items-center gap-1 active:scale-95"
+                      title="Run question in Live Chat Copilot"
+                    >
+                      <span>Ask AI Copilot</span>
+                      <Play className="w-2.5 h-2.5 fill-current" />
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
       {/* Suggested 1-Click Prompt Chips */}
       <div className="bg-[#F8FAF9] px-4 py-2 border-b border-gray-200 flex items-center gap-2 overflow-x-auto no-scrollbar flex-shrink-0">
         <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider flex-shrink-0 flex items-center gap-1">
           <Sparkles className="w-3 h-3 text-[#087F5B]" />
-          Suggested:
+          Quick Prompts:
         </span>
-        {promptSuggestions.map((p) => (
+        {demoQABank.slice(0, 5).map((p) => (
           <button
             key={p.id}
-            onClick={() => handleSendMessage(p.query)}
-            className="flex-shrink-0 px-2.5 py-1 bg-white hover:bg-emerald-50 text-gray-700 hover:text-[#073B2F] rounded-lg border border-gray-200 hover:border-[#087F5B] text-[11px] font-medium transition-all shadow-2xs active:scale-95 whitespace-nowrap"
+            onClick={() => handleSendMessage(p.question)}
+            className="flex-shrink-0 px-2.5 py-1 bg-white hover:bg-emerald-50 text-gray-700 hover:text-[#073B2F] rounded-lg border border-gray-200 hover:border-[#087F5B] text-[11px] font-medium transition-all shadow-2xs active:scale-95 whitespace-nowrap flex items-center gap-1"
           >
-            {p.label}
+            <span>{p.icon}</span>
+            <span>{p.title}</span>
           </button>
         ))}
       </div>
