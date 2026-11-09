@@ -117,8 +117,8 @@ export const MobileLoginScreen: React.FC = () => {
           </div>
         </div>
 
-        <span className="text-[9px] bg-black/30 text-emerald-300 px-2 py-0.5 rounded-full border border-white/10 font-mono">
-          Demonstration
+        <span className="text-[9px] bg-black/30 text-emerald-300 px-2 py-0.5 rounded-full border border-white/10 font-mono uppercase tracking-wider">
+          Qatar Edition
         </span>
       </div>
 
@@ -409,70 +409,66 @@ export const MobileLoginScreen: React.FC = () => {
         )}
 
         {/* ========================================================= */}
-        {/* SCREEN 3: 1-TAP ROLE PERSONAS IN CLEAN DROPDOWN           */}
+        {/* SCREEN 3: 1-TAP ROLE PERSONAS - STREAMLINED & ELEGANT    */}
         {/* ========================================================= */}
         {screenMode === 'quick' && (
-          <div className="bg-white p-3.5 rounded-2xl border border-gray-200 shadow-xs space-y-3 animate-in fade-in">
-            <div className="flex items-center justify-between pb-2 border-b border-gray-100">
-              <div className="flex items-center gap-2">
-                <div className="w-7 h-7 rounded-lg bg-[#20A887] text-white flex items-center justify-center">
-                  <Users className="w-3.5 h-3.5 text-white" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-xs text-gray-900">Select Role Persona</h4>
-                  <p className="text-[10px] text-gray-500">Pick from dropdown to enter</p>
-                </div>
-              </div>
-              <span className="text-[10px] bg-emerald-100 text-emerald-900 font-bold px-2 py-0.5 rounded">
-                1-Tap Login
-              </span>
-            </div>
-
+          <div className="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm space-y-3.5 animate-in fade-in">
             {/* Persona Selector Dropdown */}
             <div>
-              <label className="block font-bold text-[11px] text-gray-800 mb-1">
-                Choose Persona from Dropdown:
+              <label className="block font-bold text-[11px] text-gray-700 mb-1.5 flex items-center justify-between">
+                <span>Select Workforce Identity:</span>
+                <span className="text-[10px] text-emerald-700 font-semibold">1-Tap Switch</span>
               </label>
               <div className="relative">
                 <select
                   value={selectedPersonaId}
                   onChange={(e) => setSelectedPersonaId(e.target.value)}
-                  className="w-full px-3 py-2 bg-emerald-50/70 border border-emerald-300 rounded-lg text-xs font-bold text-[#073B2F] outline-none pr-8 appearance-none cursor-pointer focus:ring-2 focus:ring-[#087F5B]"
+                  className="w-full px-3 py-2 bg-[#F4F7F5] border border-emerald-300 rounded-xl text-xs font-bold text-[#073B2F] outline-none pr-8 appearance-none cursor-pointer focus:ring-2 focus:ring-[#087F5B]"
                 >
-                  <option value="USR-001">👷 Ahmed Hassan (Field Worker • EMP-1045)</option>
-                  <option value="USR-010">📋 Tariq Al-Mansoor (Site Supervisor • EMP-1010)</option>
-                  <option value="USR-019">🛡️ Nasser Al-Khelaifi (Senior HSE Manager • EMP-1019)</option>
-                  <option value="USR-035">⚙️ Khalid Al-Sulaiti (System Admin • EMP-1035)</option>
-                  <option value="USR-025">🔍 Fatima Al-Kuwari (HSE Inspector • EMP-1014)</option>
-                  <option value="USR-002">🛠️ Rajesh Kumar (Contractor Specialist • EMP-1046)</option>
+                  <optgroup label="Frontline Workforce">
+                    <option value="USR-001">👷 Ahmed Hassan (Field Worker • EMP-1045)</option>
+                    <option value="USR-002">🛠️ Rajesh Kumar (Contractor Specialist • EMP-1046)</option>
+                  </optgroup>
+                  <optgroup label="Supervision & Management">
+                    <option value="USR-010">📋 Tariq Al-Mansoor (Site Supervisor • EMP-1010)</option>
+                    <option value="USR-019">🛡️ Nasser Al-Khelaifi (Senior HSE Manager • EMP-1019)</option>
+                    <option value="USR-025">🔍 Fatima Al-Kuwari (HSE Inspector • EMP-1014)</option>
+                    <option value="USR-035">⚙️ Khalid Al-Sulaiti (Platform Admin • EMP-1035)</option>
+                  </optgroup>
+                  <optgroup label="All 40 Seeded Profiles">
+                    {users.map((u) => (
+                      <option key={u.id} value={u.id}>
+                        {u.name} — {u.role} ({u.employeeId})
+                      </option>
+                    ))}
+                  </optgroup>
                 </select>
-                <ChevronDown className="w-4 h-4 text-[#087F5B] absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                <ChevronDown className="w-4 h-4 text-[#087F5B] absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
               </div>
             </div>
 
-            {/* Active Selected Persona Preview Card */}
-            <div className="bg-gray-50 p-3 rounded-xl border border-gray-200">
-              <div className="flex items-center gap-2.5 mb-2">
-                <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#073B2F] to-[#087F5B] text-white font-bold flex items-center justify-center text-sm shadow-xs">
+            {/* Unified Persona Identity Card */}
+            <div className="bg-gradient-to-br from-emerald-50/60 to-teal-50/60 p-3 rounded-xl border border-emerald-200/80 space-y-2">
+              <div className="flex items-center gap-2.5">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#073B2F] to-[#087F5B] text-white font-bold flex items-center justify-center text-sm shadow-xs flex-shrink-0">
                   {selectedUser.name.charAt(0)}
                 </div>
-                <div>
-                  <div className="font-bold text-xs text-gray-900">{selectedUser.name}</div>
-                  <div className="text-[10px] text-gray-500 font-mono">
-                    {selectedUser.employeeId} • {selectedUser.department}
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center justify-between">
+                    <h4 className="font-bold text-xs text-gray-900 truncate">{selectedUser.name}</h4>
+                    <span className="text-[9px] font-semibold text-emerald-800 bg-emerald-100/90 px-1.5 py-0.2 rounded border border-emerald-300">
+                      {selectedUser.roleCategory}
+                    </span>
                   </div>
+                  <p className="text-[10px] text-gray-600 truncate mt-0.5">
+                    {selectedUser.role} • <span className="font-mono">{selectedUser.employeeId}</span>
+                  </p>
                 </div>
               </div>
 
-              <div className="flex items-center justify-between text-[10px] py-1 border-t border-gray-200/80">
-                <span className="text-gray-600">Role Category:</span>
-                <span className="font-semibold text-emerald-800 bg-emerald-100 px-1.5 py-0.2 rounded">
-                  {selectedUser.roleCategory}
-                </span>
-              </div>
-              <div className="flex items-center justify-between text-[10px] py-1 border-t border-gray-200/80">
-                <span className="text-gray-600">Assigned Project:</span>
-                <span className="font-semibold text-gray-900">{selectedUser.project}</span>
+              <div className="pt-2 border-t border-emerald-200/60 flex items-center justify-between text-[10px] text-gray-600">
+                <span className="truncate max-w-[180px]">📍 {selectedUser.project || 'Lusail Commercial Tower'}</span>
+                <span className="text-emerald-700 font-medium">✓ Stop Work Ready</span>
               </div>
             </div>
 
@@ -482,50 +478,22 @@ export const MobileLoginScreen: React.FC = () => {
                 login(selectedPersonaId);
                 setMobileScreen('home');
               }}
-              className="w-full py-2.5 bg-gradient-to-r from-[#073B2F] to-[#087F5B] hover:opacity-95 text-white font-bold text-xs rounded-xl shadow-md transition-all flex items-center justify-center gap-2 active:scale-98"
+              className="w-full py-2.5 bg-gradient-to-r from-[#073B2F] to-[#087F5B] hover:brightness-105 text-white font-bold text-xs rounded-xl shadow-md transition-all flex items-center justify-center gap-2 active:scale-98"
             >
-              <span>1-Tap Enter Mobile as {selectedUser.name.split(' ')[0]}</span>
+              <span>Enter App as {selectedUser.name.split(' ')[0]}</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </div>
         )}
 
-        {/* Subtle, Compact Tour & Statutory Footer */}
-        <div className="pt-2 space-y-2">
-          <div className="grid grid-cols-2 gap-2">
-            <button
-              onClick={() => {
-                setShowMobileWelcome(false);
-                setShowMobileSplash(true);
-              }}
-              className="py-1.5 px-2 bg-white hover:bg-slate-50 text-slate-700 font-semibold text-[10px] rounded-xl transition-all flex items-center justify-center gap-1.5 border border-slate-200 shadow-2xs active:scale-95"
-              title="Preview native 3-second startup splash screen"
-            >
-              <Sparkles className="w-3 h-3 text-[#087F5B]" />
-              <span>Splash Screen (3s)</span>
-            </button>
-
-            <button
-              onClick={() => {
-                setShowMobileSplash(false);
-                setShowMobileWelcome(true);
-              }}
-              className="py-1.5 px-2 bg-emerald-50/80 hover:bg-emerald-100/80 text-[#073B2F] font-semibold text-[10px] rounded-xl transition-all flex items-center justify-center gap-1.5 border border-emerald-200/80 shadow-2xs active:scale-95"
-              title="Preview onboarding welcome slides tour"
-            >
-              <Sparkles className="w-3 h-3 text-[#20A887]" />
-              <span>Welcome Tour</span>
-            </button>
-          </div>
-
-          <div className="p-2 rounded-xl bg-white/70 border border-slate-200/80 text-center">
-            <span className="text-[10px] font-semibold text-slate-700 block">
-              Qatar Labour Law No. 14/2004 • MD 17/2021
-            </span>
-            <span className="text-[9px] text-slate-400">
-              Field Workforce Demonstration Environment (Zero Backend)
-            </span>
-          </div>
+        {/* Subtle, Compact Statutory Footer (Clean & Fitted) */}
+        <div className="pt-3 text-center space-y-1">
+          <span className="text-[10px] font-semibold text-slate-700 block">
+            Qatar Labour Law No. 14/2004 • MD 17/2021
+          </span>
+          <span className="text-[9px] text-slate-400 block">
+            Unified Workforce Safety Portal (Zero Backend)
+          </span>
         </div>
       </div>
     </div>

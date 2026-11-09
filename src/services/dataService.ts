@@ -273,7 +273,11 @@ export const DataService = {
 
   // Projects & Locations
   getProjects(): string[] {
-    return getStorage<string[]>(STORAGE_KEYS.PROJECTS, initialProjects);
+    const list = getStorage<string[]>(STORAGE_KEYS.PROJECTS, initialProjects);
+    return list.map((p) =>
+      p.replace(/Demo Site 01/g, 'Lusail Commercial Tower Zone 4')
+       .replace(/Qatar Project - Lusail Commercial Tower Zone 4/g, 'Lusail Commercial Tower Zone 4')
+    );
   },
   getLocations(): string[] {
     return getStorage<string[]>(STORAGE_KEYS.LOCATIONS, initialLocations);
@@ -284,6 +288,9 @@ export const DataService = {
     const list = getStorage<User[]>(STORAGE_KEYS.USERS, initialUsers);
     return list.map((u) => ({
       ...u,
+      project: (u.project || 'Lusail Commercial Tower Zone 4')
+        .replace(/Demo Site 01/g, 'Lusail Commercial Tower Zone 4')
+        .replace(/Qatar Project - Lusail Commercial Tower Zone 4/g, 'Lusail Commercial Tower Zone 4'),
       permissions: u.permissions || getDefaultPermissionsForRole(u.roleCategory, u.role),
     }));
   },
