@@ -28,6 +28,7 @@ import {
   Play,
   FileText,
   Building,
+  X,
 } from 'lucide-react';
 import { Badge } from '../../common/Badge';
 
@@ -155,7 +156,7 @@ export const AIChatModule: React.FC = () => {
 
 I maintain continuous real-time indexing across Qatar Labour Law No. 14/2004, Ministerial Decision 17/2021 (Heat Stress Orders), Qatar Construction Specifications (QCS 2014), and active project hazard registers.
 
-You can ask me any statutory question, query recurring hazards, or click any of the curated Demo Questions below.`,
+You can ask me any statutory question, query recurring hazards, or click any of the curated Demo Questions on the right.`,
     },
     {
       id: 'm2',
@@ -308,10 +309,9 @@ You can ask me any statutory question, query recurring hazards, or click any of 
   const [isListening, setIsListening] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
-  // Demo Q&A Controls
+  // Demo Q&A Controls (Right Side Panel)
   const [showDemoQABank, setShowDemoQABank] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState<'All' | 'Statutory' | 'Hazards' | 'High-Risk' | 'Governance'>('All');
-  const [expandedDemoId, setExpandedDemoId] = useState<string | null>(null);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -824,7 +824,7 @@ You can ask me any statutory question, query recurring hazards, or click any of 
   return (
     <div className="flex flex-col h-[calc(100vh-140px)] min-h-[620px] bg-white rounded-2xl border border-[#E3EAE6] shadow-sm overflow-hidden text-xs animate-in fade-in duration-150">
       {/* Top Header */}
-      <div className="px-5 py-3.5 bg-gradient-to-r from-[#073B2F] via-[#087F5B] to-[#0A4537] text-white flex items-center justify-between flex-shrink-0 shadow-sm">
+      <div className="px-5 py-3.5 bg-gradient-to-r from-[#073B2F] via-[#087F5B] to-[#0A4537] text-white flex items-center justify-between flex-shrink-0 shadow-sm z-10">
         <div className="flex items-center gap-3 min-w-0">
           <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white font-bold flex-shrink-0 shadow-inner">
             <Sparkles className="w-5 h-5 text-emerald-300 animate-pulse" />
@@ -845,7 +845,7 @@ You can ask me any statutory question, query recurring hazards, or click any of 
         </div>
 
         <div className="flex items-center gap-2 flex-shrink-0">
-          {/* Client Demo Q&A Toggle Pill */}
+          {/* Toggle Button for Right-Side Demo Q&A Sidebar */}
           <button
             onClick={() => setShowDemoQABank(!showDemoQABank)}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-bold text-xs transition-all border shadow-xs active:scale-95 ${
@@ -853,11 +853,10 @@ You can ask me any statutory question, query recurring hazards, or click any of 
                 ? 'bg-amber-400 text-gray-950 border-amber-300 shadow-md ring-2 ring-amber-300/40'
                 : 'bg-gradient-to-r from-emerald-500/30 to-teal-500/30 hover:bg-emerald-500/40 text-emerald-100 hover:text-white border-emerald-400/40'
             }`}
-            title="Toggle Client Demo Questions & Answers Bank"
+            title="Toggle Right-Side Client Demo Questions & Answers Panel"
           >
             <Zap className={`w-3.5 h-3.5 ${showDemoQABank ? 'text-gray-950' : 'text-amber-300 animate-pulse'}`} />
-            <span>Demo Q&A Bank (8)</span>
-            {showDemoQABank ? <ChevronUp className="w-3 h-3 ml-0.5" /> : <ChevronDown className="w-3 h-3 ml-0.5" />}
+            <span>{showDemoQABank ? 'Hide Demo Q&A' : 'Show Demo Q&A (8)'}</span>
           </button>
 
           <button
@@ -880,29 +879,310 @@ You can ask me any statutory question, query recurring hazards, or click any of 
         </div>
       </div>
 
-      {/* Expandable Client Demo Questions & Answers Showcase Panel */}
-      {showDemoQABank && (
-        <div className="bg-gradient-to-b from-[#F0F7F4] to-[#F8FAF9] border-b border-emerald-200/80 p-3.5 flex-shrink-0 space-y-2.5 animate-in slide-in-from-top-2 duration-150">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
-              <h3 className="font-bold text-xs text-gray-900 tracking-tight flex items-center gap-1.5">
-                <span>Client Demo Questions & Instant Answers</span>
-                <span className="text-[10px] font-normal text-gray-500">
-                  (Click any scenario to ask AI or view verified response)
+      {/* 2-Column Main Workspace: Left = Full-Height Live Chat, Right = Demo Q&A Panel */}
+      <div className="flex-1 flex overflow-hidden relative">
+        {/* LEFT COLUMN: Main Conversational Chat (Full Height & Maximum Visibility) */}
+        <div className="flex-1 flex flex-col min-w-0 bg-white">
+          {/* Top Quick Prompt Pills (Single Slim Row) */}
+          <div className="bg-[#F8FAF9] px-4 py-2 border-b border-gray-200 flex items-center gap-2 overflow-x-auto no-scrollbar flex-shrink-0">
+            <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider flex-shrink-0 flex items-center gap-1">
+              <Sparkles className="w-3 h-3 text-[#087F5B]" />
+              Quick Prompts:
+            </span>
+            {demoQABank.map((p) => (
+              <button
+                key={p.id}
+                onClick={() => handleSendMessage(p.question)}
+                className="flex-shrink-0 px-2.5 py-1 bg-white hover:bg-emerald-50 text-gray-700 hover:text-[#073B2F] rounded-lg border border-gray-200 hover:border-[#087F5B] text-[11px] font-medium transition-all shadow-2xs active:scale-95 whitespace-nowrap flex items-center gap-1"
+                title={p.question}
+              >
+                <span>{p.icon}</span>
+                <span>{p.title}</span>
+              </button>
+            ))}
+          </div>
+
+          {/* Message History Thread - Generous Full Height Space */}
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-white to-[#F8FAF9]">
+            {messages.map((msg) => {
+              const isAi = msg.sender === 'ai';
+
+              return (
+                <div
+                  key={msg.id}
+                  className={`flex gap-3 max-w-[90%] ${isAi ? 'mr-auto' : 'ml-auto flex-row-reverse'}`}
+                >
+                  {/* Avatar */}
+                  <div
+                    className={`w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 shadow-xs ${
+                      isAi
+                        ? 'bg-gradient-to-tr from-[#073B2F] to-[#20A887] text-white'
+                        : 'bg-[#172B25] text-white'
+                    }`}
+                  >
+                    {isAi ? <Sparkles className="w-4 h-4 text-emerald-200" /> : <User className="w-4 h-4 text-white" />}
+                  </div>
+
+                  {/* Message Bubble */}
+                  <div className="space-y-2 min-w-0 flex-1">
+                    <div className="flex items-center gap-2">
+                      <span className="font-bold text-[11px] text-gray-800">
+                        {isAi ? 'Antigravity QHSE Copilot' : currentUser.name}
+                      </span>
+                      <span className="text-[10px] text-gray-400 font-mono">{msg.timestamp}</span>
+                      {msg.statutoryReference && (
+                        <span className="text-[9px] font-bold bg-emerald-50 text-[#073B2F] px-2 py-0.5 rounded border border-emerald-200/80">
+                          ⚖️ {msg.statutoryReference}
+                        </span>
+                      )}
+                    </div>
+
+                    <div
+                      className={`p-3.5 rounded-2xl shadow-xs text-xs leading-relaxed transition-all ${
+                        isAi
+                          ? 'bg-white text-gray-800 border border-gray-200 rounded-tl-sm'
+                          : 'bg-gradient-to-br from-[#073B2F] to-[#0A4537] text-white rounded-tr-sm'
+                      }`}
+                    >
+                      <p className="whitespace-pre-line">{msg.text}</p>
+
+                      {/* Structured Rich Card (if present) */}
+                      {msg.structuredCard && (
+                        <div className="mt-3 bg-[#F8FAF9] rounded-xl border border-gray-200 overflow-hidden text-gray-800 shadow-2xs">
+                          {/* Card Header */}
+                          <div className="p-3 bg-white border-b border-gray-200 flex items-center justify-between">
+                            <div>
+                              <h4 className="font-bold text-xs text-gray-900">{msg.structuredCard.title}</h4>
+                              {msg.structuredCard.subtitle && (
+                                <p className="text-[10px] text-gray-500 mt-0.5">{msg.structuredCard.subtitle}</p>
+                              )}
+                            </div>
+                            <span className="text-[9px] font-bold bg-[#DDF5EA] text-[#073B2F] px-2 py-0.5 rounded-full border border-[#20A887]/30">
+                              Verified Record
+                            </span>
+                          </div>
+
+                          {/* 3 Metric Pillars */}
+                          {msg.structuredCard.pillars && (
+                            <div className="p-3 grid grid-cols-1 sm:grid-cols-3 gap-2">
+                              {msg.structuredCard.pillars.map((pillar, idx) => (
+                                <div
+                                  key={idx}
+                                  className={`p-2.5 rounded-lg border text-left flex flex-col justify-between ${pillar.color}`}
+                                >
+                                  <span className="text-[9px] font-bold uppercase tracking-wider block opacity-75">
+                                    {pillar.label}
+                                  </span>
+                                  <strong className="text-xs font-bold block my-0.5 truncate">{pillar.value}</strong>
+                                  <span className="text-[9px] block opacity-90 truncate">{pillar.sub}</span>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+
+                          {/* Actionable Recommendation */}
+                          {msg.structuredCard.recommendation && (
+                            <div className="p-3 bg-white border-t border-gray-100 flex items-start gap-2">
+                              <ShieldCheck className="w-4 h-4 text-[#087F5B] flex-shrink-0 mt-0.5" />
+                              <div className="text-[11px] text-gray-700 leading-snug">
+                                <strong className="text-gray-900 block text-[11px]">Recommended HSE Action:</strong>
+                                {msg.structuredCard.recommendation}
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Direct Record Inspection Buttons */}
+                          {msg.structuredCard.recordLinks && msg.structuredCard.recordLinks.length > 0 && (
+                            <div className="p-2.5 bg-gray-50 border-t border-gray-200 flex flex-wrap gap-2 items-center">
+                              <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider mr-1">
+                                Quick Jump:
+                              </span>
+                              {msg.structuredCard.recordLinks.map((link, idx) => (
+                                <button
+                                  key={idx}
+                                  onClick={() => {
+                                    setActiveDesktopModule(link.module as any);
+                                    if (link.recordRef) setSelectedRecordRef(link.recordRef);
+                                  }}
+                                  className="px-2.5 py-1 bg-white hover:bg-[#073B2F] text-gray-700 hover:text-white rounded-md border border-gray-300 hover:border-[#073B2F] text-[10px] font-bold transition-all shadow-2xs flex items-center gap-1 active:scale-95"
+                                >
+                                  <span>{link.label}</span>
+                                </button>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      )}
+
+                      {/* Copy button */}
+                      {isAi && (
+                        <div className="mt-2.5 pt-2 border-t border-gray-100 flex items-center justify-between text-[10px] text-gray-400">
+                          <span className="flex items-center gap-1 font-mono">
+                            <CheckCircle2 className="w-3 h-3 text-emerald-500" /> Statutory Cross-Verified
+                          </span>
+                          <button
+                            onClick={() => handleCopyText(msg.id, msg.text)}
+                            className="hover:text-gray-700 transition-colors flex items-center gap-1 text-[10px]"
+                            title="Copy answer"
+                          >
+                            {copiedId === msg.id ? (
+                              <>
+                                <Check className="w-3 h-3 text-emerald-600" /> Copied
+                              </>
+                            ) : (
+                              <>
+                                <Copy className="w-3 h-3" /> Copy
+                              </>
+                            )}
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+
+            {/* Realistic Animated Typing Indicator */}
+            {isTyping && (
+              <div className="flex gap-3 max-w-[85%] mr-auto animate-in fade-in duration-100">
+                <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#073B2F] to-[#20A887] text-white flex items-center justify-center flex-shrink-0 shadow-xs">
+                  <Sparkles className="w-4 h-4 text-emerald-200 animate-spin" />
+                </div>
+                <div className="p-3 bg-white border border-gray-200 rounded-2xl rounded-tl-sm shadow-xs flex items-center gap-2.5">
+                  <div className="flex gap-1">
+                    <span className="w-2 h-2 rounded-full bg-[#087F5B] animate-bounce" style={{ animationDelay: '0ms' }} />
+                    <span className="w-2 h-2 rounded-full bg-[#087F5B] animate-bounce" style={{ animationDelay: '150ms' }} />
+                    <span className="w-2 h-2 rounded-full bg-[#087F5B] animate-bounce" style={{ animationDelay: '300ms' }} />
+                  </div>
+                  <span className="text-[11px] text-gray-500 font-medium italic">
+                    QHSE Copilot is indexing Qatar legal decrees and Lusail Tower records...
+                  </span>
+                </div>
+              </div>
+            )}
+
+            <div ref={messagesEndRef} />
+          </div>
+
+          {/* Voice Dictation Active Wave Banner */}
+          {isListening && (
+            <div className="bg-amber-500 text-white px-4 py-2 flex items-center justify-between text-xs animate-in slide-in-from-bottom-2">
+              <div className="flex items-center gap-2">
+                <div className="flex gap-0.5 items-center">
+                  <span className="w-1 h-3 bg-white rounded-full animate-pulse" />
+                  <span className="w-1 h-5 bg-white rounded-full animate-pulse delay-75" />
+                  <span className="w-1 h-2 bg-white rounded-full animate-pulse delay-150" />
+                  <span className="w-1 h-4 bg-white rounded-full animate-pulse delay-200" />
+                </div>
+                <span className="font-bold">Listening for Qatar HSE query... Speak now.</span>
+              </div>
+              <button
+                onClick={() => setIsListening(false)}
+                className="text-[10px] bg-black/20 hover:bg-black/30 px-2 py-0.5 rounded text-white font-medium"
+              >
+                Cancel
+              </button>
+            </div>
+          )}
+
+          {/* Bottom Message Input Bar */}
+          <div className="p-3 bg-white border-t border-gray-200 flex-shrink-0">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleSendMessage();
+              }}
+              className="flex items-center gap-2"
+            >
+              {/* Voice Input Button */}
+              <button
+                type="button"
+                onClick={toggleMic}
+                className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all flex-shrink-0 ${
+                  isListening
+                    ? 'bg-red-500 text-white animate-pulse shadow-md ring-2 ring-red-300'
+                    : 'bg-[#F4F7F5] hover:bg-gray-200 text-gray-600'
+                }`}
+                title="Simulate Voice Input"
+              >
+                {isListening ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
+              </button>
+
+              {/* Text Input */}
+              <div className="flex-1 relative">
+                <input
+                  type="text"
+                  value={inputQuery}
+                  onChange={(e) => setInputQuery(e.target.value)}
+                  placeholder="Ask anything (e.g., 'What are the heat ban hours under MD 17/2021?' or 'Check hazard HAZ-2026-0042')..."
+                  className="w-full pl-3.5 pr-20 py-2.5 bg-[#F4F7F5] border border-gray-200 rounded-xl outline-none text-xs text-gray-800 placeholder-gray-400 font-medium focus:ring-2 focus:ring-[#087F5B] focus:bg-white transition-all shadow-inner"
+                />
+                <span className="absolute right-2.5 top-2.5 text-[10px] text-gray-400 font-mono hidden sm:inline-block pointer-events-none">
+                  Press Enter ↵
                 </span>
-              </h3>
+              </div>
+
+              {/* Send Button */}
+              <button
+                type="submit"
+                disabled={!inputQuery.trim() || isTyping}
+                className={`px-4 py-2.5 rounded-xl font-bold text-xs flex items-center gap-1.5 transition-all flex-shrink-0 shadow-sm ${
+                  inputQuery.trim() && !isTyping
+                    ? 'bg-gradient-to-r from-[#073B2F] to-[#087F5B] text-white hover:opacity-95 active:scale-95 shadow-md'
+                    : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                }`}
+              >
+                <span>Send</span>
+                <Send className="w-3.5 h-3.5" />
+              </button>
+            </form>
+
+            <div className="mt-2 flex items-center justify-between text-[10px] text-gray-400">
+              <span className="flex items-center gap-1">
+                <Info className="w-3 h-3 text-emerald-600" />
+                Deterministic Local AI • 0 External Cloud Calls • Aligned with Al-Meezan Qatar Legal Portal
+              </span>
+              <span className="font-mono text-gray-500">Lusail Tower Zone 4</span>
+            </div>
+          </div>
+        </div>
+
+        {/* RIGHT COLUMN: Client Demo Questions & Answers Panel */}
+        {showDemoQABank && (
+          <aside className="w-80 lg:w-96 border-l border-gray-200 bg-[#F8FAF9] flex flex-col flex-shrink-0 animate-in slide-in-from-right-3 duration-150">
+            {/* Sidebar Header */}
+            <div className="p-3.5 bg-white border-b border-gray-200 flex items-center justify-between flex-shrink-0">
+              <div className="flex items-center gap-2 min-w-0">
+                <div className="w-6 h-6 rounded-lg bg-amber-500 text-white flex items-center justify-center font-bold text-xs shadow-xs">
+                  ⚡
+                </div>
+                <div>
+                  <h3 className="font-bold text-xs text-gray-900 leading-tight">
+                    Demo Questions & Answers
+                  </h3>
+                  <p className="text-[10px] text-gray-500">8 Curated Qatar Scenarios</p>
+                </div>
+              </div>
+
+              <button
+                onClick={() => setShowDemoQABank(false)}
+                className="p-1 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-700 transition-colors"
+                title="Hide Demo Panel"
+              >
+                <X className="w-4 h-4" />
+              </button>
             </div>
 
-            {/* Category Filter Pills */}
-            <div className="flex items-center gap-1 overflow-x-auto no-scrollbar">
+            {/* Category Filter Tabs */}
+            <div className="px-3 py-2 bg-white/80 border-b border-gray-200 flex items-center gap-1 overflow-x-auto no-scrollbar flex-shrink-0">
               {(['All', 'Statutory', 'Hazards', 'High-Risk', 'Governance'] as const).map((cat) => (
                 <button
                   key={cat}
                   onClick={() => setSelectedCategory(cat)}
-                  className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold transition-all border whitespace-nowrap ${
+                  className={`px-2 py-0.5 rounded-full text-[10px] font-bold transition-all border whitespace-nowrap ${
                     selectedCategory === cat
-                      ? 'bg-[#073B2F] text-white border-[#073B2F] shadow-xs'
+                      ? 'bg-[#073B2F] text-white border-[#073B2F] shadow-2xs'
                       : 'bg-white text-gray-600 hover:text-gray-900 border-gray-200 hover:border-gray-300'
                   }`}
                 >
@@ -910,332 +1190,65 @@ You can ask me any statutory question, query recurring hazards, or click any of 
                 </button>
               ))}
             </div>
-          </div>
 
-          {/* Curated Demo Q&A Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
-            {filteredDemoQA.map((demo) => {
-              const isExpanded = expandedDemoId === demo.id;
+            {/* Instruction Tip */}
+            <div className="px-3 py-1.5 bg-emerald-50/70 border-b border-emerald-100 text-[10px] text-emerald-900 flex items-center gap-1.5 flex-shrink-0">
+              <Sparkles className="w-3 h-3 text-emerald-600 flex-shrink-0" />
+              <span>Click <strong>"Ask in Chat"</strong> to see live AI response:</span>
+            </div>
 
-              return (
+            {/* Scrollable Questions List */}
+            <div className="flex-1 overflow-y-auto p-3 space-y-2.5">
+              {filteredDemoQA.map((demo) => (
                 <div
                   key={demo.id}
-                  className="bg-white p-2.5 rounded-xl border border-gray-200 hover:border-[#087F5B] transition-all shadow-2xs hover:shadow-xs flex flex-col justify-between group"
+                  className="bg-white p-3 rounded-xl border border-gray-200 hover:border-[#087F5B] hover:shadow-xs transition-all flex flex-col justify-between group space-y-2"
                 >
+                  {/* Top Bar: Icon, Title & Category */}
                   <div>
                     <div className="flex items-center justify-between gap-1 mb-1">
                       <div className="flex items-center gap-1.5 min-w-0">
                         <span className="text-sm flex-shrink-0">{demo.icon}</span>
-                        <span className="font-bold text-[11px] text-gray-900 truncate">
+                        <h4 className="font-bold text-[11px] text-gray-900 truncate">
                           {demo.title}
-                        </span>
+                        </h4>
                       </div>
-                      <span className="text-[9px] font-semibold bg-emerald-50 text-[#073B2F] px-1.5 py-0.2 rounded border border-emerald-200/80 flex-shrink-0">
+                      <span className="text-[9px] font-semibold bg-emerald-50 text-[#073B2F] px-1.5 py-0.2 rounded border border-emerald-200 flex-shrink-0">
                         {demo.category}
                       </span>
                     </div>
 
-                    <p className="text-[11px] text-gray-700 font-medium line-clamp-2 leading-snug">
+                    {/* Question */}
+                    <p className="text-xs text-gray-800 font-semibold leading-snug">
                       "{demo.question}"
                     </p>
 
-                    {/* Inline Answer Preview */}
-                    {isExpanded && (
-                      <div className="mt-2 p-2 bg-[#F4F7F5] rounded-lg border border-gray-200 text-[10px] space-y-1 animate-in fade-in duration-100">
-                        <div className="flex items-center justify-between text-gray-500 font-mono">
-                          <span>⚖️ {demo.statutoryRef}</span>
-                          <span className="text-emerald-700 font-bold">Verified</span>
-                        </div>
-                        <p className="text-gray-800 leading-relaxed font-normal">{demo.summaryAnswer}</p>
+                    {/* Concise Verified Answer Preview */}
+                    <div className="mt-2 p-2 bg-[#F4F7F5] rounded-lg border border-gray-200/80 text-[10px] text-gray-700 leading-relaxed">
+                      <div className="flex items-center justify-between font-mono text-[9px] text-gray-500 mb-0.5">
+                        <span>⚖️ {demo.statutoryRef}</span>
+                        <span className="text-emerald-700 font-bold">Verified</span>
                       </div>
-                    )}
+                      <p>{demo.summaryAnswer}</p>
+                    </div>
                   </div>
 
-                  <div className="mt-2 pt-2 border-t border-gray-100 flex items-center justify-between gap-1.5">
-                    <button
-                      onClick={() => setExpandedDemoId(isExpanded ? null : demo.id)}
-                      className="text-[10px] text-gray-500 hover:text-gray-800 underline font-medium"
-                    >
-                      {isExpanded ? 'Hide Answer' : 'Preview Answer'}
-                    </button>
-
+                  {/* 1-Click Action to ask in Chat */}
+                  <div className="pt-2 border-t border-gray-100 flex items-center justify-between">
+                    <span className="text-[9px] text-gray-400 font-mono">1-Click Live Test</span>
                     <button
                       onClick={() => handleSendMessage(demo.question)}
                       className="px-2.5 py-1 bg-gradient-to-r from-[#073B2F] to-[#087F5B] hover:opacity-95 text-white rounded-lg text-[10px] font-bold transition-all shadow-2xs flex items-center gap-1 active:scale-95"
-                      title="Run question in Live Chat Copilot"
                     >
-                      <span>Ask AI Copilot</span>
-                      <Play className="w-2.5 h-2.5 fill-current" />
+                      <span>Ask in Chat</span>
+                      <ArrowRight className="w-3 h-3" />
                     </button>
                   </div>
                 </div>
-              );
-            })}
-          </div>
-        </div>
-      )}
-
-      {/* Suggested 1-Click Prompt Chips */}
-      <div className="bg-[#F8FAF9] px-4 py-2 border-b border-gray-200 flex items-center gap-2 overflow-x-auto no-scrollbar flex-shrink-0">
-        <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider flex-shrink-0 flex items-center gap-1">
-          <Sparkles className="w-3 h-3 text-[#087F5B]" />
-          Quick Prompts:
-        </span>
-        {demoQABank.slice(0, 5).map((p) => (
-          <button
-            key={p.id}
-            onClick={() => handleSendMessage(p.question)}
-            className="flex-shrink-0 px-2.5 py-1 bg-white hover:bg-emerald-50 text-gray-700 hover:text-[#073B2F] rounded-lg border border-gray-200 hover:border-[#087F5B] text-[11px] font-medium transition-all shadow-2xs active:scale-95 whitespace-nowrap flex items-center gap-1"
-          >
-            <span>{p.icon}</span>
-            <span>{p.title}</span>
-          </button>
-        ))}
-      </div>
-
-      {/* Message History Thread */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-white to-[#F8FAF9]">
-        {messages.map((msg) => {
-          const isAi = msg.sender === 'ai';
-
-          return (
-            <div
-              key={msg.id}
-              className={`flex gap-3 max-w-[88%] ${isAi ? 'mr-auto' : 'ml-auto flex-row-reverse'}`}
-            >
-              {/* Avatar */}
-              <div
-                className={`w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 shadow-xs ${
-                  isAi
-                    ? 'bg-gradient-to-tr from-[#073B2F] to-[#20A887] text-white'
-                    : 'bg-[#172B25] text-white'
-                }`}
-              >
-                {isAi ? <Sparkles className="w-4 h-4 text-emerald-200" /> : <User className="w-4 h-4 text-white" />}
-              </div>
-
-              {/* Message Bubble */}
-              <div className="space-y-2 min-w-0 flex-1">
-                <div className="flex items-center gap-2">
-                  <span className="font-bold text-[11px] text-gray-800">
-                    {isAi ? 'Antigravity QHSE Copilot' : currentUser.name}
-                  </span>
-                  <span className="text-[10px] text-gray-400 font-mono">{msg.timestamp}</span>
-                  {msg.statutoryReference && (
-                    <span className="text-[9px] font-bold bg-emerald-50 text-[#073B2F] px-2 py-0.5 rounded border border-emerald-200/80">
-                      ⚖️ {msg.statutoryReference}
-                    </span>
-                  )}
-                </div>
-
-                <div
-                  className={`p-3.5 rounded-2xl shadow-xs text-xs leading-relaxed transition-all ${
-                    isAi
-                      ? 'bg-white text-gray-800 border border-gray-200 rounded-tl-sm'
-                      : 'bg-gradient-to-br from-[#073B2F] to-[#0A4537] text-white rounded-tr-sm'
-                  }`}
-                >
-                  <p className="whitespace-pre-line">{msg.text}</p>
-
-                  {/* Structured Rich Card (if present) */}
-                  {msg.structuredCard && (
-                    <div className="mt-3 bg-[#F8FAF9] rounded-xl border border-gray-200 overflow-hidden text-gray-800 shadow-2xs">
-                      {/* Card Header */}
-                      <div className="p-3 bg-white border-b border-gray-200 flex items-center justify-between">
-                        <div>
-                          <h4 className="font-bold text-xs text-gray-900">{msg.structuredCard.title}</h4>
-                          {msg.structuredCard.subtitle && (
-                            <p className="text-[10px] text-gray-500 mt-0.5">{msg.structuredCard.subtitle}</p>
-                          )}
-                        </div>
-                        <span className="text-[9px] font-bold bg-[#DDF5EA] text-[#073B2F] px-2 py-0.5 rounded-full border border-[#20A887]/30">
-                          Verified Record
-                        </span>
-                      </div>
-
-                      {/* 3 Metric Pillars */}
-                      {msg.structuredCard.pillars && (
-                        <div className="p-3 grid grid-cols-1 sm:grid-cols-3 gap-2">
-                          {msg.structuredCard.pillars.map((pillar, idx) => (
-                            <div
-                              key={idx}
-                              className={`p-2.5 rounded-lg border text-left flex flex-col justify-between ${pillar.color}`}
-                            >
-                              <span className="text-[9px] font-bold uppercase tracking-wider block opacity-75">
-                                {pillar.label}
-                              </span>
-                              <strong className="text-xs font-bold block my-0.5 truncate">{pillar.value}</strong>
-                              <span className="text-[9px] block opacity-90 truncate">{pillar.sub}</span>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-
-                      {/* Actionable Recommendation */}
-                      {msg.structuredCard.recommendation && (
-                        <div className="p-3 bg-white border-t border-gray-100 flex items-start gap-2">
-                          <ShieldCheck className="w-4 h-4 text-[#087F5B] flex-shrink-0 mt-0.5" />
-                          <div className="text-[11px] text-gray-700 leading-snug">
-                            <strong className="text-gray-900 block text-[11px]">Recommended HSE Action:</strong>
-                            {msg.structuredCard.recommendation}
-                          </div>
-                        </div>
-                      )}
-
-                      {/* Direct Record Inspection Buttons */}
-                      {msg.structuredCard.recordLinks && msg.structuredCard.recordLinks.length > 0 && (
-                        <div className="p-2.5 bg-gray-50 border-t border-gray-200 flex flex-wrap gap-2 items-center">
-                          <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider mr-1">
-                            Quick Jump:
-                          </span>
-                          {msg.structuredCard.recordLinks.map((link, idx) => (
-                            <button
-                              key={idx}
-                              onClick={() => {
-                                setActiveDesktopModule(link.module as any);
-                                if (link.recordRef) setSelectedRecordRef(link.recordRef);
-                              }}
-                              className="px-2.5 py-1 bg-white hover:bg-[#073B2F] text-gray-700 hover:text-white rounded-md border border-gray-300 hover:border-[#073B2F] text-[10px] font-bold transition-all shadow-2xs flex items-center gap-1 active:scale-95"
-                            >
-                              <span>{link.label}</span>
-                            </button>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  )}
-
-                  {/* Copy button */}
-                  {isAi && (
-                    <div className="mt-2.5 pt-2 border-t border-gray-100 flex items-center justify-between text-[10px] text-gray-400">
-                      <span className="flex items-center gap-1 font-mono">
-                        <CheckCircle2 className="w-3 h-3 text-emerald-500" /> Statutory Cross-Verified
-                      </span>
-                      <button
-                        onClick={() => handleCopyText(msg.id, msg.text)}
-                        className="hover:text-gray-700 transition-colors flex items-center gap-1 text-[10px]"
-                        title="Copy answer"
-                      >
-                        {copiedId === msg.id ? (
-                          <>
-                            <Check className="w-3 h-3 text-emerald-600" /> Copied
-                          </>
-                        ) : (
-                          <>
-                            <Copy className="w-3 h-3" /> Copy
-                          </>
-                        )}
-                      </button>
-                    </div>
-                  )}
-                </div>
-              </div>
+              ))}
             </div>
-          );
-        })}
-
-        {/* Realistic Animated Typing Indicator */}
-        {isTyping && (
-          <div className="flex gap-3 max-w-[85%] mr-auto animate-in fade-in duration-100">
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#073B2F] to-[#20A887] text-white flex items-center justify-center flex-shrink-0 shadow-xs">
-              <Sparkles className="w-4 h-4 text-emerald-200 animate-spin" />
-            </div>
-            <div className="p-3 bg-white border border-gray-200 rounded-2xl rounded-tl-sm shadow-xs flex items-center gap-2.5">
-              <div className="flex gap-1">
-                <span className="w-2 h-2 rounded-full bg-[#087F5B] animate-bounce" style={{ animationDelay: '0ms' }} />
-                <span className="w-2 h-2 rounded-full bg-[#087F5B] animate-bounce" style={{ animationDelay: '150ms' }} />
-                <span className="w-2 h-2 rounded-full bg-[#087F5B] animate-bounce" style={{ animationDelay: '300ms' }} />
-              </div>
-              <span className="text-[11px] text-gray-500 font-medium italic">
-                QHSE Copilot is indexing Qatar legal decrees and Lusail Tower records...
-              </span>
-            </div>
-          </div>
+          </aside>
         )}
-
-        <div ref={messagesEndRef} />
-      </div>
-
-      {/* Voice Dictation Active Wave Banner */}
-      {isListening && (
-        <div className="bg-amber-500 text-white px-4 py-2 flex items-center justify-between text-xs animate-in slide-in-from-bottom-2">
-          <div className="flex items-center gap-2">
-            <div className="flex gap-0.5 items-center">
-              <span className="w-1 h-3 bg-white rounded-full animate-pulse" />
-              <span className="w-1 h-5 bg-white rounded-full animate-pulse delay-75" />
-              <span className="w-1 h-2 bg-white rounded-full animate-pulse delay-150" />
-              <span className="w-1 h-4 bg-white rounded-full animate-pulse delay-200" />
-            </div>
-            <span className="font-bold">Listening for Qatar HSE query... Speak now.</span>
-          </div>
-          <button
-            onClick={() => setIsListening(false)}
-            className="text-[10px] bg-black/20 hover:bg-black/30 px-2 py-0.5 rounded text-white font-medium"
-          >
-            Cancel
-          </button>
-        </div>
-      )}
-
-      {/* Bottom Message Input Bar */}
-      <div className="p-3.5 bg-white border-t border-gray-200 flex-shrink-0">
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleSendMessage();
-          }}
-          className="flex items-center gap-2"
-        >
-          {/* Voice Input Button */}
-          <button
-            type="button"
-            onClick={toggleMic}
-            className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all flex-shrink-0 ${
-              isListening
-                ? 'bg-red-500 text-white animate-pulse shadow-md ring-2 ring-red-300'
-                : 'bg-[#F4F7F5] hover:bg-gray-200 text-gray-600'
-            }`}
-            title="Simulate Voice Input"
-          >
-            {isListening ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
-          </button>
-
-          {/* Text Input */}
-          <div className="flex-1 relative">
-            <input
-              type="text"
-              value={inputQuery}
-              onChange={(e) => setInputQuery(e.target.value)}
-              placeholder="Ask anything (e.g., 'What are the heat ban hours under MD 17/2021?' or 'Check hazard HAZ-2026-0042')..."
-              className="w-full pl-3.5 pr-20 py-2.5 bg-[#F4F7F5] border border-gray-200 rounded-xl outline-none text-xs text-gray-800 placeholder-gray-400 font-medium focus:ring-2 focus:ring-[#087F5B] focus:bg-white transition-all shadow-inner"
-            />
-            <span className="absolute right-2.5 top-2.5 text-[10px] text-gray-400 font-mono hidden sm:inline-block pointer-events-none">
-              Press Enter ↵
-            </span>
-          </div>
-
-          {/* Send Button */}
-          <button
-            type="submit"
-            disabled={!inputQuery.trim() || isTyping}
-            className={`px-4 py-2.5 rounded-xl font-bold text-xs flex items-center gap-1.5 transition-all flex-shrink-0 shadow-sm ${
-              inputQuery.trim() && !isTyping
-                ? 'bg-gradient-to-r from-[#073B2F] to-[#087F5B] text-white hover:opacity-95 active:scale-95 shadow-md'
-                : 'bg-gray-100 text-gray-400 cursor-not-allowed'
-            }`}
-          >
-            <span>Send</span>
-            <Send className="w-3.5 h-3.5" />
-          </button>
-        </form>
-
-        <div className="mt-2 flex items-center justify-between text-[10px] text-gray-400">
-          <span className="flex items-center gap-1">
-            <Info className="w-3 h-3 text-emerald-600" />
-            Antigravity In-Browser Copilot • No external cloud AI API required • 100% deterministic local data
-          </span>
-          <span className="font-mono text-gray-500">Lusail Tower Zone 4</span>
-        </div>
       </div>
     </div>
   );
