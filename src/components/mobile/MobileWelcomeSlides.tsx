@@ -33,32 +33,20 @@ export const MobileWelcomeSlides: React.FC<MobileWelcomeSlidesProps> = ({ onFini
       icon: Mic,
       iconColor: 'bg-[#087F5B] text-emerald-200 ring-emerald-500/30',
       headline: 'Speak Your Hazard Observation',
-      subtitle: 'Instant AI Voice Reporting & Photo Evidence',
       description:
-        'Frontline workers dictate worksite observations using Web Speech AI with real-time typewriter transcription and auto-watermarked photo evidence.',
-      features: [
-        'Voice dictation optimized for Qatar worksite noise',
-        'Auto-watermarked evidence photos (GPS & date)',
-        'Local offline storage when out of cellular range',
-      ],
-      tagline: 'Qatar Labour Law No. 14/2004 Article 100',
+        'Frontline workers dictate safety observations hands-free using Voice AI, with instant live transcription and GPS-stamped photo evidence.',
+      tagline: 'Qatar Labour Law 14/2004 Art. 100',
     },
     {
       id: 1,
-      badge: 'Dual Device Synchronization',
+      badge: 'Real-Time Sync',
       badgeColor: 'bg-blue-500/20 text-blue-300 border-blue-500/30',
       icon: Monitor,
       iconColor: 'bg-blue-700 text-blue-200 ring-blue-500/30',
-      headline: 'Live Desktop Control Centre Push',
-      subtitle: 'Real-Time Supervisory Review & Classification',
+      headline: 'Live Desktop Control Push',
       description:
-        'Hazards submitted on mobile instantly push to Senior HSE Manager Nasser Al-Khelaifi’s desktop review queue for 5×5 risk rating and investigation.',
-      features: [
-        'Zero-latency shared local state synchronization',
-        'Interactive 5×5 Risk Matrix scoring on desktop',
-        'Formal 5-Whys root cause investigation & CAPA',
-      ],
-      tagline: 'End-to-End Worker to Manager Workflow',
+        'Observations submitted on mobile synchronize instantly to the central Desktop Control Centre for 5×5 risk rating and supervisory action.',
+      tagline: 'Instant Field-to-Desk Handshake',
     },
     {
       id: 2,
@@ -67,31 +55,19 @@ export const MobileWelcomeSlides: React.FC<MobileWelcomeSlidesProps> = ({ onFini
       icon: Scale,
       iconColor: 'bg-amber-700 text-amber-200 ring-amber-500/30',
       headline: 'Universal Stop Work & Heat Alerts',
-      subtitle: 'Mandatory Ministerial Decision 17/2021 Ready',
       description:
-        'Empower every field worker with Universal Stop Work Authority and automated alerts during midday summer work ban hours (WBGT > 32.1°C).',
-      features: [
-        '1-tap universal Stop Work Authority triggering',
-        'Ministerial Decision 17/2021 summer work ban',
-        'Official Al Meezan Qatar legal compliance tags',
-      ],
-      tagline: 'Ministry of Labour Statutory Protection',
+        'Empowers any worker to halt unsafe tasks immediately, with automated alerts during midday summer work ban hours (WBGT > 32.1°C).',
+      tagline: 'Ministerial Decision No. 17 of 2021',
     },
     {
       id: 3,
-      badge: 'Frontline Task Execution',
+      badge: 'Frontline Safety',
       badgeColor: 'bg-teal-500/20 text-teal-300 border-teal-500/30',
       icon: FileCheck2,
       iconColor: 'bg-teal-700 text-teal-200 ring-teal-500/30',
       headline: 'Permits, Toolboxes & Passports',
-      subtitle: 'Assigned Worksite Safety in Your Pocket',
       description:
-        'Verify electronic Permits to Work (PTW) for hot work or excavation, sign off on daily morning toolbox talks, and check training passport compliance.',
-      features: [
-        'Electronic PTW verification and sign-off',
-        'Digital toolbox talk attendance records',
-        'Live worker safety passport & training tracker',
-      ],
+        'Verify electronic Permits to Work (PTW), sign off morning toolbox talks, and check training passport compliance directly on-site.',
       tagline: 'Complete Frontline Operational Readiness',
     },
   ];
@@ -140,54 +116,37 @@ export const MobileWelcomeSlides: React.FC<MobileWelcomeSlidesProps> = ({ onFini
         </button>
       </div>
 
-      {/* Slide Middle Content Area (Scrollable if height is constrained, leaving bottom bar intact) */}
-      <div className="relative z-10 flex-1 flex flex-col justify-center my-auto py-2 space-y-2.5 overflow-y-auto">
-        {/* Slide Badge */}
-        <div className="flex justify-start">
-          <span
-            className={`text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border shadow-xs ${slide.badgeColor}`}
-          >
-            {slide.badge}
-          </span>
-        </div>
+      {/* Slide Middle Content Area - Clean, Spacious & Focused */}
+      <div className="relative z-10 flex-1 flex flex-col items-center justify-center py-4 space-y-4 text-center my-auto">
+        {/* Category Badge */}
+        <span
+          className={`text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full border shadow-sm ${slide.badgeColor}`}
+        >
+          {slide.badge}
+        </span>
 
         {/* Hero Icon with Ambient Glow */}
-        <div className="flex items-center justify-center my-0.5">
+        <div className="my-1">
           <div
-            className={`w-12 h-12 rounded-2xl flex items-center justify-center shadow-xl border border-white/20 ring-4 transition-all duration-300 ${slide.iconColor}`}
+            className={`w-20 h-20 rounded-3xl flex items-center justify-center shadow-2xl border border-white/20 ring-4 transition-all duration-300 ${slide.iconColor}`}
           >
-            <IconComponent className="w-6 h-6" />
+            <IconComponent className="w-10 h-10" />
           </div>
         </div>
 
-        {/* Headline & Subtitle */}
-        <div className="text-center space-y-0.5">
-          <h2 className="text-sm sm:text-base font-black text-white tracking-tight leading-snug">
-            {slide.headline}
-          </h2>
-          <p className="text-[10px] font-semibold text-[#20A887]">
-            {slide.subtitle}
-          </p>
-        </div>
+        {/* Headline */}
+        <h2 className="text-base sm:text-lg font-black text-white tracking-tight leading-snug px-2">
+          {slide.headline}
+        </h2>
 
-        {/* Narrative Description */}
-        <p className="text-[11px] text-[#DDF5EA]/90 text-center leading-relaxed px-1">
+        {/* Narrative Description - Crisp & Easy to Read */}
+        <p className="text-xs text-[#DDF5EA]/90 leading-relaxed max-w-[280px] px-1 font-normal">
           {slide.description}
         </p>
 
-        {/* Key Features Bullet List */}
-        <div className="bg-black/40 rounded-xl p-2.5 border border-white/10 space-y-1 shadow-inner">
-          {slide.features.map((feat, idx) => (
-            <div key={idx} className="flex items-center gap-1.5 text-[10px] text-gray-200">
-              <CheckCircle2 className="w-3 h-3 text-emerald-400 flex-shrink-0" />
-              <span className="truncate">{feat}</span>
-            </div>
-          ))}
-        </div>
-
-        {/* Qatar Statutory Tagline */}
-        <div className="text-center pt-0.5">
-          <span className="text-[8px] font-mono text-emerald-300 bg-emerald-950/70 px-2 py-0.5 rounded-full border border-emerald-500/30">
+        {/* Qatar Statutory Tagline Pill */}
+        <div className="pt-1">
+          <span className="text-[9px] font-mono text-emerald-300 bg-emerald-950/70 px-3 py-1 rounded-full border border-emerald-500/30 shadow-xs">
             {slide.tagline}
           </span>
         </div>
