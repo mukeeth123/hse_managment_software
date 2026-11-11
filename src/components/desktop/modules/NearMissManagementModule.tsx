@@ -3,11 +3,12 @@ import { useHSE } from '../../../context/HSEContext';
 import { Eye, Search, Filter, Plus, Download, CheckCircle2 } from 'lucide-react';
 import { Badge } from '../../common/Badge';
 import { Modal } from '../../common/Modal';
+import { EnterpriseHSEDossierModal } from '../../common/EnterpriseHSEDossierModal';
 import { NearMissRecord, NearMissCategory, SeverityLevel } from '../../../types';
 import { exportToExcel } from '../../../utils/exportUtils';
 
 export const NearMissManagementModule: React.FC = () => {
-  const { nearMisses, updateNearMiss, createNearMiss, currentUser, projects, locations, selectedRecordRef } = useHSE();
+  const { nearMisses, updateNearMiss, createNearMiss, currentUser, projects, locations, selectedRecordRef, setSelectedRecordRef, setActiveDesktopModule } = useHSE();
 
   const [search, setSearch] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('All');
@@ -243,68 +244,33 @@ export const NearMissManagementModule: React.FC = () => {
         </div>
       </div>
 
-      {/* Near Miss Detail Modal */}
+      {/* In-Depth Institutional Enterprise Dossier Modal */}
       {isDetailOpen && selectedNearMiss && (
-        <Modal
+        <EnterpriseHSEDossierModal
           isOpen={isDetailOpen}
           onClose={() => setIsDetailOpen(false)}
-          title={`Near Miss: ${selectedNearMiss.reference}`}
-          subtitle={`${selectedNearMiss.category} — ${selectedNearMiss.location}`}
-          maxWidth="2xl"
-        >
-          <div className="space-y-4 text-xs">
-            <div className="flex items-center gap-2 pb-2 border-b border-gray-200">
-              <Badge variant={selectedNearMiss.status === 'Closed' ? 'closed' : 'submitted'}>
-                {selectedNearMiss.status}
-              </Badge>
-              <Badge variant={selectedNearMiss.severity === 'High' ? 'high' : 'medium'}>
-                Severity: {selectedNearMiss.severity}
-              </Badge>
-              <span className="text-gray-500 font-mono">{selectedNearMiss.reportedAt}</span>
-            </div>
-
-            <div className="bg-[#F4F7F5] p-3 rounded-xl border border-[#E3EAE6] space-y-1.5">
-              <h4 className="font-bold text-gray-900 text-sm">{selectedNearMiss.title}</h4>
-              <p className="text-gray-700 leading-relaxed">{selectedNearMiss.description}</p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              <div className="p-3 bg-blue-50/60 border border-blue-200 rounded-xl">
-                <span className="font-bold text-blue-900 block mb-1">Potential Worst Outcome:</span>
-                <p className="text-blue-800 text-[11px] leading-relaxed">{selectedNearMiss.potentialOutcome}</p>
-              </div>
-
-              <div className="p-3 bg-emerald-50/60 border border-emerald-200 rounded-xl">
-                <span className="font-bold text-emerald-900 block mb-1">Immediate Action Taken:</span>
-                <p className="text-emerald-800 text-[11px] leading-relaxed">{selectedNearMiss.immediateActionTaken}</p>
-              </div>
-            </div>
-
-            {selectedNearMiss.reviewNotes && (
-              <div className="p-2.5 bg-gray-50 border border-gray-200 rounded-lg text-gray-700">
-                <strong>HSE Review Notes:</strong> {selectedNearMiss.reviewNotes}
-              </div>
-            )}
-
-            <div className="flex justify-end gap-2 pt-2 border-t border-gray-200">
-              <button
-                onClick={() => setIsDetailOpen(false)}
-                className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg font-semibold"
-              >
-                Close
-              </button>
-              {selectedNearMiss.status !== 'Closed' && (
-                <button
-                  onClick={handleCloseNearMiss}
-                  className="px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-lg font-bold shadow flex items-center gap-1.5"
-                >
-                  <CheckCircle2 className="w-4 h-4" />
-                  <span>Verify & Close Near Miss</span>
-                </button>
-              )}
-            </div>
-          </div>
-        </Modal>
+          recordType="Near Miss"
+          record={selectedNearMiss}
+          onStatusChange={(status) => {
+            if (status === 'Closed') {
+              handleCloseNearMiss();
+            } else {
+              const updated = { ...selectedNearMiss, status };
+              updateNearMiss(updated);
+              setSelectedNearMiss(updated);
+            }
+          }}
+          onLaunchInvestigation={() => {
+            setActiveDesktopModule('Investigation Management');
+            setSelectedRecordRef(selectedNearMiss.reference);
+            setIsDetailOpen(false);
+          }}
+          onAssignCAPA={() => {
+            setActiveDesktopModule('Corrective and Preventive Actions');
+            setSelectedRecordRef(selectedNearMiss.reference);
+            setIsDetailOpen(false);
+          }}
+        />
       )}
 
       {/* Log New Near Miss Modal */}

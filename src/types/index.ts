@@ -118,7 +118,8 @@ export type NearMissCategory =
   | 'Electrical near miss'
   | 'Fire or smoke observation'
   | 'Falling material'
-  | 'Unsafe work practice';
+  | 'Unsafe work practice'
+  | 'Environmental & Fire Safety';
 
 export type IncidentCategory =
   | 'Injury'
@@ -126,6 +127,7 @@ export type IncidentCategory =
   | 'Property damage'
   | 'Equipment damage'
   | 'Fire'
+  | 'Fire alarm case'
   | 'Environmental incident'
   | 'Chemical spill'
   | 'Electrical incident'
@@ -141,6 +143,15 @@ export type HazardStatus = 'Submitted' | 'Under Review' | 'Investigation' | 'Act
 export type IncidentStatus = 'Reported' | 'Under Investigation' | 'CAPA Assigned' | 'Pending Verification' | 'Closed' | 'Reopened';
 export type CAPAStatus = 'Open' | 'Assigned' | 'In Progress' | 'Submitted for Verification' | 'Verified' | 'Closed';
 export type PermitStatus = 'Draft' | 'Submitted' | 'Reviewed' | 'Approved' | 'Active' | 'Suspended' | 'Expired' | 'Closed';
+
+export interface HSEDossierActionItem {
+  id: number;
+  action: string;
+  actionBy: string;
+  date: string;
+  status: 'OPEN' | 'CLOSED' | 'UNDER PROCESS';
+  closeoutNotes?: string;
+}
 
 export interface HazardRecord {
   id: string;
@@ -166,6 +177,46 @@ export interface HazardRecord {
   closureNotes?: string;
   closedAt?: string;
   closedBy?: string;
+
+  // In-depth Form Fields
+  zone?: string;
+  buildingCode?: string;
+  roomNo?: string;
+  department?: string;
+  reporterTitle?: string;
+  reporterPhone?: string;
+  reporterEmail?: string;
+  contractorName?: string;
+  incidentRate?: 'Insignificant' | 'Minor' | 'Moderate' | 'Major' | 'Extreme';
+  investigationRequirement?: string;
+  sequenceOfEvents?: Array<{
+    time: string;
+    event: string;
+  }>;
+  witnessList?: Array<{
+    name: string;
+    title: string;
+    idNumber: string;
+    phone: string;
+  }>;
+  likelihoodScore?: number;
+  consequenceScore?: number;
+  finalRiskScore?: number;
+  immediateCauses?: string[];
+  rootCauseTaxonomy?: string[];
+  actionItems?: HSEDossierActionItem[];
+  reviewedBy?: {
+    name: string;
+    title: string;
+    signatureDate: string;
+    signatureSigned: boolean;
+  };
+  approvedBy?: {
+    name: string;
+    title: string;
+    signatureDate: string;
+    signatureSigned: boolean;
+  };
 }
 
 export interface IncidentRecord {
@@ -196,6 +247,74 @@ export interface IncidentRecord {
   closedAt?: string;
   closedBy?: string;
   reopenReason?: string;
+
+  // Real-world Enterprise Incident Form Fields (Qatar HSE Standard)
+  timeAmPm?: 'AM' | 'PM';
+  zone?: string;
+  buildingCode?: string;
+  roomNo?: string;
+  reporterTitle?: string;
+  reporterEmail?: string;
+  reporterPhone?: string;
+  contractorName?: string;
+  classificationCategory?: 'Incident' | 'Near Miss';
+  incidentTypeChecklist?: string[];
+  sequenceOfEvents?: Array<{
+    time: string;
+    event: string;
+  }>;
+  witnessList?: Array<{
+    name: string;
+    title: string;
+    idNumber: string;
+    phone: string;
+  }>;
+  photos?: Array<{
+    id: string;
+    caption: string;
+    url?: string;
+  }>;
+  likelihoodScore?: number;
+  consequenceScore?: number;
+  finalRiskScore?: number;
+  incidentRate?: 'Insignificant' | 'Minor' | 'Moderate' | 'Major' | 'Extreme';
+  investigationRequirement?: string;
+  injuredDetails?:
+    | string
+    | {
+        category?: 'Staff' | 'Student' | 'Contractor' | 'Visitor';
+        name?: string;
+        qid?: string;
+        phone?: string;
+        injuryDetails?: string;
+        firstAidGiven?: boolean;
+        hospitalized?: boolean;
+        treatmentSummary?: string;
+      };
+  assetDamageDetails?:
+    | string
+    | {
+        propertyType?: string;
+        spillType?: string;
+        vehiclePlateNo?: string;
+        passengerLiftCode?: string;
+        estimatedCostQar?: number;
+      };
+  immediateCauses?: string | string[];
+  rootCauseTaxonomy?: string[];
+  actionItems?: HSEDossierActionItem[];
+  reviewedBy?: {
+    name: string;
+    title: string;
+    signatureDate: string;
+    signatureSigned: boolean;
+  };
+  approvedBy?: {
+    name: string;
+    title: string;
+    signatureDate: string;
+    signatureSigned: boolean;
+  };
 }
 
 export interface NearMissRecord {
@@ -215,6 +334,46 @@ export interface NearMissRecord {
   status: 'Reported' | 'Reviewed' | 'Closed';
   assignedReviewer: string;
   reviewNotes?: string;
+
+  // In-depth Form Fields
+  zone?: string;
+  buildingCode?: string;
+  roomNo?: string;
+  reporterTitle?: string;
+  reporterPhone?: string;
+  reporterEmail?: string;
+  department?: string;
+  incidentRate?: 'Insignificant' | 'Minor' | 'Moderate' | 'Major' | 'Extreme';
+  investigationRequirement?: string;
+  contractorName?: string;
+  sequenceOfEvents?: Array<{
+    time: string;
+    event: string;
+  }>;
+  witnessList?: Array<{
+    name: string;
+    title: string;
+    idNumber: string;
+    phone: string;
+  }>;
+  likelihoodScore?: number;
+  consequenceScore?: number;
+  finalRiskScore?: number;
+  immediateCauses?: string[];
+  rootCauseTaxonomy?: string[];
+  actionItems?: HSEDossierActionItem[];
+  reviewedBy?: {
+    name: string;
+    title: string;
+    signatureDate: string;
+    signatureSigned: boolean;
+  };
+  approvedBy?: {
+    name: string;
+    title: string;
+    signatureDate: string;
+    signatureSigned: boolean;
+  };
 }
 
 export interface InvestigationRecord {

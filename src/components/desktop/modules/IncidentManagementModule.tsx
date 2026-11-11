@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { Badge } from '../../common/Badge';
 import { Modal } from '../../common/Modal';
+import { EnterpriseHSEDossierModal } from '../../common/EnterpriseHSEDossierModal';
 import { IncidentRecord, IncidentCategory, SeverityLevel, IncidentStatus } from '../../../types';
 import { exportToExcel, generateHSEPDFReport } from '../../../utils/exportUtils';
 
@@ -193,6 +194,41 @@ export const IncidentManagementModule: React.FC = () => {
         </div>
       </div>
 
+      {/* Quick Demo Filter: Official Form */}
+      <div className="bg-gradient-to-r from-emerald-50 via-teal-50 to-white p-3 rounded-xl border border-emerald-200 flex flex-wrap items-center justify-between gap-2 shadow-xs">
+        <div className="flex items-center gap-2">
+          <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span className="font-bold text-emerald-950 text-xs">Official Institutional Form (QU FGSD):</span>
+          <span className="font-mono text-[11px] bg-white border border-emerald-200 text-emerald-800 px-2 py-0.5 rounded font-semibold">
+            Ref: HS-INSD-506/2025
+          </span>
+          <span className="text-[11px] text-emerald-700 hidden sm:inline">
+            • Building F05 Fire Alarm (Smoke Detector Humidity Trigger)
+          </span>
+        </div>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => {
+              const exact = incidents.find((i) => i.reference === 'HS-INSD-506/2025');
+              if (exact) {
+                handleOpenDetail(exact);
+              } else {
+                setSearch('HS-INSD-506/2025');
+              }
+            }}
+            className="px-3 py-1 bg-[#073B2F] hover:bg-[#092B24] text-white text-[11px] font-bold rounded-lg shadow-sm flex items-center gap-1 transition-transform active:scale-95"
+          >
+            <span>⚡ Open 5-Tab Official Dossier</span>
+          </button>
+          <button
+            onClick={() => setSearch(search === 'HS-INSD-506/2025' ? '' : 'HS-INSD-506/2025')}
+            className="px-2.5 py-1 bg-white hover:bg-emerald-100 border border-emerald-300 text-emerald-900 text-[11px] font-semibold rounded-lg"
+          >
+            {search === 'HS-INSD-506/2025' ? 'Clear Filter' : 'Filter Table'}
+          </button>
+        </div>
+      </div>
+
       {/* Filters */}
       <div className="bg-white p-3 rounded-xl border border-[#E3EAE6] shadow-sm grid grid-cols-1 md:grid-cols-4 gap-3">
         <div className="relative">
@@ -332,150 +368,28 @@ export const IncidentManagementModule: React.FC = () => {
         </div>
       </div>
 
-      {/* Incident Detail Modal */}
+      {/* In-Depth Institutional Enterprise Dossier Modal */}
       {isDetailOpen && selectedIncident && (
-        <Modal
+        <EnterpriseHSEDossierModal
           isOpen={isDetailOpen}
           onClose={() => setIsDetailOpen(false)}
-          title={`Incident File: ${selectedIncident.reference}`}
-          subtitle={`${selectedIncident.incidentType} — ${selectedIncident.project}`}
-          maxWidth="4xl"
-        >
-          <div className="space-y-4 text-xs">
-            <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-gray-200">
-              <div className="flex items-center gap-2">
-                <Badge variant={selectedIncident.status === 'Closed' ? 'closed' : 'critical'}>
-                  {selectedIncident.status}
-                </Badge>
-                <Badge variant={selectedIncident.severity === 'Critical' ? 'critical' : 'high'}>
-                  {selectedIncident.severity}
-                </Badge>
-                <span className="text-gray-500 font-mono">
-                  {selectedIncident.incidentDate} at {selectedIncident.incidentTime}
-                </span>
-              </div>
-
-              <button
-                onClick={() => handleExportIncidentPDF(selectedIncident)}
-                className="px-3 py-1 bg-[#073B2F] hover:bg-[#092B24] text-white font-semibold rounded-lg flex items-center gap-1.5 shadow"
-              >
-                <FileText className="w-3.5 h-3.5" />
-                <span>Export Formal Incident Dossier (PDF)</span>
-              </button>
-            </div>
-
-            {/* Description & Immediate Action */}
-            <div className="bg-[#F4F7F5] p-3.5 rounded-xl border border-[#E3EAE6] space-y-2">
-              <h4 className="font-bold text-gray-900 text-sm">{selectedIncident.title}</h4>
-              <p className="text-gray-700 leading-relaxed">{selectedIncident.description}</p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              <div className="p-3 bg-red-50/60 border border-red-200 rounded-xl">
-                <span className="font-bold text-red-900 block mb-1">Injury / Occupational Illness:</span>
-                <p className="text-red-800 text-[11px] leading-relaxed">
-                  {selectedIncident.injuryDetails || 'No clinical physical injury reported.'}
-                </p>
-                <div className="mt-2 text-[10px] text-gray-600">
-                  Persons involved: <strong>{selectedIncident.personsInvolved.join(', ')}</strong>
-                </div>
-              </div>
-
-              <div className="p-3 bg-emerald-50/60 border border-emerald-200 rounded-xl">
-                <span className="font-bold text-emerald-900 block mb-1">Immediate Actions Taken:</span>
-                <p className="text-emerald-800 text-[11px] leading-relaxed">
-                  {selectedIncident.immediateActions}
-                </p>
-                <div className="mt-2 text-[10px] text-gray-600">
-                  Equipment involved: <strong>{selectedIncident.equipmentInvolved || 'N/A'}</strong>
-                </div>
-              </div>
-            </div>
-
-            {/* Root Cause Summary */}
-            {selectedIncident.rootCauseSummary && (
-              <div className="p-3 bg-purple-50 border border-purple-200 rounded-xl">
-                <span className="font-bold text-purple-900 block mb-1">Root Cause Analysis Summary:</span>
-                <p className="text-purple-800 text-[11px] leading-relaxed">
-                  {selectedIncident.rootCauseSummary}
-                </p>
-              </div>
-            )}
-
-            {/* Status & Investigation Actions */}
-            <div className="p-3 bg-white border border-gray-200 rounded-xl space-y-2">
-              <h5 className="font-bold text-gray-900">Incident Lifecycle Transitions:</h5>
-              <div className="flex flex-wrap gap-2">
-                <button
-                  onClick={() => {
-                    handleStatusChange('Under Investigation');
-                    setActiveDesktopModule('Investigation Management');
-                    setSelectedRecordRef(selectedIncident.reference);
-                    setIsDetailOpen(false);
-                  }}
-                  className="px-3 py-1.5 bg-purple-700 hover:bg-purple-800 text-white font-semibold rounded-lg shadow-sm flex items-center gap-1"
-                >
-                  <span>Launch Investigation (5-Whys & Fishbone)</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </button>
-
-                <button
-                  onClick={() => {
-                    handleStatusChange('CAPA Assigned');
-                    setActiveDesktopModule('Corrective and Preventive Actions');
-                    setSelectedRecordRef(selectedIncident.reference);
-                    setIsDetailOpen(false);
-                  }}
-                  className="px-3 py-1.5 bg-blue-700 hover:bg-blue-800 text-white font-semibold rounded-lg shadow-sm flex items-center gap-1"
-                >
-                  <span>Assign CAPA</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </button>
-
-                <button
-                  onClick={() => handleStatusChange('Closed')}
-                  className="px-3 py-1.5 bg-[#087F5B] hover:bg-[#073B2F] text-white font-semibold rounded-lg shadow-sm flex items-center gap-1"
-                >
-                  <CheckCircle2 className="w-3.5 h-3.5" />
-                  <span>Close Incident</span>
-                </button>
-
-                <button
-                  onClick={() => setShowReopenInput(!showReopenInput)}
-                  className="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-lg shadow-sm flex items-center gap-1"
-                >
-                  <RotateCcw className="w-3.5 h-3.5" />
-                  <span>Reopen Case</span>
-                </button>
-              </div>
-
-              {showReopenInput && (
-                <div className="mt-2 p-2 bg-amber-50 border border-amber-200 rounded-lg space-y-2">
-                  <label className="block text-amber-900 font-bold text-[11px]">Reason for Reopening:</label>
-                  <input
-                    type="text"
-                    value={reopenReason}
-                    onChange={(e) => setReopenReason(e.target.value)}
-                    placeholder="e.g. Recurrence of symptom or new evidence uncovered..."
-                    className="w-full px-2.5 py-1.5 bg-white border border-amber-300 rounded text-xs outline-none"
-                  />
-                  <button
-                    onClick={() => handleStatusChange('Reopened')}
-                    className="px-3 py-1 bg-amber-700 text-white font-bold rounded text-xs"
-                  >
-                    Confirm Reopen
-                  </button>
-                </div>
-              )}
-            </div>
-
-            {selectedIncident.closedAt && (
-              <div className="p-2.5 bg-emerald-50 border border-emerald-200 rounded-lg text-emerald-800 text-[11px]">
-                Incident closed on <strong>{selectedIncident.closedAt}</strong> by <strong>{selectedIncident.closedBy}</strong>.
-              </div>
-            )}
-          </div>
-        </Modal>
+          recordType="Incident"
+          record={selectedIncident}
+          onStatusChange={handleStatusChange}
+          onLaunchInvestigation={() => {
+            handleStatusChange('Under Investigation');
+            setActiveDesktopModule('Investigation Management');
+            setSelectedRecordRef(selectedIncident.reference);
+            setIsDetailOpen(false);
+          }}
+          onAssignCAPA={() => {
+            handleStatusChange('CAPA Assigned');
+            setActiveDesktopModule('Corrective and Preventive Actions');
+            setSelectedRecordRef(selectedIncident.reference);
+            setIsDetailOpen(false);
+          }}
+          onExportPDF={() => handleExportIncidentPDF(selectedIncident)}
+        />
       )}
 
       {/* Create New Incident Modal */}

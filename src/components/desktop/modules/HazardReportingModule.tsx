@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import { Badge } from '../../common/Badge';
 import { Modal } from '../../common/Modal';
+import { EnterpriseHSEDossierModal } from '../../common/EnterpriseHSEDossierModal';
 import { PhotoViewerModal } from '../../common/PhotoViewerModal';
 import { HazardRecord, HazardCategory, SeverityLevel, HazardStatus } from '../../../types';
 import { exportToExcel, exportToCSV } from '../../../utils/exportUtils';
@@ -347,170 +348,27 @@ export const HazardReportingModule: React.FC = () => {
         </div>
       </div>
 
-      {/* Inspect Hazard Detail Modal */}
+      {/* In-Depth Institutional Enterprise Dossier Modal */}
       {isDetailOpen && selectedHazard && (
-        <Modal
+        <EnterpriseHSEDossierModal
           isOpen={isDetailOpen}
           onClose={() => setIsDetailOpen(false)}
-          title={`Hazard Detail: ${selectedHazard.reference}`}
-          subtitle={`${selectedHazard.title} — ${selectedHazard.project}`}
-          maxWidth="4xl"
-        >
-          <div className="space-y-4 text-xs">
-            {/* Top metadata cards */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-              <div className="p-2.5 bg-gray-50 rounded-lg border border-gray-200">
-                <span className="text-[10px] text-gray-500 block">Status</span>
-                <Badge
-                  variant={
-                    selectedHazard.status === 'Closed'
-                      ? 'closed'
-                      : selectedHazard.status === 'Investigation'
-                      ? 'investigation'
-                      : 'underReview'
-                  }
-                >
-                  {selectedHazard.status}
-                </Badge>
-              </div>
-
-              <div className="p-2.5 bg-gray-50 rounded-lg border border-gray-200">
-                <span className="text-[10px] text-gray-500 block">Risk Severity</span>
-                <Badge variant={selectedHazard.severity === 'High' ? 'high' : 'medium'}>
-                  {selectedHazard.severity}
-                </Badge>
-              </div>
-
-              <div className="p-2.5 bg-gray-50 rounded-lg border border-gray-200">
-                <span className="text-[10px] text-gray-500 block">Location</span>
-                <span className="font-bold text-gray-900">{selectedHazard.location}</span>
-              </div>
-
-              <div className="p-2.5 bg-gray-50 rounded-lg border border-gray-200">
-                <span className="text-[10px] text-gray-500 block">Reported By</span>
-                <span className="font-bold text-gray-900">{selectedHazard.reportedBy} ({selectedHazard.reporterEmployeeId})</span>
-              </div>
-            </div>
-
-            {/* Description & Image */}
-            <div className="bg-[#F4F7F5] p-3.5 rounded-xl border border-[#E3EAE6] space-y-2">
-              <h4 className="font-bold text-gray-900 text-sm">{selectedHazard.title}</h4>
-              <p className="text-gray-700 leading-relaxed">{selectedHazard.description}</p>
-
-              {selectedHazard.imageUrl && (
-                <div className="mt-3">
-                  <div className="relative rounded-xl overflow-hidden border border-gray-300 max-w-md group bg-slate-900 shadow-sm">
-                    <img
-                      src={getSafeImageUrl(selectedHazard.imageUrl, selectedHazard.category)}
-                      alt="Hazard evidence"
-                      className="w-full h-48 object-cover cursor-pointer hover:opacity-95 transition-opacity"
-                      onError={(e) => {
-                        e.currentTarget.onerror = null;
-                        e.currentTarget.src = getFallbackHazardImage(selectedHazard.category);
-                      }}
-                      onClick={() =>
-                        setPhotoViewerState({
-                          isOpen: true,
-                          url: getSafeImageUrl(selectedHazard.imageUrl, selectedHazard.category),
-                          title: selectedHazard.title,
-                          caption: selectedHazard.imageCaption,
-                          location: selectedHazard.location,
-                          reference: selectedHazard.reference,
-                        })
-                      }
-                    />
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setPhotoViewerState({
-                          isOpen: true,
-                          url: getSafeImageUrl(selectedHazard.imageUrl, selectedHazard.category),
-                          title: selectedHazard.title,
-                          caption: selectedHazard.imageCaption,
-                          location: selectedHazard.location,
-                          reference: selectedHazard.reference,
-                        })
-                      }
-                      className="absolute top-2 right-2 px-2.5 py-1 bg-black/75 hover:bg-black text-white text-[11px] font-semibold rounded-md backdrop-blur-sm flex items-center gap-1 shadow"
-                    >
-                      <ZoomIn className="w-3.5 h-3.5" />
-                      <span>Inspect Photo</span>
-                    </button>
-                    <span className="absolute bottom-1 right-1 bg-black/70 text-white text-[9px] px-1.5 py-0.5 rounded">
-                      {selectedHazard.imageCaption || 'Field evidence photo'}
-                    </span>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Potential Consequence & Immediate Action */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              <div className="p-3 bg-red-50/60 border border-red-200 rounded-xl">
-                <span className="font-bold text-red-900 block mb-1">Potential Consequence:</span>
-                <p className="text-red-800 text-[11px] leading-relaxed">{selectedHazard.potentialConsequence}</p>
-              </div>
-
-              <div className="p-3 bg-emerald-50/60 border border-emerald-200 rounded-xl">
-                <span className="font-bold text-emerald-900 block mb-1">Immediate Action Taken:</span>
-                <p className="text-emerald-800 text-[11px] leading-relaxed">{selectedHazard.immediateAction}</p>
-              </div>
-            </div>
-
-            {/* Workflow Action Transitions */}
-            <div className="p-3 bg-white border border-gray-200 rounded-xl space-y-2">
-              <h5 className="font-bold text-gray-900">Workflow Transitions & RBAC Assignment:</h5>
-              <div className="flex flex-wrap gap-2">
-                <button
-                  onClick={() => handleUpdateStatus('Under Review')}
-                  className="px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white font-semibold rounded-lg shadow-sm"
-                >
-                  Mark Under Review
-                </button>
-
-                <button
-                  onClick={() => {
-                    handleUpdateStatus('Investigation');
-                    setActiveDesktopModule('Investigation Management');
-                    setSelectedRecordRef(selectedHazard.reference);
-                    setIsDetailOpen(false);
-                  }}
-                  className="px-3 py-1.5 bg-purple-700 hover:bg-purple-800 text-white font-semibold rounded-lg shadow-sm flex items-center gap-1"
-                >
-                  <span>Open Investigation (5-Whys)</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </button>
-
-                <button
-                  onClick={() => {
-                    handleUpdateStatus('Action Pending');
-                    setActiveDesktopModule('Corrective and Preventive Actions');
-                    setSelectedRecordRef(selectedHazard.reference);
-                    setIsDetailOpen(false);
-                  }}
-                  className="px-3 py-1.5 bg-blue-700 hover:bg-blue-800 text-white font-semibold rounded-lg shadow-sm flex items-center gap-1"
-                >
-                  <span>Assign CAPA</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </button>
-
-                <button
-                  onClick={() => handleUpdateStatus('Closed')}
-                  className="px-3 py-1.5 bg-[#087F5B] hover:bg-[#073B2F] text-white font-semibold rounded-lg shadow-sm flex items-center gap-1"
-                >
-                  <CheckCircle2 className="w-3.5 h-3.5" />
-                  <span>Verify & Close Case</span>
-                </button>
-              </div>
-            </div>
-
-            {selectedHazard.closedAt && (
-              <div className="p-2.5 bg-emerald-50 border border-emerald-200 rounded-lg text-emerald-800 text-[11px]">
-                Case closed on <strong>{selectedHazard.closedAt}</strong> by <strong>{selectedHazard.closedBy}</strong>. Notes: {selectedHazard.closureNotes || 'Mitigated.'}
-              </div>
-            )}
-          </div>
-        </Modal>
+          recordType="Hazard"
+          record={selectedHazard}
+          onStatusChange={handleUpdateStatus}
+          onLaunchInvestigation={() => {
+            handleUpdateStatus('Investigation');
+            setActiveDesktopModule('Investigation Management');
+            setSelectedRecordRef(selectedHazard.reference);
+            setIsDetailOpen(false);
+          }}
+          onAssignCAPA={() => {
+            handleUpdateStatus('Action Pending');
+            setActiveDesktopModule('Corrective and Preventive Actions');
+            setSelectedRecordRef(selectedHazard.reference);
+            setIsDetailOpen(false);
+          }}
+        />
       )}
 
       {/* Create New Hazard Modal */}
