@@ -173,9 +173,9 @@ export const HazardReportingModule: React.FC = () => {
       <div className="bg-gradient-to-r from-emerald-50 via-teal-50 to-white p-3 rounded-xl border border-emerald-200 flex flex-wrap items-center justify-between gap-2 shadow-xs">
         <div className="flex items-center gap-2">
           <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span className="font-bold text-emerald-950 text-xs">Official Excel Cases (demosss.xlsx):</span>
+          <span className="font-bold text-emerald-950 text-xs">Official Institutional Records:</span>
           <span className="text-[11px] text-emerald-800 font-medium hidden sm:inline">
-            Directly from QU FGSD Institution sheets
+            Validated Enterprise Safety Register Forms
           </span>
         </div>
         <div className="flex flex-wrap items-center gap-1.5">

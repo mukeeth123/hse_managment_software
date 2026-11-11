@@ -676,18 +676,18 @@ export const initialHazards: HazardRecord[] = [
     reference: 'HS-INSD-512/2025',
     title: 'Water Stains & Sagging Ceiling Tile Near Smoke Detector Base',
     category: 'Environmental hazards',
-    project: 'Facilities & General Services Department',
+    project: 'Integrated Enterprise Operations & Safety Department',
     location: 'Male Hostel, 3rd Floor, Area - C, Corridor',
     zone: 'Zone F',
     buildingCode: 'F05',
     roomNo: 'Area - C Corridor',
-    department: 'FGSD - Housekeeping',
-    reportedBy: 'Nasser Ibrahim',
+    department: 'Facility Environmental Services (FES)',
+    reportedBy: 'Hamad Al-Marri',
     reporterEmployeeId: 'EMP-5120',
     reporterTitle: 'Housekeeping Lead',
     reporterPhone: '+974 4403-2147',
-    reporterEmail: 'nasser.ibrahim@qu.edu.qa',
-    contractorName: 'FGSD - Housekeeping',
+    reporterEmail: 'hamad.marri@enterprise-hse.qa',
+    contractorName: 'Facility Environmental Services (FES)',
     reportedAt: '2025-09-02 09:40',
     severity: 'Medium',
     likelihoodScore: 3,
@@ -709,7 +709,7 @@ export const initialHazards: HazardRecord[] = [
       { time: '11:00 AM', event: 'Moisture traced to AC duct insulation' }
     ],
     witnessList: [
-      { name: 'Mohammad Siraj', title: 'FAS Technician', idNumber: '44373', phone: '+974 4403-6900' }
+      { name: 'Farhan Siddiqui', title: 'FAS Technician', idNumber: '44373', phone: '+974 4403-6900' }
     ],
     immediateCauses: [
       'Condensation from the AC supply duct insulation above the false ceiling.',
@@ -762,13 +762,13 @@ export const initialHazards: HazardRecord[] = [
       }
     ],
     reviewedBy: {
-      name: 'Moumeen Mohamed Ali',
+      name: 'Dr. Hassan Al-Mahmoud',
       title: 'Fire Safety Specialist',
       signatureDate: '2025-09-03',
       signatureSigned: true
     },
     approvedBy: {
-      name: 'Abdulhadi Al-Hajri',
+      name: 'Eng. Nasser Al-Khelaifi',
       title: 'Act. Head of Health and Safety',
       signatureDate: '2025-09-03',
       signatureSigned: true
@@ -779,18 +779,18 @@ export const initialHazards: HazardRecord[] = [
     reference: 'HS-INSD-518/2025',
     title: 'Curled Carpet Edge Trip Hazard at Lift Lobby Entrance',
     category: 'Slips, trips and falls',
-    project: 'Facilities & General Services Department',
+    project: 'Integrated Enterprise Operations & Safety Department',
     location: 'Male Hostel, 2nd Floor, Area - B, Lift Lobby',
     zone: 'Zone F',
     buildingCode: 'F05',
     roomNo: 'Area - B Lift Lobby',
-    department: 'Al Shaya Security Services',
-    reportedBy: 'Imran Saeed',
+    department: 'Apex Corporate Security Services',
+    reportedBy: 'Zaid Al-Ansari',
     reporterEmployeeId: 'EMP-5180',
     reporterTitle: 'Security Guard',
     reporterPhone: '+974 4403-2188',
-    reporterEmail: 'imran.saeed@alshaya.qa',
-    contractorName: 'Al Shaya Security Services',
+    reporterEmail: 'zaid.ansari@apex-security.qa',
+    contractorName: 'Apex Corporate Security Services',
     reportedAt: '2025-09-18 18:05',
     severity: 'Medium',
     likelihoodScore: 4,
@@ -812,7 +812,7 @@ export const initialHazards: HazardRecord[] = [
       { time: '07:30 PM', event: 'Temporary fix by CIVIL team' }
     ],
     witnessList: [
-      { name: 'Yusuf Rahman', title: 'Security Guard', idNumber: '66231', phone: '+974 4403-2204' }
+      { name: 'Kamal Al-Nuaimi', title: 'Security Guard', idNumber: '66231', phone: '+974 4403-2204' }
     ],
     immediateCauses: [
       'Carpet edge strip and adhesive failed near the lift lobby entrance.',
@@ -857,13 +857,13 @@ export const initialHazards: HazardRecord[] = [
       }
     ],
     reviewedBy: {
-      name: 'Moumeen Mohamed Ali',
+      name: 'Dr. Hassan Al-Mahmoud',
       title: 'Fire Safety Specialist',
       signatureDate: '2025-09-19',
       signatureSigned: true
     },
     approvedBy: {
-      name: 'Abdulhadi Al-Hajri',
+      name: 'Eng. Nasser Al-Khelaifi',
       title: 'Act. Head of Health and Safety',
       signatureDate: '2025-09-19',
       signatureSigned: true
@@ -1425,22 +1425,22 @@ export const initialIncidents: IncidentRecord[] = [
     incidentType: 'Fire alarm case',
     classificationCategory: 'Incident',
     incidentTypeChecklist: ['Fire Alarm Case'],
-    project: 'Facilities & General Services Department',
+    project: 'Integrated Enterprise Operations & Safety Department',
     location: 'Male Hostel, 3rd Floor, Area - A, Corridor',
     zone: 'Zone F',
     buildingCode: 'F05',
     roomNo: 'Area - A Corridor',
-    department: 'FGSD - Fire Section',
+    department: 'Corporate Fire & Safety Section',
     incidentDate: '2025-09-24',
     incidentTime: '03:15',
     timeAmPm: 'AM',
-    reportedBy: 'Salman Qadir',
+    reportedBy: 'Rashid Al-Dosari',
     reporterEmployeeId: 'EMP-5230',
     reporterTitle: 'Firefighter(B. CRO)',
     reporterPhone: '+974 4403-3951',
-    reporterEmail: 'salman.qadir@qu.edu.qa',
-    contractorName: 'FGSD - Fire Section',
-    personsInvolved: ['Salman Qadir', 'Faisal Anwar'],
+    reporterEmail: 'rashid.dosari@enterprise-hse.qa',
+    contractorName: 'Corporate Fire & Safety Section',
+    personsInvolved: ['Rashid Al-Dosari', 'Naveed Akhtar'],
     severity: 'Low',
     potentialSeverity: 'Medium',
     likelihoodScore: 3,
@@ -1459,8 +1459,8 @@ export const initialIncidents: IncidentRecord[] = [
       { time: '03:55 AM', event: 'FACP reset' }
     ],
     witnessList: [
-      { name: 'Faisal Anwar', title: 'Security Guard', idNumber: '66190', phone: '+974 4403-2215' },
-      { name: 'Mohammad Siraj', title: 'FAS Technician', idNumber: '44373', phone: '+974 4403-6900' }
+      { name: 'Naveed Akhtar', title: 'Security Guard', idNumber: '66190', phone: '+974 4403-2215' },
+      { name: 'Farhan Siddiqui', title: 'FAS Technician', idNumber: '44373', phone: '+974 4403-6900' }
     ],
     immediateCauses: [
       'Dust on the smoke detector head after AC duct cleaning work in the corridor.',
@@ -1505,13 +1505,13 @@ export const initialIncidents: IncidentRecord[] = [
       }
     ],
     reviewedBy: {
-      name: 'Moumeen Mohamed Ali',
+      name: 'Dr. Hassan Al-Mahmoud',
       title: 'Fire Safety Specialist',
       signatureDate: '2025-09-25',
       signatureSigned: true
     },
     approvedBy: {
-      name: 'Abdulhadi Al-Hajri',
+      name: 'Eng. Nasser Al-Khelaifi',
       title: 'Act. Head of Health and Safety',
       signatureDate: '2025-09-25',
       signatureSigned: true
@@ -1519,7 +1519,7 @@ export const initialIncidents: IncidentRecord[] = [
     requiresInvestigation: false,
     status: 'Closed',
     closedAt: '2025-09-25 08:30',
-    closedBy: 'Abdulhadi Al-Hajri'
+    closedBy: 'Eng. Nasser Al-Khelaifi'
   },
   {
     id: 'INC-531',
@@ -1529,22 +1529,22 @@ export const initialIncidents: IncidentRecord[] = [
     incidentType: 'First-aid case',
     classificationCategory: 'Incident',
     incidentTypeChecklist: ['First Aid Case'],
-    project: 'Facilities & General Services Department',
+    project: 'Integrated Enterprise Operations & Safety Department',
     location: 'Male Hostel, 3rd Floor, Area - C, Corridor',
     zone: 'Zone F',
     buildingCode: 'F05',
     roomNo: 'Area - C Corridor',
-    department: 'TDGISERV',
+    department: 'Vertex Technical & Engineering Services WLL',
     incidentDate: '2025-10-07',
     incidentTime: '11:20',
     timeAmPm: 'AM',
-    reportedBy: 'Adnan Farooq',
+    reportedBy: 'Mustafa Al-Ghamdi',
     reporterEmployeeId: 'EMP-5310',
     reporterTitle: 'FAS Supervisor',
     reporterPhone: '+974 4403-6902',
-    reporterEmail: 'adnan.farooq@tdgiserv.qa',
-    contractorName: 'TDGISERV',
-    personsInvolved: ['Tariq Aziz'],
+    reporterEmail: 'mustafa.ghamdi@vertex-eng.qa',
+    contractorName: 'Vertex Technical & Engineering Services WLL',
+    personsInvolved: ['Ramesh Patel'],
     severity: 'Low',
     potentialSeverity: 'Medium',
     likelihoodScore: 3,
@@ -1554,7 +1554,7 @@ export const initialIncidents: IncidentRecord[] = [
     investigationRequirement: 'Complete Section 3 (only for minor or insignificant incidents)',
     injuredDetails: {
       category: 'Contractor',
-      name: 'Tariq Aziz',
+      name: 'Ramesh Patel',
       qid: '28800000123',
       phone: '+974 5501-2345',
       injuryDetails: 'Small cut on right palm. First aid: cleaned and dressed.',
@@ -1570,8 +1570,8 @@ export const initialIncidents: IncidentRecord[] = [
       { time: '12:30 PM', event: 'Technician resumed light duty' }
     ],
     witnessList: [
-      { name: 'Mohammad Siraj', title: 'FAS Technician', idNumber: '44373', phone: '+974 4403-6900' },
-      { name: 'Rizwan Ahmed', title: 'FAS Technician', idNumber: '44412', phone: '+974 4403-6911' }
+      { name: 'Farhan Siddiqui', title: 'FAS Technician', idNumber: '44373', phone: '+974 4403-6900' },
+      { name: 'Arjun Sharma', title: 'FAS Technician', idNumber: '44412', phone: '+974 4403-6911' }
     ],
     immediateCauses: [
       'Technician touched a sharp metal edge on the detector base during removal.',
@@ -1624,13 +1624,13 @@ export const initialIncidents: IncidentRecord[] = [
       }
     ],
     reviewedBy: {
-      name: 'Moumeen Mohamed Ali',
+      name: 'Dr. Hassan Al-Mahmoud',
       title: 'Fire Safety Specialist',
       signatureDate: '2025-10-08',
       signatureSigned: true
     },
     approvedBy: {
-      name: 'Abdulhadi Al-Hajri',
+      name: 'Eng. Nasser Al-Khelaifi',
       title: 'Act. Head of Health and Safety',
       signatureDate: '2025-10-08',
       signatureSigned: true
@@ -1638,7 +1638,7 @@ export const initialIncidents: IncidentRecord[] = [
     requiresInvestigation: false,
     status: 'Closed',
     closedAt: '2025-10-08 09:15',
-    closedBy: 'Abdulhadi Al-Hajri'
+    closedBy: 'Eng. Nasser Al-Khelaifi'
   },
   {
     id: 'INC-506',
@@ -1647,7 +1647,7 @@ export const initialIncidents: IncidentRecord[] = [
     incidentType: 'Fire alarm case',
     classificationCategory: 'Near Miss',
     incidentTypeChecklist: ['Fire Alarm Case', 'Near Miss'],
-    project: 'Facilities & General Services Department',
+    project: 'Integrated Enterprise Operations & Safety Department',
     location: 'Male Hostel, 3rd Floor, Area - C, Corridor',
     zone: 'Zone F',
     buildingCode: 'F05',
@@ -1656,13 +1656,13 @@ export const initialIncidents: IncidentRecord[] = [
     incidentDate: '2025-08-21',
     incidentTime: '00:30',
     timeAmPm: 'AM',
-    reportedBy: 'Obaid Khalid',
+    reportedBy: 'Mansoor Al-Hajri',
     reporterEmployeeId: 'EMP-5061',
     reporterTitle: 'Firefighter (B. CRO)',
     reporterPhone: '+974 4403-3999',
-    reporterEmail: 'obaid.khalid@qu.edu.qa',
-    contractorName: 'Zeal-IT Trading & Contracting',
-    personsInvolved: ['Obaid Khalid', 'Mubarak Esam'],
+    reporterEmail: 'mansoor.hajri@enterprise-hse.qa',
+    contractorName: 'Al-Rayyan Engineering & Operations WLL',
+    personsInvolved: ['Mansoor Al-Hajri', 'Saad Al-Sulaiti'],
     severity: 'Low',
     potentialSeverity: 'Medium',
     likelihoodScore: 2,
@@ -1688,8 +1688,8 @@ export const initialIncidents: IncidentRecord[] = [
       { time: '12:46 AM', event: 'Smoke detector cleaned/dried and Main Fire Alarm Control Panel (FACP) successfully reset to normal.' },
     ],
     witnessList: [
-      { name: 'Mubarak Esam', title: 'Firefighter / Safety Inspector', idNumber: '55010', phone: '+974 4403-3999' },
-      { name: 'Mohammad Siraj', title: 'FAS Technician', idNumber: '44373', phone: '+974 4403-6900' },
+      { name: 'Saad Al-Sulaiti', title: 'Firefighter / Safety Inspector', idNumber: '55010', phone: '+974 4403-3999' },
+      { name: 'Farhan Siddiqui', title: 'FAS Technician', idNumber: '44373', phone: '+974 4403-6900' },
     ],
     actionItems: [
       {
@@ -1726,13 +1726,13 @@ export const initialIncidents: IncidentRecord[] = [
       },
     ],
     reviewedBy: {
-      name: 'Moumeen Mohamed Ali',
+      name: 'Dr. Hassan Al-Mahmoud',
       title: 'Fire Safety Specialist',
       signatureDate: '2025-08-21',
       signatureSigned: true,
     },
     approvedBy: {
-      name: 'Abdulhadi Al-Hajri',
+      name: 'Eng. Nasser Al-Khelaifi',
       title: 'Act. Head of Health and Safety',
       signatureDate: '2025-08-21',
       signatureSigned: true,
@@ -1742,7 +1742,7 @@ export const initialIncidents: IncidentRecord[] = [
     rootCauseSummary: 'Extreme summer humidity and condensation entering corridor plenum near fresh air intake.',
     correctiveActionsCount: 4,
     closedAt: '2025-08-21 01:15',
-    closedBy: 'Abdulhadi Al-Hajri',
+    closedBy: 'Eng. Nasser Al-Khelaifi',
   },
   {
     id: 'INC-001',
@@ -2150,18 +2150,18 @@ export const initialNearMisses: NearMissRecord[] = [
     reference: 'HS-INSD-536/2025',
     title: 'Step Ladder Base Slipped on Corridor Carpet While Accessing Ceiling Smoke Detector',
     category: 'Work-at-height incident',
-    project: 'Facilities & General Services Department',
+    project: 'Integrated Enterprise Operations & Safety Department',
     location: 'Male Hostel, 2nd Floor, Area - A, Corridor',
     zone: 'Zone F',
     buildingCode: 'F05',
     roomNo: 'Area - A Corridor',
-    department: 'TDGISERV',
-    reportedBy: 'Adnan Farooq',
+    department: 'Vertex Technical & Engineering Services WLL',
+    reportedBy: 'Mustafa Al-Ghamdi',
     reporterEmployeeId: 'EMP-5360',
     reporterTitle: 'FAS Supervisor',
     reporterPhone: '+974 4403-6902',
-    reporterEmail: 'adnan.farooq@tdgiserv.qa',
-    contractorName: 'TDGISERV',
+    reporterEmail: 'mustafa.ghamdi@vertex-eng.qa',
+    contractorName: 'Vertex Technical & Engineering Services WLL',
     reportedAt: '2025-10-19 08:05',
     severity: 'Medium',
     likelihoodScore: 2,
@@ -2172,7 +2172,7 @@ export const initialNearMisses: NearMissRecord[] = [
     potentialOutcome: 'Technician fall from height (2.2m) to carpeted concrete floor causing potential bone fracture.',
     immediateActionTaken: 'Work stopped immediately; ladder footing checked; second person designated to firmly hold ladder base.',
     status: 'Reviewed',
-    assignedReviewer: 'Moumeen Mohamed Ali',
+    assignedReviewer: 'Dr. Hassan Al-Mahmoud',
     reviewNotes: 'Work suspended until non-slip ladder foot pads provided and 2-person rule enforced for all ladder activities.',
     description: '- A ladder base slipped on the corridor carpet while a FAS technician was reaching a smoke detector at ceiling height.\n- The technician held the ceiling grid, regained balance and came down safely.\n- No injury and no damage.',
     sequenceOfEvents: [
@@ -2183,7 +2183,7 @@ export const initialNearMisses: NearMissRecord[] = [
       { time: '09:00 AM', event: 'Work resumed, ladder held by 2nd person' }
     ],
     witnessList: [
-      { name: 'Rizwan Ahmed', title: 'FAS Technician', idNumber: '44412', phone: '+974 4403-6911' }
+      { name: 'Arjun Sharma', title: 'FAS Technician', idNumber: '44412', phone: '+974 4403-6911' }
     ],
     immediateCauses: [
       'Step ladder used on smooth corridor carpet without anti-slip foot pads.',
@@ -2228,13 +2228,13 @@ export const initialNearMisses: NearMissRecord[] = [
       }
     ],
     reviewedBy: {
-      name: 'Moumeen Mohamed Ali',
+      name: 'Dr. Hassan Al-Mahmoud',
       title: 'Fire Safety Specialist',
       signatureDate: '2025-10-20',
       signatureSigned: true
     },
     approvedBy: {
-      name: 'Abdulhadi Al-Hajri',
+      name: 'Eng. Nasser Al-Khelaifi',
       title: 'Act. Head of Health and Safety',
       signatureDate: '2025-10-20',
       signatureSigned: true
@@ -2245,18 +2245,18 @@ export const initialNearMisses: NearMissRecord[] = [
     reference: 'HS-INSD-542/2025',
     title: 'Smoke Detector Left Disabled on FACP Overnight Following Cleaning Shift',
     category: 'Fire or smoke observation',
-    project: 'Facilities & General Services Department',
+    project: 'Integrated Enterprise Operations & Safety Department',
     location: 'Male Hostel, 3rd Floor, Area - C, Corridor',
     zone: 'Zone F',
     buildingCode: 'F05',
     roomNo: 'Area - C Corridor',
-    department: 'FGSD - Fire Section',
-    reportedBy: 'Salman Qadir',
+    department: 'Corporate Fire & Safety Section',
+    reportedBy: 'Rashid Al-Dosari',
     reporterEmployeeId: 'EMP-5420',
     reporterTitle: 'Firefighter(B. CRO)',
     reporterPhone: '+974 4403-3951',
-    reporterEmail: 'salman.qadir@qu.edu.qa',
-    contractorName: 'FGSD - Fire Section',
+    reporterEmail: 'rashid.dosari@enterprise-hse.qa',
+    contractorName: 'Corporate Fire & Safety Section',
     reportedAt: '2025-11-02 06:30',
     severity: 'Medium',
     likelihoodScore: 2,
@@ -2267,7 +2267,7 @@ export const initialNearMisses: NearMissRecord[] = [
     potentialOutcome: 'Corridor Area C left without fire smoke detection coverage during night occupancy hours.',
     immediateActionTaken: 'FAS technician contacted via radio; device enabled, tested and confirmed green supervisory status on FACP.',
     status: 'Closed',
-    assignedReviewer: 'Moumeen Mohamed Ali',
+    assignedReviewer: 'Dr. Hassan Al-Mahmoud',
     reviewNotes: 'Verified detector online. Implemented mandatory end-of-shift disabled device audit on FACP.',
     description: '- During the morning FACP check, a smoke detector in the 3rd floor corridor, Area C was found still disabled.\n- The detector was disabled for cleaning the previous afternoon and was not re-enabled.\n- No fire event occurred.',
     sequenceOfEvents: [
@@ -2278,7 +2278,7 @@ export const initialNearMisses: NearMissRecord[] = [
       { time: '07:20 AM', event: 'FACP status back to normal' }
     ],
     witnessList: [
-      { name: 'Hamza Yousef', title: 'Firefighter', idNumber: '55102', phone: '+974 4403-3952' }
+      { name: 'Jassim Al-Bader', title: 'Firefighter', idNumber: '55102', phone: '+974 4403-3952' }
     ],
     immediateCauses: [
       'Detector was not re-enabled after cleaning.',
@@ -2315,13 +2315,13 @@ export const initialNearMisses: NearMissRecord[] = [
       }
     ],
     reviewedBy: {
-      name: 'Moumeen Mohamed Ali',
+      name: 'Dr. Hassan Al-Mahmoud',
       title: 'Fire Safety Specialist',
       signatureDate: '2025-11-03',
       signatureSigned: true
     },
     approvedBy: {
-      name: 'Abdulhadi Al-Hajri',
+      name: 'Eng. Nasser Al-Khelaifi',
       title: 'Act. Head of Health and Safety',
       signatureDate: '2025-11-03',
       signatureSigned: true
@@ -2332,17 +2332,17 @@ export const initialNearMisses: NearMissRecord[] = [
     reference: 'HS-INSD-506/2025',
     title: 'Fire Alarm Activation & Smoke Detector Trigger Due to High Humidity',
     category: 'Environmental & Fire Safety',
-    project: 'Facilities & General Services Department',
+    project: 'Integrated Enterprise Operations & Safety Department',
     location: 'Male Hostel, 3rd Floor, Area - C, Corridor',
     zone: 'Zone F',
     buildingCode: 'F05',
     roomNo: 'Area - C Corridor',
-    reportedBy: 'Obaid Khalid',
+    reportedBy: 'Mansoor Al-Hajri',
     reporterEmployeeId: 'EMP-5061',
     reporterTitle: 'Firefighter (B. CRO)',
     reporterPhone: '+974 4403-3999',
-    reporterEmail: 'obaid.khalid@qu.edu.qa',
-    contractorName: 'Zeal-IT Trading & Contracting',
+    reporterEmail: 'mansoor.hajri@enterprise-hse.qa',
+    contractorName: 'Al-Rayyan Engineering & Operations WLL',
     reportedAt: '2025-08-21 00:30',
     severity: 'Low',
     likelihoodScore: 2,
@@ -2354,7 +2354,7 @@ export const initialNearMisses: NearMissRecord[] = [
     potentialOutcome: 'Unwarranted building evacuation of student hostel during night hours.',
     immediateActionTaken: 'Silenced alarm within 3 mins, isolated detector, ventilated corridor, confirmed zero fire/smoke, reset panel.',
     status: 'Closed',
-    assignedReviewer: 'Moumeen Mohamed Ali',
+    assignedReviewer: 'Dr. Hassan Al-Mahmoud',
     reviewNotes: 'Verified as non-emergency environmental nuisance alarm caused by humidity. HVAC dampers adjusted.',
     sequenceOfEvents: [
       { time: '12:30 AM', event: 'Information received from CRO (Central Control Room) regarding fire alarm activation at building F05.' },
@@ -2365,8 +2365,8 @@ export const initialNearMisses: NearMissRecord[] = [
       { time: '12:46 AM', event: 'Smoke detector cleaned/dried and Main Fire Alarm Control Panel (FACP) successfully reset to normal.' },
     ],
     witnessList: [
-      { name: 'Mubarak Esam', title: 'Firefighter / Safety Inspector', idNumber: '55010', phone: '+974 4403-3999' },
-      { name: 'Mohammad Siraj', title: 'FAS Technician', idNumber: '44373', phone: '+974 4403-6900' },
+      { name: 'Saad Al-Sulaiti', title: 'Firefighter / Safety Inspector', idNumber: '55010', phone: '+974 4403-3999' },
+      { name: 'Farhan Siddiqui', title: 'FAS Technician', idNumber: '44373', phone: '+974 4403-6900' },
     ],
     actionItems: [
       {
@@ -2403,13 +2403,13 @@ export const initialNearMisses: NearMissRecord[] = [
       },
     ],
     reviewedBy: {
-      name: 'Moumeen Mohamed Ali',
+      name: 'Dr. Hassan Al-Mahmoud',
       title: 'Fire Safety Specialist',
       signatureDate: '2025-08-21',
       signatureSigned: true,
     },
     approvedBy: {
-      name: 'Abdulhadi Al-Hajri',
+      name: 'Eng. Nasser Al-Khelaifi',
       title: 'Act. Head of Health and Safety',
       signatureDate: '2025-08-21',
       signatureSigned: true,

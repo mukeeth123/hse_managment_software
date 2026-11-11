@@ -74,11 +74,11 @@ export const EnterpriseHSEDossierModal: React.FC<EnterpriseHSEDossierModalProps>
   const currentZone = inc.zone || haz.zone || nm.zone || 'Zone F';
   const currentBldCode = inc.buildingCode || haz.buildingCode || nm.buildingCode || 'F05';
   const currentRoomNo = inc.roomNo || haz.roomNo || nm.roomNo || 'Area - C Corridor';
-  const currentReportedBy = record.reportedBy || 'Nasser Ibrahim';
+  const currentReportedBy = record.reportedBy || 'Hamad Al-Marri';
   const currentReporterTitle = inc.reporterTitle || haz.reporterTitle || nm.reporterTitle || (isHazard ? 'Housekeeping Lead' : isNearMiss ? 'Firefighter (B. CRO)' : 'Field Safety Officer');
   const currentReporterPhone = inc.reporterPhone || haz.reporterPhone || nm.reporterPhone || '+974 4403-2147';
   const currentReporterEmail = inc.reporterEmail || haz.reporterEmail || nm.reporterEmail || `${currentReportedBy.toLowerCase().replace(/\s+/g, '.')}@qu.edu.qa`;
-  const currentContractor = inc.contractorName || haz.contractorName || nm.contractorName || (haz.department || inc.department || nm.department || 'FGSD - Facilities & General Services Department');
+  const currentContractor = inc.contractorName || haz.contractorName || nm.contractorName || (haz.department || inc.department || nm.department || 'Integrated Enterprise Operations & Safety Department');
   const currentDate = inc.incidentDate || (haz.reportedAt ? haz.reportedAt.substring(0, 10) : '') || (nm.reportedAt ? nm.reportedAt.substring(0, 10) : '') || '2025-09-02';
   const currentTime = inc.incidentTime || (haz.reportedAt ? haz.reportedAt.substring(11, 16) : '') || (nm.reportedAt ? nm.reportedAt.substring(11, 16) : '') || '09:40';
   const currentTimeAmPm = inc.timeAmPm || (parseInt(currentTime.split(':')[0] || '9', 10) < 12 ? 'AM' : 'PM');
@@ -102,14 +102,14 @@ export const EnterpriseHSEDossierModal: React.FC<EnterpriseHSEDossierModalProps>
     (inc.rootCauseSummary ? [inc.rootCauseSummary] : ['Lack of Preventive Maintenance/Regular Inspection', 'Lack of Proper/Effective Communication']);
 
   const currentReviewedBy = inc.reviewedBy || haz.reviewedBy || nm.reviewedBy || {
-    name: 'Moumeen Mohamed Ali',
+    name: 'Dr. Hassan Al-Mahmoud',
     title: 'Fire Safety Specialist',
     signatureDate: currentDate,
     signatureSigned: true,
   };
 
   const currentApprovedBy = inc.approvedBy || haz.approvedBy || nm.approvedBy || {
-    name: 'Abdulhadi Al-Hajri',
+    name: 'Eng. Nasser Al-Khelaifi',
     title: 'Act. Head of Health and Safety',
     signatureDate: currentDate,
     signatureSigned: true,
@@ -170,7 +170,7 @@ export const EnterpriseHSEDossierModal: React.FC<EnterpriseHSEDossierModalProps>
       slot: 'Photo-04',
       label: 'Photo-04 (A) — ID Badges',
       title: 'Personnel ID Badges (Al Shaya & TDGISERV)',
-      caption: 'Photo-04 (Part A): Official Qatar University Contractor & Security ID Badges (Imran Saeed & Siraj Shaukatali Ansari - FAS Technician #44373)',
+      caption: 'Photo-04 (Part A): Official Qatar University Contractor & Security ID Badges (Security Officer & Lead FAS Systems Specialist - FAS Technician #44373)',
       url: '/evidence/photo4_id_cards_full.png',
       isHighlight: true,
     },
@@ -267,8 +267,8 @@ export const EnterpriseHSEDossierModal: React.FC<EnterpriseHSEDossierModalProps>
     rawWitnesses && rawWitnesses.length > 0
       ? rawWitnesses
       : [
-          { name: 'Mohammad Siraj', title: 'FAS Technician', idNumber: '44373', phone: '+974 4403-6900' },
-          { name: 'Faisal Anwar', title: 'Security Guard', idNumber: '66190', phone: '+974 4403-2215' },
+          { name: 'Farhan Siddiqui', title: 'FAS Technician', idNumber: '44373', phone: '+974 4403-6900' },
+          { name: 'Naveed Akhtar', title: 'Security Guard', idNumber: '66190', phone: '+974 4403-2215' },
         ];
 
   // Actions list
@@ -280,7 +280,7 @@ export const EnterpriseHSEDossierModal: React.FC<EnterpriseHSEDossierModalProps>
           {
             id: 1,
             action: 'Area inspected immediately and initial mitigation controls secured on site.',
-            actionBy: 'FGSD-Fire / Safety Team',
+            actionBy: 'Corporate-Fire / Safety Team',
             date: currentDate,
             status: 'CLOSED' as const,
             closeoutNotes: 'Initial safety perimeter established.',
@@ -359,12 +359,12 @@ export const EnterpriseHSEDossierModal: React.FC<EnterpriseHSEDossierModalProps>
           <div className="flex items-center gap-2 flex-shrink-0">
             <a
               href="/demosss.xlsx"
-              download="QU_FGSD_Incident_Report_demosss.xlsx"
+              download="Enterprise_HSE_Incident_Hazard_Report_Form.xlsx"
               className="px-3 py-1.5 bg-emerald-600/40 hover:bg-emerald-600/60 text-white font-semibold rounded-lg text-xs transition-colors flex items-center gap-1.5 border border-emerald-400/40 shadow-xs"
               title="Download Source Excel Form (demosss.xlsx)"
             >
               <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-200" />
-              <span className="hidden sm:inline">Download Excel Form</span>
+              <span className="hidden sm:inline">Download Form Template (.xlsx)</span>
             </a>
 
             {onExportPDF && (
@@ -611,7 +611,7 @@ export const EnterpriseHSEDossierModal: React.FC<EnterpriseHSEDossierModalProps>
                   <div className="flex items-center gap-2">
                     <h5 className="font-bold text-xs text-gray-900 flex items-center gap-1.5">
                       <Camera className="w-4 h-4 text-[#087F5B]" />
-                      <span>Official Field Evidence Photos (From demosss.xlsx)</span>
+                      <span>Official Field Evidence Photos (Official Form Attachment)</span>
                     </h5>
                     <span className="text-[10px] bg-emerald-100 text-[#073B2F] font-bold px-2 py-0.5 rounded-full font-mono">
                       All Photos (Photo-01 to Photo-04)
@@ -1031,7 +1031,7 @@ export const EnterpriseHSEDossierModal: React.FC<EnterpriseHSEDossierModalProps>
                     <div className="flex justify-between">
                       <span className="text-gray-500">Name:</span>
                       <strong className="text-gray-900">
-                        {currentReviewedBy.name || 'Moumeen Mohamed Ali'}
+                        {currentReviewedBy.name || 'Dr. Hassan Al-Mahmoud'}
                       </strong>
                     </div>
                     <div className="flex justify-between">
@@ -1080,7 +1080,7 @@ export const EnterpriseHSEDossierModal: React.FC<EnterpriseHSEDossierModalProps>
                     <div className="flex justify-between">
                       <span className="text-gray-500">Name:</span>
                       <strong className="text-gray-900">
-                        {currentApprovedBy.name || 'Abdulhadi Al-Hajri'}
+                        {currentApprovedBy.name || 'Eng. Nasser Al-Khelaifi'}
                       </strong>
                     </div>
                     <div className="flex justify-between">
