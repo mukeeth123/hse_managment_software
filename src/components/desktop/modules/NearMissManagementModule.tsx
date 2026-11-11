@@ -119,6 +119,45 @@ export const NearMissManagementModule: React.FC = () => {
         </div>
       </div>
 
+      {/* Quick Demo Demosss Excel Cases Banner */}
+      <div className="bg-gradient-to-r from-emerald-50 via-teal-50 to-white p-3 rounded-xl border border-emerald-200 flex flex-wrap items-center justify-between gap-2 shadow-xs">
+        <div className="flex items-center gap-2">
+          <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span className="font-bold text-emerald-950 text-xs">Official Excel Cases (demosss.xlsx):</span>
+          <span className="text-[11px] text-emerald-800 font-medium hidden sm:inline">
+            Directly from QU FGSD Institution sheets
+          </span>
+        </div>
+        <div className="flex flex-wrap items-center gap-1.5">
+          <button
+            onClick={() => {
+              const nm = nearMisses.find((x) => x.reference === 'HS-INSD-536/2025');
+              if (nm) handleOpenDetail(nm);
+              else setSearch('HS-INSD-536/2025');
+            }}
+            className="px-2.5 py-1 bg-[#073B2F] hover:bg-[#092B24] text-white text-[11px] font-bold rounded-lg shadow-sm flex items-center gap-1"
+          >
+            <span>⚡ Near Miss 1: HS-INSD-536 (Ladder Slipped)</span>
+          </button>
+          <button
+            onClick={() => {
+              const nm = nearMisses.find((x) => x.reference === 'HS-INSD-542/2025');
+              if (nm) handleOpenDetail(nm);
+              else setSearch('HS-INSD-542/2025');
+            }}
+            className="px-2.5 py-1 bg-[#087F5B] hover:bg-[#073B2F] text-white text-[11px] font-bold rounded-lg shadow-sm flex items-center gap-1"
+          >
+            <span>⚡ Near Miss 2: HS-INSD-542 (Detector Disabled)</span>
+          </button>
+          <button
+            onClick={() => setSearch(search ? '' : 'HS-INSD')}
+            className="px-2 py-1 bg-white hover:bg-emerald-100 border border-emerald-300 text-emerald-900 text-[11px] font-semibold rounded-lg"
+          >
+            {search ? 'Clear' : 'Filter All'}
+          </button>
+        </div>
+      </div>
+
       {/* Filter Row */}
       <div className="bg-white p-3 rounded-xl border border-[#E3EAE6] shadow-sm grid grid-cols-1 md:grid-cols-4 gap-3">
         <div className="relative">

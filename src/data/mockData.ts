@@ -672,6 +672,204 @@ export const initialUsers: User[] = [
 // Initial 25 Hazards, highlighting HAZ-2026-0042 as the main end-to-end scenario record
 export const initialHazards: HazardRecord[] = [
   {
+    id: 'HAZ-512',
+    reference: 'HS-INSD-512/2025',
+    title: 'Water Stains & Sagging Ceiling Tile Near Smoke Detector Base',
+    category: 'Environmental hazards',
+    project: 'Facilities & General Services Department',
+    location: 'Male Hostel, 3rd Floor, Area - C, Corridor',
+    zone: 'Zone F',
+    buildingCode: 'F05',
+    roomNo: 'Area - C Corridor',
+    department: 'FGSD - Housekeeping',
+    reportedBy: 'Nasser Ibrahim',
+    reporterEmployeeId: 'EMP-5120',
+    reporterTitle: 'Housekeeping Lead',
+    reporterPhone: '+974 4403-2147',
+    reporterEmail: 'nasser.ibrahim@qu.edu.qa',
+    contractorName: 'FGSD - Housekeeping',
+    reportedAt: '2025-09-02 09:40',
+    severity: 'Medium',
+    likelihoodScore: 3,
+    consequenceScore: 2,
+    finalRiskScore: 6,
+    incidentRate: 'Moderate',
+    investigationRequirement: 'Complete Section 3 (only for minor or insignificant incidents)',
+    potentialConsequence: 'Water accumulation weakening ceiling tiles leading to ceiling collapse or electrical short on smoke detector circuit.',
+    immediateAction: 'Area cordoned off with warning signs, MEP and HSE Office informed, moisture traced to AC duct insulation above false ceiling.',
+    status: 'Submitted',
+    description: '- Water stains and dark marks seen on the ceiling around the smoke detector and AC grille.\n- One ceiling tile is slightly sagging and damp to touch.\n- No injury and no alarm activation.',
+    assignedSupervisor: 'Tariq Al-Mansoor',
+    assignedInvestigator: 'Omar Al-Sulaiti',
+    sequenceOfEvents: [
+      { time: '09:40 AM', event: 'Noticed during housekeeping round' },
+      { time: '09:50 AM', event: 'Area cordoned off with warning signs' },
+      { time: '10:00 AM', event: 'HSE Office and MEP informed by phone' },
+      { time: '10:35 AM', event: 'MEP checked above the false ceiling' },
+      { time: '11:00 AM', event: 'Moisture traced to AC duct insulation' }
+    ],
+    witnessList: [
+      { name: 'Mohammad Siraj', title: 'FAS Technician', idNumber: '44373', phone: '+974 4403-6900' }
+    ],
+    immediateCauses: [
+      'Condensation from the AC supply duct insulation above the false ceiling.',
+      'Ceiling tile saturated and discoloured around the smoke detector base.'
+    ],
+    rootCauseTaxonomy: [
+      'Lack of Preventive Maintenance/Regular Inspection',
+      'Poor Site Environment factors (Light, Noise, IAQ)'
+    ],
+    actionItems: [
+      {
+        id: 1,
+        action: 'Area cordoned off and warning signs placed to keep students away from the affected tiles.',
+        actionBy: 'HOUSEKEEPING',
+        date: '2025-09-02',
+        status: 'CLOSED',
+        closeoutNotes: 'Safety perimeter established immediately.'
+      },
+      {
+        id: 2,
+        action: 'MEP inspected above the false ceiling and traced the moisture to the AC supply duct insulation.',
+        actionBy: 'MEP',
+        date: '2025-09-02',
+        status: 'CLOSED',
+        closeoutNotes: 'Plenum source isolated.'
+      },
+      {
+        id: 3,
+        action: 'Re-insulate the AC duct and seal the joint to stop the condensation.',
+        actionBy: 'MEP',
+        date: '2025-09-07',
+        status: 'UNDER PROCESS',
+        closeoutNotes: 'Contractor wrapping insulation.'
+      },
+      {
+        id: 4,
+        action: 'Replace the stained ceiling tiles and clean the smoke detector base once the leak is fixed.',
+        actionBy: 'CIVIL',
+        date: '2025-09-12',
+        status: 'OPEN',
+        closeoutNotes: 'Pending insulation cure.'
+      },
+      {
+        id: 5,
+        action: 'Add false-ceiling moisture checks to the monthly preventive maintenance round.',
+        actionBy: 'HSS',
+        date: '2025-10-02',
+        status: 'OPEN',
+        closeoutNotes: 'Added to audit checklist.'
+      }
+    ],
+    reviewedBy: {
+      name: 'Moumeen Mohamed Ali',
+      title: 'Fire Safety Specialist',
+      signatureDate: '2025-09-03',
+      signatureSigned: true
+    },
+    approvedBy: {
+      name: 'Abdulhadi Al-Hajri',
+      title: 'Act. Head of Health and Safety',
+      signatureDate: '2025-09-03',
+      signatureSigned: true
+    }
+  },
+  {
+    id: 'HAZ-518',
+    reference: 'HS-INSD-518/2025',
+    title: 'Curled Carpet Edge Trip Hazard at Lift Lobby Entrance',
+    category: 'Slips, trips and falls',
+    project: 'Facilities & General Services Department',
+    location: 'Male Hostel, 2nd Floor, Area - B, Lift Lobby',
+    zone: 'Zone F',
+    buildingCode: 'F05',
+    roomNo: 'Area - B Lift Lobby',
+    department: 'Al Shaya Security Services',
+    reportedBy: 'Imran Saeed',
+    reporterEmployeeId: 'EMP-5180',
+    reporterTitle: 'Security Guard',
+    reporterPhone: '+974 4403-2188',
+    reporterEmail: 'imran.saeed@alshaya.qa',
+    contractorName: 'Al Shaya Security Services',
+    reportedAt: '2025-09-18 18:05',
+    severity: 'Medium',
+    likelihoodScore: 4,
+    consequenceScore: 2,
+    finalRiskScore: 8,
+    incidentRate: 'Moderate',
+    investigationRequirement: 'Complete Section 3 (only for minor or insignificant incidents)',
+    potentialConsequence: 'Trip and fall incident leading to wrist or ankle injury for hostel students or visitors.',
+    immediateAction: 'Hazard tape placed around curled carpet edge, facilities help desk notified, temporary adhesive fix applied by CIVIL.',
+    status: 'Submitted',
+    description: '- Carpet edge is lifted and curled near the lift lobby entrance, 2nd floor, Area B.\n- About 1.5 m of loose carpet creates a trip hazard for students using the lobby.\n- No injury reported.',
+    assignedSupervisor: 'Tariq Al-Mansoor',
+    assignedInvestigator: 'Omar Al-Sulaiti',
+    sequenceOfEvents: [
+      { time: '06:05 PM', event: 'Noticed during security patrol' },
+      { time: '06:10 PM', event: 'Hazard tape placed around the area' },
+      { time: '06:15 PM', event: 'Facilities help desk informed' },
+      { time: '06:45 PM', event: 'HSE Office inspected the area' },
+      { time: '07:30 PM', event: 'Temporary fix by CIVIL team' }
+    ],
+    witnessList: [
+      { name: 'Yusuf Rahman', title: 'Security Guard', idNumber: '66231', phone: '+974 4403-2204' }
+    ],
+    immediateCauses: [
+      'Carpet edge strip and adhesive failed near the lift lobby entrance.',
+      'Heavy foot traffic caused the carpet to lift and curl.'
+    ],
+    rootCauseTaxonomy: [
+      'Lack of Preventive Maintenance/Regular Inspection',
+      'Lack of Follow up and Proper Supervision'
+    ],
+    actionItems: [
+      {
+        id: 1,
+        action: 'Hazard tape placed around the lifted carpet to keep students away.',
+        actionBy: 'SECURITY',
+        date: '2025-09-18',
+        status: 'CLOSED',
+        closeoutNotes: 'Warning tape secured.'
+      },
+      {
+        id: 2,
+        action: 'Temporary fix with heavy-duty adhesive tape done by the CIVIL team on shift.',
+        actionBy: 'CIVIL',
+        date: '2025-09-18',
+        status: 'CLOSED',
+        closeoutNotes: 'Secured flush with floor.'
+      },
+      {
+        id: 3,
+        action: 'Replace the metal transition strip and re-glue the carpet edge permanently.',
+        actionBy: 'CIVIL',
+        date: '2025-09-25',
+        status: 'UNDER PROCESS',
+        closeoutNotes: 'Materials requisitioned.'
+      },
+      {
+        id: 4,
+        action: 'Security guards to check carpet and floor transitions during every patrol round.',
+        actionBy: 'HSS',
+        date: '2025-10-02',
+        status: 'OPEN',
+        closeoutNotes: 'Instruction issued to guards.'
+      }
+    ],
+    reviewedBy: {
+      name: 'Moumeen Mohamed Ali',
+      title: 'Fire Safety Specialist',
+      signatureDate: '2025-09-19',
+      signatureSigned: true
+    },
+    approvedBy: {
+      name: 'Abdulhadi Al-Hajri',
+      title: 'Act. Head of Health and Safety',
+      signatureDate: '2025-09-19',
+      signatureSigned: true
+    }
+  },
+  {
     id: 'HAZ-001',
     reference: 'HAZ-2026-0042',
     title: 'Uncovered Floor Opening Without Barricades in Work Area A',
@@ -1220,6 +1418,229 @@ export const initialHazards: HazardRecord[] = [
 // Initial 15 Incidents
 export const initialIncidents: IncidentRecord[] = [
   {
+    id: 'INC-523',
+    reference: 'HS-INSD-523/2025',
+    correctiveActionsCount: 4,
+    title: 'Fire Alarm Activated Due to Dust on Smoke Detector Post AC Duct Cleaning',
+    incidentType: 'Fire alarm case',
+    classificationCategory: 'Incident',
+    incidentTypeChecklist: ['Fire Alarm Case'],
+    project: 'Facilities & General Services Department',
+    location: 'Male Hostel, 3rd Floor, Area - A, Corridor',
+    zone: 'Zone F',
+    buildingCode: 'F05',
+    roomNo: 'Area - A Corridor',
+    department: 'FGSD - Fire Section',
+    incidentDate: '2025-09-24',
+    incidentTime: '03:15',
+    timeAmPm: 'AM',
+    reportedBy: 'Salman Qadir',
+    reporterEmployeeId: 'EMP-5230',
+    reporterTitle: 'Firefighter(B. CRO)',
+    reporterPhone: '+974 4403-3951',
+    reporterEmail: 'salman.qadir@qu.edu.qa',
+    contractorName: 'FGSD - Fire Section',
+    personsInvolved: ['Salman Qadir', 'Faisal Anwar'],
+    severity: 'Low',
+    potentialSeverity: 'Medium',
+    likelihoodScore: 3,
+    consequenceScore: 1,
+    finalRiskScore: 3,
+    incidentRate: 'Insignificant',
+    investigationRequirement: 'Complete Section 3 (only for minor or insignificant incidents)',
+    description: '- Fire alarm activated in F05 building, 3rd floor.\n- FACP was showing a smoke detector alarm in the Area A corridor.\n- No smoke or fire found. Dust was seen on the detector after AC duct cleaning the day before.',
+    immediateActions: 'Fire team responded, checked the FACP and the location, declared the area free of fire or smoke, and technical team cleaned detector head.',
+    sequenceOfEvents: [
+      { time: '03:15 AM', event: 'Alarm received on FACP and by radio' },
+      { time: '03:18 AM', event: 'Fire team reached the building' },
+      { time: '03:19 AM', event: 'Alarm silenced' },
+      { time: '03:22 AM', event: 'Area checked, no smoke or fire' },
+      { time: '03:40 AM', event: 'FAS technical team arrived' },
+      { time: '03:55 AM', event: 'FACP reset' }
+    ],
+    witnessList: [
+      { name: 'Faisal Anwar', title: 'Security Guard', idNumber: '66190', phone: '+974 4403-2215' },
+      { name: 'Mohammad Siraj', title: 'FAS Technician', idNumber: '44373', phone: '+974 4403-6900' }
+    ],
+    immediateCauses: [
+      'Dust on the smoke detector head after AC duct cleaning work in the corridor.',
+      'Detector activated although no smoke or fire was present.'
+    ],
+    rootCauseTaxonomy: [
+      'Lack of Proper/Effective Communication',
+      'Insufficient Planning for Tasks'
+    ],
+    actionItems: [
+      {
+        id: 1,
+        action: 'Fire team responded, checked the FACP and the location, and declared the area free of fire or smoke.',
+        actionBy: 'FGSD-Fire',
+        date: '2025-09-24',
+        status: 'CLOSED',
+        closeoutNotes: 'Area checked in 3 mins.'
+      },
+      {
+        id: 2,
+        action: 'FAS technical team checked the FACP, cleaned the detector head and reset the panel.',
+        actionBy: 'SYSTEM',
+        date: '2025-09-24',
+        status: 'CLOSED',
+        closeoutNotes: 'Reset complete.'
+      },
+      {
+        id: 3,
+        action: 'Inform the FAS team before any duct cleaning or dust-generating work near detectors.',
+        actionBy: 'HSS',
+        date: '2025-10-01',
+        status: 'UNDER PROCESS',
+        closeoutNotes: 'Standard operating memo drafted.'
+      },
+      {
+        id: 4,
+        action: 'Cover or isolate detectors in the work area during duct cleaning and restore them after the work.',
+        actionBy: 'CONTRACTOR',
+        date: '2025-10-08',
+        status: 'OPEN',
+        closeoutNotes: 'Protective covers issued to crew.'
+      }
+    ],
+    reviewedBy: {
+      name: 'Moumeen Mohamed Ali',
+      title: 'Fire Safety Specialist',
+      signatureDate: '2025-09-25',
+      signatureSigned: true
+    },
+    approvedBy: {
+      name: 'Abdulhadi Al-Hajri',
+      title: 'Act. Head of Health and Safety',
+      signatureDate: '2025-09-25',
+      signatureSigned: true
+    },
+    requiresInvestigation: false,
+    status: 'Closed',
+    closedAt: '2025-09-25 08:30',
+    closedBy: 'Abdulhadi Al-Hajri'
+  },
+  {
+    id: 'INC-531',
+    reference: 'HS-INSD-531/2025',
+    correctiveActionsCount: 5,
+    title: 'FAS Technician Sustained Right Palm Cut on Sharp Detector Base',
+    incidentType: 'First-aid case',
+    classificationCategory: 'Incident',
+    incidentTypeChecklist: ['First Aid Case'],
+    project: 'Facilities & General Services Department',
+    location: 'Male Hostel, 3rd Floor, Area - C, Corridor',
+    zone: 'Zone F',
+    buildingCode: 'F05',
+    roomNo: 'Area - C Corridor',
+    department: 'TDGISERV',
+    incidentDate: '2025-10-07',
+    incidentTime: '11:20',
+    timeAmPm: 'AM',
+    reportedBy: 'Adnan Farooq',
+    reporterEmployeeId: 'EMP-5310',
+    reporterTitle: 'FAS Supervisor',
+    reporterPhone: '+974 4403-6902',
+    reporterEmail: 'adnan.farooq@tdgiserv.qa',
+    contractorName: 'TDGISERV',
+    personsInvolved: ['Tariq Aziz'],
+    severity: 'Low',
+    potentialSeverity: 'Medium',
+    likelihoodScore: 3,
+    consequenceScore: 2,
+    finalRiskScore: 6,
+    incidentRate: 'Minor',
+    investigationRequirement: 'Complete Section 3 (only for minor or insignificant incidents)',
+    injuredDetails: {
+      category: 'Contractor',
+      name: 'Tariq Aziz',
+      qid: '28800000123',
+      phone: '+974 5501-2345',
+      injuryDetails: 'Small cut on right palm. First aid: cleaned and dressed.',
+      firstAidGiven: true
+    },
+    description: '- A FAS technician cut his right palm on a sharp edge of the detector base while removing a smoke detector for cleaning.\n- First aid was given on site by the QU Paramedic.\n- Technician was fit to continue light duty.',
+    immediateActions: 'Work stopped and FACP zone isolated; first aid given by QU Paramedic; technician fit to resume light duty.',
+    sequenceOfEvents: [
+      { time: '11:20 AM', event: 'Injury occurred while removing the detector' },
+      { time: '11:22 AM', event: 'Work stopped and FACP zone isolated' },
+      { time: '11:30 AM', event: 'First aid given by QU Paramedic' },
+      { time: '11:45 AM', event: 'HSE Office informed' },
+      { time: '12:30 PM', event: 'Technician resumed light duty' }
+    ],
+    witnessList: [
+      { name: 'Mohammad Siraj', title: 'FAS Technician', idNumber: '44373', phone: '+974 4403-6900' },
+      { name: 'Rizwan Ahmed', title: 'FAS Technician', idNumber: '44412', phone: '+974 4403-6911' }
+    ],
+    immediateCauses: [
+      'Technician touched a sharp metal edge on the detector base during removal.',
+      'Cut-resistant gloves were not worn.'
+    ],
+    rootCauseTaxonomy: [
+      'Un-availability of proper PPEs',
+      'Ignorance of Safe working Procedures'
+    ],
+    actionItems: [
+      {
+        id: 1,
+        action: 'First aid given on site; technician fit to continue light duty.',
+        actionBy: 'QU-PARAMEDIC',
+        date: '2025-10-07',
+        status: 'CLOSED',
+        closeoutNotes: 'Antiseptic dressing applied.'
+      },
+      {
+        id: 2,
+        action: 'Work area and FACP zone isolated; detector removal completed by another technician wearing gloves.',
+        actionBy: 'CONTRACTOR',
+        date: '2025-10-07',
+        status: 'CLOSED',
+        closeoutNotes: 'Task completed safely.'
+      },
+      {
+        id: 3,
+        action: 'Toolbox talk on safe detector removal and use of cut-resistant gloves.',
+        actionBy: 'CONTRACTOR',
+        date: '2025-10-10',
+        status: 'UNDER PROCESS',
+        closeoutNotes: 'All 8 technicians attended.'
+      },
+      {
+        id: 4,
+        action: 'Supply cut-resistant gloves to all FAS technicians.',
+        actionBy: 'CONTRACTOR',
+        date: '2025-10-17',
+        status: 'OPEN',
+        closeoutNotes: 'EN388 Level 5 gloves ordered.'
+      },
+      {
+        id: 5,
+        action: 'Review the work method for ceiling-mounted detector cleaning.',
+        actionBy: 'HSS',
+        date: '2025-10-21',
+        status: 'OPEN',
+        closeoutNotes: 'Updated in safety manual.'
+      }
+    ],
+    reviewedBy: {
+      name: 'Moumeen Mohamed Ali',
+      title: 'Fire Safety Specialist',
+      signatureDate: '2025-10-08',
+      signatureSigned: true
+    },
+    approvedBy: {
+      name: 'Abdulhadi Al-Hajri',
+      title: 'Act. Head of Health and Safety',
+      signatureDate: '2025-10-08',
+      signatureSigned: true
+    },
+    requiresInvestigation: false,
+    status: 'Closed',
+    closedAt: '2025-10-08 09:15',
+    closedBy: 'Abdulhadi Al-Hajri'
+  },
+  {
     id: 'INC-506',
     reference: 'HS-INSD-506/2025',
     title: 'Fire Alarm Activation & Smoke Detector Trigger Due to High Humidity',
@@ -1724,6 +2145,188 @@ export const initialIncidents: IncidentRecord[] = [
 
 // Initial 20 Near Misses
 export const initialNearMisses: NearMissRecord[] = [
+  {
+    id: 'NM-536',
+    reference: 'HS-INSD-536/2025',
+    title: 'Step Ladder Base Slipped on Corridor Carpet While Accessing Ceiling Smoke Detector',
+    category: 'Work-at-height incident',
+    project: 'Facilities & General Services Department',
+    location: 'Male Hostel, 2nd Floor, Area - A, Corridor',
+    zone: 'Zone F',
+    buildingCode: 'F05',
+    roomNo: 'Area - A Corridor',
+    department: 'TDGISERV',
+    reportedBy: 'Adnan Farooq',
+    reporterEmployeeId: 'EMP-5360',
+    reporterTitle: 'FAS Supervisor',
+    reporterPhone: '+974 4403-6902',
+    reporterEmail: 'adnan.farooq@tdgiserv.qa',
+    contractorName: 'TDGISERV',
+    reportedAt: '2025-10-19 08:05',
+    severity: 'Medium',
+    likelihoodScore: 2,
+    consequenceScore: 3,
+    finalRiskScore: 6,
+    incidentRate: 'Major',
+    investigationRequirement: 'Completed Incident Investigation Form - (Moderate, Major, Catastrophic)',
+    potentialOutcome: 'Technician fall from height (2.2m) to carpeted concrete floor causing potential bone fracture.',
+    immediateActionTaken: 'Work stopped immediately; ladder footing checked; second person designated to firmly hold ladder base.',
+    status: 'Reviewed',
+    assignedReviewer: 'Moumeen Mohamed Ali',
+    reviewNotes: 'Work suspended until non-slip ladder foot pads provided and 2-person rule enforced for all ladder activities.',
+    description: '- A ladder base slipped on the corridor carpet while a FAS technician was reaching a smoke detector at ceiling height.\n- The technician held the ceiling grid, regained balance and came down safely.\n- No injury and no damage.',
+    sequenceOfEvents: [
+      { time: '08:05 AM', event: 'Technician climbed ladder to clean detector' },
+      { time: '08:07 AM', event: 'Ladder base slipped on the carpet' },
+      { time: '08:10 AM', event: 'Work stopped and ladder checked' },
+      { time: '08:20 AM', event: 'Supervisor and HSE Office informed' },
+      { time: '09:00 AM', event: 'Work resumed, ladder held by 2nd person' }
+    ],
+    witnessList: [
+      { name: 'Rizwan Ahmed', title: 'FAS Technician', idNumber: '44412', phone: '+974 4403-6911' }
+    ],
+    immediateCauses: [
+      'Step ladder used on smooth corridor carpet without anti-slip foot pads.',
+      'Single worker performed task without a second person securing the ladder base.'
+    ],
+    rootCauseTaxonomy: [
+      'Improper Use of work tools/Short Cuts',
+      'Insufficient Planning for Tasks'
+    ],
+    actionItems: [
+      {
+        id: 1,
+        action: 'Work stopped immediately; ladder and footing checked and found in good condition.',
+        actionBy: 'CONTRACTOR',
+        date: '2025-10-19',
+        status: 'CLOSED',
+        closeoutNotes: 'Safety stoppage enforced.'
+      },
+      {
+        id: 2,
+        action: 'Second person to hold the ladder for all ceiling work on carpeted floors.',
+        actionBy: 'CONTRACTOR',
+        date: '2025-10-19',
+        status: 'CLOSED',
+        closeoutNotes: 'Buddy system mandated.'
+      },
+      {
+        id: 3,
+        action: 'Complete the Incident Investigation Form and share it with the HSE Office.',
+        actionBy: 'HSS',
+        date: '2025-10-26',
+        status: 'UNDER PROCESS',
+        closeoutNotes: 'RCA in progress.'
+      },
+      {
+        id: 4,
+        action: 'Provide anti-slip ladder foot pads for carpeted areas.',
+        actionBy: 'CONTRACTOR',
+        date: '2025-11-02',
+        status: 'OPEN',
+        closeoutNotes: 'Procurement underway.'
+      }
+    ],
+    reviewedBy: {
+      name: 'Moumeen Mohamed Ali',
+      title: 'Fire Safety Specialist',
+      signatureDate: '2025-10-20',
+      signatureSigned: true
+    },
+    approvedBy: {
+      name: 'Abdulhadi Al-Hajri',
+      title: 'Act. Head of Health and Safety',
+      signatureDate: '2025-10-20',
+      signatureSigned: true
+    }
+  },
+  {
+    id: 'NM-542',
+    reference: 'HS-INSD-542/2025',
+    title: 'Smoke Detector Left Disabled on FACP Overnight Following Cleaning Shift',
+    category: 'Fire or smoke observation',
+    project: 'Facilities & General Services Department',
+    location: 'Male Hostel, 3rd Floor, Area - C, Corridor',
+    zone: 'Zone F',
+    buildingCode: 'F05',
+    roomNo: 'Area - C Corridor',
+    department: 'FGSD - Fire Section',
+    reportedBy: 'Salman Qadir',
+    reporterEmployeeId: 'EMP-5420',
+    reporterTitle: 'Firefighter(B. CRO)',
+    reporterPhone: '+974 4403-3951',
+    reporterEmail: 'salman.qadir@qu.edu.qa',
+    contractorName: 'FGSD - Fire Section',
+    reportedAt: '2025-11-02 06:30',
+    severity: 'Medium',
+    likelihoodScore: 2,
+    consequenceScore: 2,
+    finalRiskScore: 4,
+    incidentRate: 'Moderate',
+    investigationRequirement: 'Complete Section 3 (only for minor or insignificant incidents)',
+    potentialOutcome: 'Corridor Area C left without fire smoke detection coverage during night occupancy hours.',
+    immediateActionTaken: 'FAS technician contacted via radio; device enabled, tested and confirmed green supervisory status on FACP.',
+    status: 'Closed',
+    assignedReviewer: 'Moumeen Mohamed Ali',
+    reviewNotes: 'Verified detector online. Implemented mandatory end-of-shift disabled device audit on FACP.',
+    description: '- During the morning FACP check, a smoke detector in the 3rd floor corridor, Area C was found still disabled.\n- The detector was disabled for cleaning the previous afternoon and was not re-enabled.\n- No fire event occurred.',
+    sequenceOfEvents: [
+      { time: '04:30 PM (day before)', event: 'Detector disabled for cleaning' },
+      { time: '06:30 AM', event: 'Disabled status seen on FACP' },
+      { time: '06:35 AM', event: 'FAS technician informed by radio' },
+      { time: '07:10 AM', event: 'Device enabled and tested' },
+      { time: '07:20 AM', event: 'FACP status back to normal' }
+    ],
+    witnessList: [
+      { name: 'Hamza Yousef', title: 'Firefighter', idNumber: '55102', phone: '+974 4403-3952' }
+    ],
+    immediateCauses: [
+      'Detector was not re-enabled after cleaning.',
+      'No handover of disabled devices between shifts.'
+    ],
+    rootCauseTaxonomy: [
+      'Lack of Follow up and Proper Supervision',
+      'Lack of Proper/Effective Communication'
+    ],
+    actionItems: [
+      {
+        id: 1,
+        action: 'Device re-enabled and tested; FACP status returned to normal.',
+        actionBy: 'SYSTEM',
+        date: '2025-11-02',
+        status: 'CLOSED',
+        closeoutNotes: 'Online and fully operational.'
+      },
+      {
+        id: 2,
+        action: 'Add a disabled-device check to the end-of-shift handover.',
+        actionBy: 'HSS',
+        date: '2025-11-07',
+        status: 'UNDER PROCESS',
+        closeoutNotes: 'Handover log sheet updated.'
+      },
+      {
+        id: 3,
+        action: 'Brief all FAS technicians to re-enable and confirm devices before leaving site.',
+        actionBy: 'CONTRACTOR',
+        date: '2025-11-09',
+        status: 'OPEN',
+        closeoutNotes: 'Shift briefing conducted.'
+      }
+    ],
+    reviewedBy: {
+      name: 'Moumeen Mohamed Ali',
+      title: 'Fire Safety Specialist',
+      signatureDate: '2025-11-03',
+      signatureSigned: true
+    },
+    approvedBy: {
+      name: 'Abdulhadi Al-Hajri',
+      title: 'Act. Head of Health and Safety',
+      signatureDate: '2025-11-03',
+      signatureSigned: true
+    }
+  },
   {
     id: 'NM-506',
     reference: 'HS-INSD-506/2025',

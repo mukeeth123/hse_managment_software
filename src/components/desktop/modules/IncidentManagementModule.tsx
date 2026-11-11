@@ -194,37 +194,51 @@ export const IncidentManagementModule: React.FC = () => {
         </div>
       </div>
 
-      {/* Quick Demo Filter: Official Form */}
+            {/* Quick Demo Demosss Excel Cases Banner */}
       <div className="bg-gradient-to-r from-emerald-50 via-teal-50 to-white p-3 rounded-xl border border-emerald-200 flex flex-wrap items-center justify-between gap-2 shadow-xs">
         <div className="flex items-center gap-2">
           <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span className="font-bold text-emerald-950 text-xs">Official Institutional Form (QU FGSD):</span>
-          <span className="font-mono text-[11px] bg-white border border-emerald-200 text-emerald-800 px-2 py-0.5 rounded font-semibold">
-            Ref: HS-INSD-506/2025
-          </span>
-          <span className="text-[11px] text-emerald-700 hidden sm:inline">
-            • Building F05 Fire Alarm (Smoke Detector Humidity Trigger)
+          <span className="font-bold text-emerald-950 text-xs">Official Excel Cases (demosss.xlsx):</span>
+          <span className="text-[11px] text-emerald-800 font-medium hidden sm:inline">
+            Directly from QU FGSD Institution sheets
           </span>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-1.5">
           <button
             onClick={() => {
-              const exact = incidents.find((i) => i.reference === 'HS-INSD-506/2025');
-              if (exact) {
-                handleOpenDetail(exact);
-              } else {
-                setSearch('HS-INSD-506/2025');
-              }
+              const inc = incidents.find((x) => x.reference === 'HS-INSD-523/2025');
+              if (inc) handleOpenDetail(inc);
+              else setSearch('HS-INSD-523/2025');
             }}
-            className="px-3 py-1 bg-[#073B2F] hover:bg-[#092B24] text-white text-[11px] font-bold rounded-lg shadow-sm flex items-center gap-1 transition-transform active:scale-95"
+            className="px-2.5 py-1 bg-[#073B2F] hover:bg-[#092B24] text-white text-[11px] font-bold rounded-lg shadow-sm flex items-center gap-1"
           >
-            <span>⚡ Open 5-Tab Official Dossier</span>
+            <span>⚡ Incident 1: HS-INSD-523 (Duct Dust Alarm)</span>
           </button>
           <button
-            onClick={() => setSearch(search === 'HS-INSD-506/2025' ? '' : 'HS-INSD-506/2025')}
-            className="px-2.5 py-1 bg-white hover:bg-emerald-100 border border-emerald-300 text-emerald-900 text-[11px] font-semibold rounded-lg"
+            onClick={() => {
+              const inc = incidents.find((x) => x.reference === 'HS-INSD-531/2025');
+              if (inc) handleOpenDetail(inc);
+              else setSearch('HS-INSD-531/2025');
+            }}
+            className="px-2.5 py-1 bg-[#087F5B] hover:bg-[#073B2F] text-white text-[11px] font-bold rounded-lg shadow-sm flex items-center gap-1"
           >
-            {search === 'HS-INSD-506/2025' ? 'Clear Filter' : 'Filter Table'}
+            <span>⚡ Incident 2: HS-INSD-531 (Palm Cut First Aid)</span>
+          </button>
+          <button
+            onClick={() => {
+              const inc = incidents.find((x) => x.reference === 'HS-INSD-506/2025');
+              if (inc) handleOpenDetail(inc);
+              else setSearch('HS-INSD-506/2025');
+            }}
+            className="px-2.5 py-1 bg-amber-700 hover:bg-amber-800 text-white text-[11px] font-bold rounded-lg shadow-sm flex items-center gap-1"
+          >
+            <span>⚡ Case: HS-INSD-506 (Humidity)</span>
+          </button>
+          <button
+            onClick={() => setSearch(search ? '' : 'HS-INSD')}
+            className="px-2 py-1 bg-white hover:bg-emerald-100 border border-emerald-300 text-emerald-900 text-[11px] font-semibold rounded-lg"
+          >
+            {search ? 'Clear' : 'Filter All'}
           </button>
         </div>
       </div>

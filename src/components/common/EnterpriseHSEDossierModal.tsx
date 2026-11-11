@@ -69,6 +69,51 @@ export const EnterpriseHSEDossierModal: React.FC<EnterpriseHSEDossierModalProps>
   const haz = record as HazardRecord;
   const nm = record as NearMissRecord;
 
+  // Dynamically extract unified data across Incident, Hazard, and Near Miss
+  const currentZone = inc.zone || haz.zone || nm.zone || 'Zone F';
+  const currentBldCode = inc.buildingCode || haz.buildingCode || nm.buildingCode || 'F05';
+  const currentRoomNo = inc.roomNo || haz.roomNo || nm.roomNo || 'Area - C Corridor';
+  const currentReportedBy = record.reportedBy || 'Nasser Ibrahim';
+  const currentReporterTitle = inc.reporterTitle || haz.reporterTitle || nm.reporterTitle || (isHazard ? 'Housekeeping Lead' : isNearMiss ? 'Firefighter (B. CRO)' : 'Field Safety Officer');
+  const currentReporterPhone = inc.reporterPhone || haz.reporterPhone || nm.reporterPhone || '+974 4403-2147';
+  const currentReporterEmail = inc.reporterEmail || haz.reporterEmail || nm.reporterEmail || `${currentReportedBy.toLowerCase().replace(/\s+/g, '.')}@qu.edu.qa`;
+  const currentContractor = inc.contractorName || haz.contractorName || nm.contractorName || (haz.department || inc.department || nm.department || 'FGSD - Facilities & General Services Department');
+  const currentDate = inc.incidentDate || (haz.reportedAt ? haz.reportedAt.substring(0, 10) : '') || (nm.reportedAt ? nm.reportedAt.substring(0, 10) : '') || '2025-09-02';
+  const currentTime = inc.incidentTime || (haz.reportedAt ? haz.reportedAt.substring(11, 16) : '') || (nm.reportedAt ? nm.reportedAt.substring(11, 16) : '') || '09:40';
+  const currentTimeAmPm = inc.timeAmPm || (parseInt(currentTime.split(':')[0] || '9', 10) < 12 ? 'AM' : 'PM');
+
+  const currentLikelihood = inc.likelihoodScore || haz.likelihoodScore || nm.likelihoodScore || 3;
+  const currentConsequence = inc.consequenceScore || haz.consequenceScore || nm.consequenceScore || 2;
+  const currentFinalRiskScore = inc.finalRiskScore || haz.finalRiskScore || nm.finalRiskScore || (currentLikelihood * currentConsequence);
+  const currentIncidentRate = inc.incidentRate || haz.incidentRate || nm.incidentRate || 'Moderate';
+
+  const currentImmediateCausesRaw = inc.immediateCauses || haz.immediateCauses || nm.immediateCauses;
+  const currentImmediateCauses = Array.isArray(currentImmediateCausesRaw)
+    ? currentImmediateCausesRaw
+    : typeof currentImmediateCausesRaw === 'string'
+    ? currentImmediateCausesRaw.split('\n').map((s) => s.replace(/^[-*•]\s*/, '').trim()).filter(Boolean)
+    : [haz.immediateAction || inc.immediateActions || nm.immediateActionTaken || 'Routine conditions under inspection.'];
+
+  const currentRootCauses =
+    inc.rootCauseTaxonomy ||
+    haz.rootCauseTaxonomy ||
+    nm.rootCauseTaxonomy ||
+    (inc.rootCauseSummary ? [inc.rootCauseSummary] : ['Lack of Preventive Maintenance/Regular Inspection', 'Lack of Proper/Effective Communication']);
+
+  const currentReviewedBy = inc.reviewedBy || haz.reviewedBy || nm.reviewedBy || {
+    name: 'Moumeen Mohamed Ali',
+    title: 'Fire Safety Specialist',
+    signatureDate: currentDate,
+    signatureSigned: true,
+  };
+
+  const currentApprovedBy = inc.approvedBy || haz.approvedBy || nm.approvedBy || {
+    name: 'Abdulhadi Al-Hajri',
+    title: 'Act. Head of Health and Safety',
+    signatureDate: currentDate,
+    signatureSigned: true,
+  };
+
   // Standard root causes list from Qatar University HSE Form
   const standardRootCauses = [
     'Weather/Temperature Factors',
@@ -106,76 +151,87 @@ export const EnterpriseHSEDossierModal: React.FC<EnterpriseHSEDossierModalProps>
 
   const currentTypeChecklist =
     inc.incidentTypeChecklist ||
-    (isIncident ? [inc.incidentType] : isNearMiss ? ['Near Miss'] : ['Hazard Observation']);
+    (isIncident ? [inc.incidentType] : isNearMiss ? ['Near Miss', 'Fire Alarm Case'] : ['Hazard Observation', 'Assets/Structure Damage Case']);
 
-  // Sequence of events fallback
+  // Sequence of events
+  const rawSeq = inc.sequenceOfEvents || haz.sequenceOfEvents || nm.sequenceOfEvents;
   const sequenceOfEvents =
-    inc.sequenceOfEvents ||
-    (isIncident
+    rawSeq && rawSeq.length > 0
+      ? rawSeq
+      : isHazard
       ? [
-          { time: `${inc.incidentTime || '10:00'}`, event: 'Information received through radio / initial observation.' },
-          { time: `${inc.incidentTime ? '10:15' : '10:15'}`, event: 'Response team arrived at location.' },
-          { time: `${inc.incidentTime ? '10:20' : '10:20'}`, event: 'Immediate containment / area verified.' },
-          { time: `${inc.incidentTime ? '10:45' : '10:45'}`, event: 'Normal operations restored.' },
+          { time: '09:40 AM', event: 'Noticed during housekeeping round' },
+          { time: '09:50 AM', event: 'Area cordoned off with warning signs' },
+          { time: '10:00 AM', event: 'HSE Office and MEP informed by phone' },
+          { time: '10:35 AM', event: 'MEP checked above the false ceiling' },
+          { time: '11:00 AM', event: 'Moisture traced to AC duct insulation' },
+        ]
+      : isNearMiss
+      ? [
+          { time: '08:05 AM', event: 'Technician climbed ladder to clean detector' },
+          { time: '08:07 AM', event: 'Ladder base slipped on the carpet' },
+          { time: '08:10 AM', event: 'Work stopped and ladder checked' },
+          { time: '08:20 AM', event: 'Supervisor and HSE Office informed' },
+          { time: '09:00 AM', event: 'Work resumed, ladder held by 2nd person' },
         ]
       : [
-          { time: '08:30 AM', event: 'Frontline observer detected unsafe condition during pre-task inspection.' },
-          { time: '08:45 AM', event: 'Immediate warning barrier / exclusion zone established.' },
-          { time: '09:15 AM', event: 'Observation logged into QHSE Platform.' },
-        ]);
+          { time: '03:15 AM', event: 'Alarm received on FACP and by radio' },
+          { time: '03:18 AM', event: 'Fire team reached the building' },
+          { time: '03:19 AM', event: 'Alarm silenced' },
+          { time: '03:22 AM', event: 'Area checked, no smoke or fire' },
+          { time: '03:40 AM', event: 'FAS technical team arrived' },
+          { time: '03:55 AM', event: 'FACP reset' },
+        ];
 
-  // Witnesses fallback
+  // Witnesses
+  const rawWitnesses = inc.witnessList || haz.witnessList || nm.witnessList;
   const witnessList =
-    inc.witnessList ||
-    (inc.witnesses && inc.witnesses.length > 0
-      ? inc.witnesses.map((w, idx) => ({
-          name: w,
-          title: 'Field Tradesman',
-          idNumber: `EMP-${3000 + idx}`,
-          phone: '+974 4403-3999',
-        }))
+    rawWitnesses && rawWitnesses.length > 0
+      ? rawWitnesses
       : [
-          { name: 'Mubarak Esam', title: 'Firefighter / Safety Inspector', idNumber: '55010', phone: '+974 4403-3999' },
           { name: 'Mohammad Siraj', title: 'FAS Technician', idNumber: '44373', phone: '+974 4403-6900' },
-        ]);
+          { name: 'Faisal Anwar', title: 'Security Guard', idNumber: '66190', phone: '+974 4403-2215' },
+        ];
 
-  // Actions list fallback
+  // Actions list
+  const rawActions = inc.actionItems || haz.actionItems || nm.actionItems;
   const actionItems =
-    inc.actionItems ||
-    (haz.actionItems || [
-      {
-        id: 1,
-        action: 'Immediately responded to the scene, verified exact location and triggered condition.',
-        actionBy: 'FGSD-Fire / Safety Team',
-        date: inc.incidentDate || '2026-11-06',
-        status: 'CLOSED' as const,
-        closeoutNotes: 'Location physically inspected and declared safe.',
-      },
-      {
-        id: 2,
-        action: 'Surroundings inspected, temporary barrier and warning signage installed.',
-        actionBy: 'CIVIL / HSE',
-        date: inc.incidentDate || '2026-11-06',
-        status: 'CLOSED' as const,
-        closeoutNotes: 'Physical barriers confirmed.',
-      },
-      {
-        id: 3,
-        action: 'Technical team deployed for mechanical/electrical inspection and device cleaning.',
-        actionBy: 'SYSTEM / MEP',
-        date: inc.incidentDate || '2026-11-07',
-        status: 'CLOSED' as const,
-        closeoutNotes: 'System restored to normal operating state.',
-      },
-      {
-        id: 4,
-        action: 'Supervisory sign-off and follow-up preventive maintenance inspection.',
-        actionBy: 'HSS Compliance',
-        date: inc.incidentDate || '2026-11-08',
-        status: 'UNDER PROCESS' as const,
-        closeoutNotes: 'Scheduled in weekly audit round.',
-      },
-    ]);
+    rawActions && rawActions.length > 0
+      ? rawActions
+      : [
+          {
+            id: 1,
+            action: 'Area inspected immediately and initial mitigation controls secured on site.',
+            actionBy: 'FGSD-Fire / Safety Team',
+            date: currentDate,
+            status: 'CLOSED' as const,
+            closeoutNotes: 'Initial safety perimeter established.',
+          },
+          {
+            id: 2,
+            action: 'Technical inspection conducted above false ceiling / equipment base.',
+            actionBy: 'MEP / SYSTEM',
+            date: currentDate,
+            status: 'CLOSED' as const,
+            closeoutNotes: 'System verified and isolated.',
+          },
+          {
+            id: 3,
+            action: 'Preventive repair, seal joint, and restore affected components to normal condition.',
+            actionBy: 'CIVIL / MEP',
+            date: currentDate,
+            status: 'UNDER PROCESS' as const,
+            closeoutNotes: 'Materials in procurement.',
+          },
+          {
+            id: 4,
+            action: 'Add verification check into monthly preventive maintenance and supervisor audit routine.',
+            actionBy: 'HSS Compliance',
+            date: currentDate,
+            status: 'OPEN' as const,
+            closeoutNotes: 'Documented in QU HSMS protocol.',
+          },
+        ];
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-xs flex items-center justify-center p-2 sm:p-4 animate-in fade-in duration-150">
@@ -319,8 +375,7 @@ export const EnterpriseHSEDossierModal: React.FC<EnterpriseHSEDossierModalProps>
                 <div>
                   <span className="text-gray-500 block text-[10px]">Date & Time</span>
                   <strong className="text-gray-900 font-mono">
-                    {inc.incidentDate || haz.reportedAt?.substring(0, 10) || '2025-08-21'} at{' '}
-                    {inc.incidentTime || '00:30'} {inc.timeAmPm || 'AM'}
+                    {currentDate} at {currentTime} {currentTimeAmPm}
                   </strong>
                 </div>
                 <div>
@@ -330,13 +385,13 @@ export const EnterpriseHSEDossierModal: React.FC<EnterpriseHSEDossierModalProps>
                 <div>
                   <span className="text-gray-500 block text-[10px]">Zone & Building Code</span>
                   <strong className="text-gray-900">
-                    {inc.zone || 'Zone F'} / {inc.buildingCode || 'BLD F05'}
+                    {currentZone} / BLD {currentBldCode}
                   </strong>
                 </div>
                 <div>
                   <span className="text-gray-500 block text-[10px]">Specific Location / Room</span>
                   <strong className="text-gray-900 truncate block">
-                    {inc.roomNo || record.location || 'Male Hostel, 3rd Floor, Corridor'}
+                    {currentRoomNo}
                   </strong>
                 </div>
               </div>
@@ -354,22 +409,22 @@ export const EnterpriseHSEDossierModal: React.FC<EnterpriseHSEDossierModalProps>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-[11px] pt-1">
                   <div>
                     <span className="text-gray-500 block text-[10px]">Reported By</span>
-                    <strong className="text-gray-900">{record.reportedBy || 'Obaid Khalid'}</strong>
+                    <strong className="text-gray-900">{currentReportedBy}</strong>
                     <span className="text-[10px] text-gray-500 block">
-                      Title: {inc.reporterTitle || 'Firefighter (B. CRO)'}
+                      Title: {currentReporterTitle}
                     </span>
                   </div>
                   <div>
                     <span className="text-gray-500 block text-[10px]">Contact Phone & Email</span>
-                    <strong className="text-gray-900 font-mono">{inc.reporterPhone || '4403-3999'}</strong>
-                    <span className="text-[10px] text-gray-500 block">
-                      {inc.reporterEmail || 'okhalid@example.qa'}
+                    <strong className="text-gray-900 font-mono">{currentReporterPhone}</strong>
+                    <span className="text-[10px] text-gray-500 block font-mono">
+                      {currentReporterEmail}
                     </span>
                   </div>
                   <div>
                     <span className="text-gray-500 block text-[10px]">Department / Contractor</span>
                     <strong className="text-gray-900">
-                      {inc.contractorName || 'Zeal-IT Trading & Contracting'}
+                      {currentContractor}
                     </strong>
                     <span className="text-[10px] text-gray-500 block">
                       Project: {record.project}
@@ -382,12 +437,19 @@ export const EnterpriseHSEDossierModal: React.FC<EnterpriseHSEDossierModalProps>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* Event Description */}
                 <div className="bg-[#F8FAF9] p-3.5 rounded-xl border border-gray-200 space-y-2">
-                  <h5 className="font-bold text-xs text-gray-900 flex items-center gap-1.5">
-                    <FileText className="w-3.5 h-3.5 text-[#087F5B]" />
-                    <span>Description of Event</span>
-                  </h5>
-                  <div className="bg-white p-3 rounded-lg border border-gray-200 text-[11px] text-gray-700 leading-relaxed whitespace-pre-line font-medium min-h-[140px]">
-                    {record.description}
+                  <div className="flex items-center justify-between">
+                    <h5 className="font-bold text-xs text-gray-900 flex items-center gap-1.5">
+                      <FileText className="w-3.5 h-3.5 text-[#087F5B]" />
+                      <span>Description of Event</span>
+                    </h5>
+                    <span className="text-[10px] text-gray-400 font-mono">Field Narrative</span>
+                  </div>
+                  <div className="bg-white p-3 rounded-lg border border-gray-200 text-[11px] text-gray-800 leading-relaxed min-h-[140px] space-y-1.5">
+                    {record.description.split('\n').map((para, pIdx) => (
+                      <p key={pIdx} className="leading-snug">
+                        {para}
+                      </p>
+                    ))}
                   </div>
                 </div>
 
@@ -398,16 +460,18 @@ export const EnterpriseHSEDossierModal: React.FC<EnterpriseHSEDossierModalProps>
                       <Clock className="w-3.5 h-3.5 text-[#087F5B]" />
                       <span>Sequence of Events (Timeline)</span>
                     </h5>
-                    <span className="text-[10px] text-gray-500 font-mono">Step-by-step resolution</span>
+                    <span className="text-[10px] text-[#087F5B] font-bold font-mono bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                      {sequenceOfEvents.length} chronological steps
+                    </span>
                   </div>
 
                   <div className="bg-white p-3 rounded-lg border border-gray-200 text-[11px] space-y-2.5 min-h-[140px]">
                     {sequenceOfEvents.map((seq, idx) => (
                       <div key={idx} className="flex items-start gap-2.5 text-[11px]">
-                        <span className="font-mono font-bold text-[#073B2F] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 flex-shrink-0 text-[10px]">
+                        <span className="font-mono font-bold text-[#073B2F] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 flex-shrink-0 text-[10px] shadow-xs">
                           {seq.time}
                         </span>
-                        <span className="text-gray-800 leading-snug">{seq.event}</span>
+                        <span className="text-gray-800 leading-snug pt-0.5 font-medium">{seq.event}</span>
                       </div>
                     ))}
                   </div>
@@ -423,8 +487,8 @@ export const EnterpriseHSEDossierModal: React.FC<EnterpriseHSEDossierModalProps>
                   </h5>
                   <div className="flex items-center gap-2">
                     <span className="text-[10px] text-gray-500 font-semibold">Classification:</span>
-                    <span className="font-bold text-xs text-[#073B2F] bg-[#DDF5EA] px-2 py-0.5 rounded">
-                      {isNearMiss ? 'Near Miss' : 'Incident'}
+                    <span className="font-bold text-xs text-[#073B2F] bg-[#DDF5EA] px-2.5 py-0.5 rounded border border-emerald-300">
+                      {isHazard ? 'Hazard' : isNearMiss ? 'Near Miss' : 'Incident'}
                     </span>
                   </div>
                 </div>
@@ -443,13 +507,41 @@ export const EnterpriseHSEDossierModal: React.FC<EnterpriseHSEDossierModalProps>
                             : 'bg-gray-50/60 border-gray-200 text-gray-400 opacity-70'
                         }`}
                       >
-                        <span className="w-3.5 h-3.5 rounded border flex items-center justify-center font-mono text-[9px] bg-white">
+                        <span className="w-3.5 h-3.5 rounded border flex items-center justify-center font-mono text-[9px] bg-white font-bold text-emerald-700">
                           {isChecked ? '✓' : ''}
                         </span>
                         <span className="truncate">{item.label}</span>
                       </div>
                     );
                   })}
+                </div>
+              </div>
+
+              {/* Photo Attachments Grid (Photo-01 to Photo-04 as in Excel) */}
+              <div className="bg-white p-3.5 rounded-xl border border-gray-200 space-y-2">
+                <div className="flex items-center justify-between pb-1.5 border-b border-gray-100">
+                  <h5 className="font-bold text-xs text-gray-900 flex items-center gap-1.5">
+                    <Camera className="w-3.5 h-3.5 text-[#087F5B]" />
+                    <span>Field Evidence Photos (Official Form Attachment)</span>
+                  </h5>
+                  <span className="text-[10px] text-gray-500 font-mono">Photo-01 to Photo-04</span>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1">
+                  {['Photo-01', 'Photo-02', 'Photo-03', 'Photo-04'].map((photoLabel, pIdx) => (
+                    <div
+                      key={photoLabel}
+                      onClick={() => setSelectedPhoto(photoLabel)}
+                      className="p-2.5 bg-gray-50 hover:bg-emerald-50 border border-gray-200 hover:border-emerald-300 rounded-lg cursor-pointer transition-all text-center group"
+                    >
+                      <div className="w-full h-16 bg-gray-200 group-hover:bg-emerald-100 rounded flex flex-col items-center justify-center text-gray-500 group-hover:text-emerald-800 transition-colors">
+                        <Camera className="w-5 h-5 mb-1" />
+                        <span className="text-[10px] font-bold font-mono">{photoLabel}</span>
+                      </div>
+                      <span className="text-[9px] text-gray-400 group-hover:text-emerald-700 mt-1 block">
+                        Click to Inspect
+                      </span>
+                    </div>
+                  ))}
                 </div>
               </div>
 
@@ -677,8 +769,7 @@ export const EnterpriseHSEDossierModal: React.FC<EnterpriseHSEDossierModalProps>
                   Investigator's Technical Summary:
                 </span>
                 <p className="text-gray-700 leading-relaxed text-[11px]">
-                  {inc.rootCauseSummary ||
-                    'Atmospheric moisture condensation in the optical chamber of smoke detector L31/011/3F caused refracted light scattering onto the photodiode sensor, registering a false alarm. No combustion or fire hazards detected.'}
+                  {inc.rootCauseSummary || currentImmediateCauses.join(' ') || record.description}
                 </p>
               </div>
             </div>
@@ -793,19 +884,19 @@ export const EnterpriseHSEDossierModal: React.FC<EnterpriseHSEDossierModalProps>
                     <div className="flex justify-between">
                       <span className="text-gray-500">Name:</span>
                       <strong className="text-gray-900">
-                        {inc.reviewedBy?.name || 'Moumeen Mohamed Ali'}
+                        {currentReviewedBy.name || 'Moumeen Mohamed Ali'}
                       </strong>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-500">Job Title:</span>
                       <span className="text-gray-800">
-                        {inc.reviewedBy?.title || 'Fire Safety Specialist'}
+                        {currentReviewedBy.title || 'Fire Safety Specialist'}
                       </span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-500">Date:</span>
                       <span className="font-mono text-gray-800">
-                        {inc.reviewedBy?.signatureDate || inc.incidentDate || '2025-08-21'}
+                        {currentReviewedBy.signatureDate || currentDate}
                       </span>
                     </div>
                     <div className="pt-2 border-t border-gray-200 flex items-center justify-between text-[10px] text-gray-500">
@@ -827,19 +918,19 @@ export const EnterpriseHSEDossierModal: React.FC<EnterpriseHSEDossierModalProps>
                     <div className="flex justify-between">
                       <span className="text-gray-500">Name:</span>
                       <strong className="text-gray-900">
-                        {inc.approvedBy?.name || 'Abdulhadi Al-Hajri'}
+                        {currentApprovedBy.name || 'Abdulhadi Al-Hajri'}
                       </strong>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-500">Job Title:</span>
                       <span className="text-gray-800">
-                        {inc.approvedBy?.title || 'Act. Head of Health and Safety'}
+                        {currentApprovedBy.title || 'Act. Head of Health and Safety'}
                       </span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-500">Date:</span>
                       <span className="font-mono text-gray-800">
-                        {inc.approvedBy?.signatureDate || inc.incidentDate || '2025-08-21'}
+                        {currentApprovedBy.signatureDate || currentDate}
                       </span>
                     </div>
                     <div className="pt-2 border-t border-gray-200 flex items-center justify-between text-[10px] text-gray-500">

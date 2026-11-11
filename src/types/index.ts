@@ -108,7 +108,8 @@ export type HazardCategory =
   | 'Unsafe access'
   | 'PPE non-compliance'
   | 'Heat stress'
-  | 'Environmental hazards';
+  | 'Environmental hazards'
+  | 'Workplace hazards';
 
 export type NearMissCategory =
   | 'Dropped object'
@@ -119,7 +120,8 @@ export type NearMissCategory =
   | 'Fire or smoke observation'
   | 'Falling material'
   | 'Unsafe work practice'
-  | 'Environmental & Fire Safety';
+  | 'Environmental & Fire Safety'
+  | 'Work-at-height incident';
 
 export type IncidentCategory =
   | 'Injury'
