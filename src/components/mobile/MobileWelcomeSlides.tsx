@@ -35,7 +35,7 @@ export const MobileWelcomeSlides: React.FC<MobileWelcomeSlidesProps> = ({ onFini
       headline: 'Speak Your Hazard Observation',
       description:
         'Frontline workers dictate safety observations hands-free using Voice AI, with instant live transcription and GPS-stamped photo evidence.',
-      tagline: 'Qatar Labour Law 14/2004 Art. 100',
+      tagline: 'Instant Field Hazard Logging',
     },
     {
       id: 1,
@@ -50,14 +50,14 @@ export const MobileWelcomeSlides: React.FC<MobileWelcomeSlidesProps> = ({ onFini
     },
     {
       id: 2,
-      badge: 'Statutory Qatar Compliance',
+      badge: 'Workforce Protection',
       badgeColor: 'bg-amber-500/20 text-amber-300 border-amber-500/30',
       icon: Scale,
       iconColor: 'bg-amber-700 text-amber-200 ring-amber-500/30',
       headline: 'Universal Stop Work & Heat Alerts',
       description:
-        'Empowers any worker to halt unsafe tasks immediately, with automated alerts during midday summer work ban hours (WBGT > 32.1°C).',
-      tagline: 'Ministerial Decision No. 17 of 2021',
+        'Empowers any worker to halt unsafe tasks immediately, with automated alerts during peak midday thermal conditions (WBGT > 32.1°C).',
+      tagline: 'Automated Heat Index Alerts',
     },
     {
       id: 3,

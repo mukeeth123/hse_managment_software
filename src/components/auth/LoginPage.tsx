@@ -194,7 +194,7 @@ export const LoginPage: React.FC = () => {
               <span className="px-2.5 py-1 rounded-lg bg-black/30 border border-white/15 text-[10px] text-emerald-300 font-mono font-bold">
                 40 Seeded Enterprise Users
               </span>
-              <span className="text-[10px] text-[#DDF5EA]/70">Zero Backend Required</span>
+              <span className="text-[10px] text-[#DDF5EA]/70">Enterprise Ready</span>
             </div>
           </div>
         </div>
@@ -741,7 +741,7 @@ export const LoginPage: React.FC = () => {
                   Seeded Demonstration Dataset & Controlled Scenarios
                 </h3>
                 <span className="text-[9px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2 py-0.2 rounded-full font-mono uppercase">
-                  40 Personas • Zero Backend
+                  40 Role Personas • Instant Access
                 </span>
               </div>
               <p className="text-[10px] text-[#DDF5EA]/70 mt-0.5">

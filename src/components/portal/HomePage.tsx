@@ -176,8 +176,8 @@ export const HomePage: React.FC = () => {
                 <div className="text-xs text-[#DDF5EA]/80 mt-1">Labour Law 14/2004 & MD 17/2021 Alignment</div>
               </div>
               <div className="p-4 rounded-xl bg-black/25 backdrop-blur-sm border border-white/10 text-left">
-                <div className="text-2xl lg:text-3xl font-extrabold text-[#20A887]">Zero Backend</div>
-                <div className="text-xs text-[#DDF5EA]/80 mt-1">Strict Frontend-Only In-Browser State</div>
+                <div className="text-2xl lg:text-3xl font-extrabold text-[#20A887]">Instant Ready</div>
+                <div className="text-xs text-[#DDF5EA]/80 mt-1">Edge Performance & Field Reliability</div>
               </div>
             </div>
           </div>

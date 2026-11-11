@@ -835,11 +835,11 @@ You can ask me any statutory question, query recurring hazards, or click any of 
                 Antigravity HSE AI Safety Copilot
               </h2>
               <span className="text-[10px] font-semibold bg-white/15 text-emerald-200 px-2.5 py-0.5 rounded-full border border-white/20 hidden sm:inline-block">
-                Qatar Statutory AI
+                Safety AI Copilot
               </span>
             </div>
             <p className="text-[11px] text-emerald-100/80 truncate mt-0.5">
-              Live Indexing: Qatar Labour Law 14/2004 • MD 17/2021 Heat Orders • Lusail Tower Zone 4
+              Live Indexing: Statutory Safety Standards • Heat Directives • Lusail Tower Zone 4
             </p>
           </div>
         </div>
@@ -1141,7 +1141,7 @@ You can ask me any statutory question, query recurring hazards, or click any of 
             <div className="mt-2 flex items-center justify-between text-[10px] text-gray-400">
               <span className="flex items-center gap-1">
                 <Info className="w-3 h-3 text-emerald-600" />
-                Deterministic Local AI • 0 External Cloud Calls • Aligned with Al-Meezan Qatar Legal Portal
+                Safety Copilot • Verified Worksite & Statutory Standards
               </span>
               <span className="font-mono text-gray-500">Lusail Tower Zone 4</span>
             </div>

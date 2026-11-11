@@ -535,7 +535,7 @@ export const MobileReportHazard: React.FC = () => {
                 <Sparkles className="w-3 h-3 text-[#087F5B]" />
                 <span>1-Tap Voice AI Scenario:</span>
               </span>
-              <span className="text-[9px] text-[#087F5B] font-mono font-bold">5 Qatar Presets</span>
+              <span className="text-[9px] text-[#087F5B] font-mono font-bold">5 Safety Presets</span>
             </div>
 
             {/* Compact Scenario Selector Dropdown */}

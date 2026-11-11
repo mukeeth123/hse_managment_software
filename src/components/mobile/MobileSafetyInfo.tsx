@@ -40,11 +40,11 @@ export const MobileSafetyInfo: React.FC = () => {
           </p>
         </div>
 
-        {/* Qatar Heat Stress Statutory Rules Box */}
+        {/* Heat Stress Guidelines Box */}
         <div className="bg-amber-50 border border-amber-300 rounded-xl p-3 space-y-2">
           <div className="flex items-center gap-2 text-amber-900 font-bold text-xs">
             <ThermometerSun className="w-4 h-4 text-amber-600" />
-            <span>Qatar MD No. 17 of 2021 — Heat Stress Mandate</span>
+            <span>Thermal Heat Stress & Hydration Directives</span>
           </div>
           <div className="space-y-1.5 text-[10px] text-amber-900 leading-normal">
             <p className="bg-white/80 p-1.5 rounded border border-amber-200">
@@ -62,7 +62,7 @@ export const MobileSafetyInfo: React.FC = () => {
         {/* Emergency Contacts List */}
         <div>
           <h4 className="font-bold text-xs text-gray-800 uppercase tracking-wider mb-2">
-            Emergency Contacts (Qatar & Site)
+            Site & National Emergency Contacts
           </h4>
           <div className="space-y-2">
             {emergencyContacts.map((contact, idx) => (

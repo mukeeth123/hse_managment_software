@@ -184,10 +184,10 @@ export const DesktopSidebar: React.FC = () => {
         })}
       </div>
 
-      {/* Qatar Legal Disclaimer Footer */}
+      {/* Statutory Governance Footer */}
       <div className="p-3 border-t border-white/10 bg-black/20 text-[10px] text-[#DDF5EA]/60 leading-normal">
-        <p className="font-semibold text-[#DDF5EA]/80 mb-0.5">Qatar Legal Framework</p>
-        <p>Al Meezan • Labour Law 14/2004 • Heat Stress MD 17/2021 • Environment Law 30/2002 • QCDD</p>
+        <p className="font-semibold text-[#DDF5EA]/80 mb-0.5">Statutory Governance</p>
+        <p>Labour Law 14/2004 • Heat Stress MD 17/2021 • Civil Defence</p>
       </div>
     </aside>
   );

@@ -8,7 +8,7 @@ interface MobileSplashScreenProps {
 
 export const MobileSplashScreen: React.FC<MobileSplashScreenProps> = ({ onFinish }) => {
   const [progress, setProgress] = useState(15);
-  const [statusText, setStatusText] = useState('Initializing Qatar Enterprise Mobile Environment...');
+  const [statusText, setStatusText] = useState('Initializing Enterprise Mobile Environment...');
   const [secondsRemaining, setSecondsRemaining] = useState(3);
 
   useEffect(() => {
@@ -19,12 +19,12 @@ export const MobileSplashScreen: React.FC<MobileSplashScreenProps> = ({ onFinish
 
     const timer1 = setTimeout(() => {
       setProgress(35);
-      setStatusText('Mounting Qatar Labour Law No. 14/2004 Registers...');
+      setStatusText('Mounting Project Safety Registers...');
     }, 600);
 
     const timer2 = setTimeout(() => {
       setProgress(65);
-      setStatusText('Checking MD 17/2021 Heat Stress Index (WBGT)...');
+      setStatusText('Checking Worksite Thermal Heat Index (WBGT)...');
     }, 1300);
 
     const timer3 = setTimeout(() => {
@@ -69,7 +69,7 @@ export const MobileSplashScreen: React.FC<MobileSplashScreenProps> = ({ onFinish
       <div className="relative z-10 pt-2 w-full flex items-center justify-between px-1">
         <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-[10px] text-[#DDF5EA] shadow-sm animate-in fade-in">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span>State of Qatar Enterprise</span>
+          <span>Lusail Commercial Tower Zone 4</span>
         </div>
 
         <div className="flex items-center gap-1 text-[10px] font-mono text-emerald-300 bg-black/40 px-2 py-0.5 rounded-full border border-white/10">
@@ -85,9 +85,6 @@ export const MobileSplashScreen: React.FC<MobileSplashScreenProps> = ({ onFinish
           <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-[#073B2F] via-[#087F5B] to-[#20A887] text-white flex items-center justify-center shadow-2xl border border-white/20 ring-4 ring-emerald-500/30 animate-pulse">
             <Shield className="w-9 h-9 text-white" />
           </div>
-          <span className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-[#20A887] border-2 border-[#041712] flex items-center justify-center text-white text-[9px] font-bold shadow">
-            QA
-          </span>
         </div>
 
         <h1 className="text-xl font-black tracking-tight text-white uppercase">

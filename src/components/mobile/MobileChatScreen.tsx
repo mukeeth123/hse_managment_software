@@ -31,24 +31,24 @@ export const MobileChatScreen: React.FC = () => {
       id: 'm1',
       sender: 'ai',
       timestamp: '10:14 AM',
-      text: `Marhaban, ${currentUser.name}! I am your AI Safety Copilot for Lusail Commercial Tower Zone 4. Ask me about Qatar heat stress rules, active hazards, or PPE standards.`,
-      badge: 'Qatar Statutory AI',
+      text: `Marhaban, ${currentUser.name}! I am your AI Safety Copilot for Lusail Commercial Tower Zone 4. Ask me about site heat stress rules, active hazards, or PPE standards.`,
+      badge: 'AI Safety Copilot',
     },
     {
       id: 'm2',
       sender: 'user',
       timestamp: '10:15 AM',
-      text: 'What are the heat stress ban hours under Qatar MD 17/2021?',
+      text: 'What are the summer heat work stoppage hours today?',
     },
     {
       id: 'm3',
       sender: 'ai',
       timestamp: '10:15 AM',
-      text: `Under Qatar Ministerial Decision 17/2021:
-• 10:00 to 15:30: All outdoor work prohibited (1 June - 15 Sept).
+      text: `Thermal Heat Directives:
+• 10:00 to 15:30: All outdoor work prohibited during summer window.
 • WBGT > 32.1°C: Universal stoppage regardless of time.
 • Current Reading: WBGT 30.2°C (45 min work / 15 min shaded rest with 500ml chilled water/hr).`,
-      badge: 'MD 17/2021 Stoppage Order',
+      badge: 'Heat Stoppage Directive',
     },
     {
       id: 'm4',
@@ -80,13 +80,13 @@ export const MobileChatScreen: React.FC = () => {
   }, [messages, isTyping]);
 
   const quickPills = [
-    { label: '☀️ Heat Ban Hours (MD 17/2021)', query: 'What are the outdoor work ban hours today?' },
-    { label: '🏗️ Work Area A Void (HAZ-0042)', query: 'Check status of floor opening in Work Area A' },
-    { label: '🪜 Scaffolding QCS Height', query: 'What is the minimum guardrail height under QCS 2014?' },
-    { label: '🔥 Hot Work PTW Gas Check', query: 'What gas test readings are required for Hot Work PTW?' },
+    { label: '☀️ Summer Heat Ban', query: 'What are the outdoor work ban hours today?' },
+    { label: '🏗️ Work Area A Void', query: 'Check status of floor opening in Work Area A' },
+    { label: '🪜 Scaffolding Standards', query: 'What is the minimum guardrail height under QCS specifications?' },
+    { label: '🔥 Hot Work PTW', query: 'What gas test readings are required for Hot Work PTW?' },
     { label: '📋 Pending CAPA Actions', query: 'Are there any overdue CAPA actions in Zone 4?' },
-    { label: '⚖️ Art. 100 PPE Mandates', query: 'What are employer obligations for PPE under Qatar Labour Law Article 100?' },
-    { label: '🚨 24h Incident Report', query: 'When must an incident be reported to the Ministry of Labour under Article 108?' },
+    { label: '⚖️ PPE Mandates', query: 'What are employer obligations for PPE provision under Article 100?' },
+    { label: '🚨 Incident Reporting', query: 'When must an incident be reported under statutory timelines?' },
     { label: '🏥 Assembly & Clinic', query: 'Where is the assembly point and first aid clinic for Zone 4?' },
   ];
 
@@ -207,7 +207,7 @@ export const MobileChatScreen: React.FC = () => {
           </div>
           <div>
             <h3 className="font-bold text-xs text-white leading-tight">HSE AI Copilot</h3>
-            <p className="text-[9px] text-[#20A887] font-mono leading-none">Qatar Statutory Assistant</p>
+            <p className="text-[9px] text-[#20A887] font-mono leading-none">Field Safety Assistant</p>
           </div>
         </div>
 
@@ -218,7 +218,7 @@ export const MobileChatScreen: React.FC = () => {
                 id: 'm-reset',
                 sender: 'ai',
                 timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-                text: 'Chat thread cleared. How can I assist with Qatar HSE regulations or site hazards?',
+                text: 'Chat thread cleared. How can I assist with site safety or active hazards?',
                 badge: 'Standing By',
               },
             ])
@@ -306,7 +306,7 @@ export const MobileChatScreen: React.FC = () => {
               <span className="w-1.5 h-1.5 rounded-full bg-[#087F5B] animate-bounce" />
               <span className="w-1.5 h-1.5 rounded-full bg-[#087F5B] animate-bounce delay-100" />
               <span className="w-1.5 h-1.5 rounded-full bg-[#087F5B] animate-bounce delay-200" />
-              <span className="ml-1 text-[10px]">Analyzing Qatar records...</span>
+              <span className="ml-1 text-[10px]">Analyzing site safety records...</span>
             </div>
           </div>
         )}

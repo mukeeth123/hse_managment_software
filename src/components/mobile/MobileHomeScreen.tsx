@@ -46,17 +46,17 @@ export const MobileHomeScreen: React.FC = () => {
           </div>
         </div>
 
-        {/* Heat Stress Alert Bar - Compact, High-Impact & Compliant with MD 17/2021 */}
+        {/* Thermal Heat Alert Bar - Clean & Direct */}
         <div className="mt-2.5 bg-gradient-to-r from-amber-500/20 via-amber-600/20 to-orange-500/20 px-2.5 py-1.5 rounded-xl border border-amber-400/35 flex items-center justify-between gap-2 shadow-xs">
           <div className="flex items-center gap-2 min-w-0">
             <ThermometerSun className="w-4 h-4 text-amber-300 flex-shrink-0" />
             <div className="leading-tight truncate">
               <div className="flex items-center gap-1.5">
-                <span className="font-bold text-[10px] text-amber-200">MD 17/2021 Heat Index</span>
+                <span className="font-bold text-[10px] text-amber-200">Worksite Heat Index</span>
                 <span className="text-[9px] text-amber-100/80">• 45m Work / 15m Rest</span>
               </div>
               <p className="text-[9px] text-amber-100/70 truncate">
-                Drink 500ml/hr • Max Threshold 32.1°C
+                Drink 500ml/hr • Stoppage Threshold 32.1°C
               </p>
             </div>
           </div>
@@ -81,11 +81,11 @@ export const MobileHomeScreen: React.FC = () => {
               <div className="flex items-center gap-1.5">
                 <span className="font-bold text-xs text-white">Ask HSE AI Copilot</span>
                 <span className="text-[8px] bg-white/20 text-emerald-200 px-1.5 py-0.2 rounded-full font-mono border border-white/10">
-                  Qatar AI
+                  AI Copilot
                 </span>
               </div>
               <p className="text-[10px] text-emerald-100/80 truncate mt-0.5">
-                Instant statutory guidance, hazard checks & PTW standards
+                Instant safety guidance, hazard checks & PTW standards
               </p>
             </div>
           </div>

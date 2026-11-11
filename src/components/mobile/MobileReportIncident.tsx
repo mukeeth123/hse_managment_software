@@ -56,7 +56,7 @@ export const MobileReportIncident: React.FC = () => {
           {submittedRef}
         </div>
         <p className="text-[11px] text-gray-600 mt-3">
-          Qatar Labour Law No. 14 of 2004 compliance notification protocol initiated.
+          Statutory compliance notification protocol initiated.
         </p>
         <div className="w-full space-y-2 mt-6">
           <button

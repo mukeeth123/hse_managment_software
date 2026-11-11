@@ -113,12 +113,12 @@ export const MobileLoginScreen: React.FC = () => {
           </div>
           <div className="leading-tight">
             <h3 className="font-bold text-xs text-white">QHSE Mobile Platform</h3>
-            <p className="text-[10px] text-[#20A887] font-medium">State of Qatar Enterprise Workforce</p>
+            <p className="text-[10px] text-[#20A887] font-medium">Enterprise Workforce Portal</p>
           </div>
         </div>
 
-        <span className="text-[9px] bg-black/30 text-emerald-300 px-2 py-0.5 rounded-full border border-white/10 font-mono uppercase tracking-wider">
-          Qatar Edition
+        <span className="text-[9px] bg-white/10 text-emerald-200 px-2.5 py-0.5 rounded-full border border-white/15 font-mono uppercase tracking-wider">
+          Field App
         </span>
       </div>
 
@@ -486,13 +486,13 @@ export const MobileLoginScreen: React.FC = () => {
           </div>
         )}
 
-        {/* Subtle, Compact Statutory Footer (Clean & Fitted) */}
-        <div className="pt-3 text-center space-y-1">
-          <span className="text-[10px] font-semibold text-slate-700 block">
-            Qatar Labour Law No. 14/2004 • MD 17/2021
+        {/* Clean, Simple Mobile Footer */}
+        <div className="pt-3 text-center space-y-0.5">
+          <span className="text-[10px] font-semibold text-slate-600 block">
+            Lusail Commercial Tower Zone 4
           </span>
           <span className="text-[9px] text-slate-400 block">
-            Unified Workforce Safety Portal (Zero Backend)
+            Enterprise Workforce Safety Platform
           </span>
         </div>
       </div>
