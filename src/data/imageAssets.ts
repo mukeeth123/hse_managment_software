@@ -4,17 +4,30 @@
  * 100% offline-resilient: zero external network calls, zero 403/404 errors, zero broken image icons.
  */
 
+import photo1_1 from './photo_1 (1).png';
+import photo1_2 from './photo_1 (2).png';
+import photo1_3 from './photo_1 (3).png';
+import photo1_4 from './photo_1 (4).png';
+import photo1_5 from './photo_1 (5).png';
+import photo1_6 from './photo_1 (6).png';
+import photo1_7 from './photo_1 (7).png';
+import photo1_8 from './photo_1 (8).png';
+
+export const PHOTO_1_1 = photo1_1;
+export const PHOTO_1_2 = photo1_2;
+export const PHOTO_1_3 = photo1_3;
+export const PHOTO_1_4 = photo1_4;
+export const PHOTO_1_5 = photo1_5;
+export const PHOTO_1_6 = photo1_6;
+export const PHOTO_1_7 = photo1_7;
+export const PHOTO_1_8 = photo1_8;
+
 // Helper to create clean SVG data URI
 const createSvgDataUri = (svgString: string): string => {
   return `data:image/svg+xml;utf8,${encodeURIComponent(svgString.trim())}`;
 };
 
-/**
- * 1. UNCOVERED FLOOR VOID OPENING (HAZ-2026-0042)
- * High-detail realistic engineering illustration of an open 1.2m x 0.9m slab penetration
- * with red/white barricade tape, warning flags, slab concrete texture, and depth shadows.
- */
-export const IMAGE_FLOOR_OPENING = createSvgDataUri(`
+export const SVG_FLOOR_OPENING = createSvgDataUri(`
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
   <defs>
     <linearGradient id="concrete" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -87,7 +100,7 @@ export const IMAGE_FLOOR_OPENING = createSvgDataUri(`
  * High-detail illustration of midday sun with direct solar radiation,
  * high-temperature digital weather station display (46.8°C / WBGT 33.2°C).
  */
-export const IMAGE_HEAT_STRESS = createSvgDataUri(`
+export const SVG_HEAT_STRESS = createSvgDataUri(`
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
   <defs>
     <linearGradient id="heatSky" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -152,7 +165,7 @@ export const IMAGE_HEAT_STRESS = createSvgDataUri(`
  * Industrial scaffolding tower showing missing edge protection,
  * missing toe-boards and standard coupler clamps.
  */
-export const IMAGE_SCAFFOLD_DEFECT = createSvgDataUri(`
+export const SVG_SCAFFOLD_DEFECT = createSvgDataUri(`
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
   <defs>
     <linearGradient id="scaffoldBg" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -214,7 +227,7 @@ export const IMAGE_SCAFFOLD_DEFECT = createSvgDataUri(`
  * High-detail illustration of a punctured 200L chemical drum leaking hydrocarbons
  * near a perimeter stormwater drain with hazardous spill boom containment.
  */
-export const IMAGE_CHEMICAL_LEAK = createSvgDataUri(`
+export const SVG_CHEMICAL_LEAK = createSvgDataUri(`
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
   <defs>
     <linearGradient id="soilGround" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -283,7 +296,7 @@ export const IMAGE_CHEMICAL_LEAK = createSvgDataUri(`
  * 5. SUBMERGED 380V POWER CABLE
  * High-voltage temporary construction cable damaged in standing pool in excavation pit.
  */
-export const IMAGE_ELECTRICAL_CABLE = createSvgDataUri(`
+export const SVG_ELECTRICAL_CABLE = createSvgDataUri(`
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
   <defs>
     <linearGradient id="trenchWall" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -334,7 +347,7 @@ export const IMAGE_ELECTRICAL_CABLE = createSvgDataUri(`
  * Heavy-duty bolted structural steel safety grating installed over Level 2 void.
  * Features 4 heavy anchor bolts, torque verification certificate tag, and green closure badge.
  */
-export const IMAGE_CAPA_RECTIFIED = createSvgDataUri(`
+export const SVG_CAPA_RECTIFIED = createSvgDataUri(`
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
   <defs>
     <linearGradient id="concreteFloor" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -411,7 +424,18 @@ export const IMAGE_CAPA_RECTIFIED = createSvgDataUri(`
 `);
 
 /**
- * Fallback resolver that maps any image URL or category to guaranteed offline SVG
+ * User-Provided Evidence Images (photo_1 (1).png through photo_1 (8).png)
+ * Mapped to the core hazard and incident demonstration records.
+ */
+export const IMAGE_FLOOR_OPENING: string = photo1_1;
+export const IMAGE_SCAFFOLD_DEFECT: string = photo1_2;
+export const IMAGE_ELECTRICAL_CABLE: string = photo1_3;
+export const IMAGE_HEAT_STRESS: string = photo1_4;
+export const IMAGE_CHEMICAL_LEAK: string = photo1_5;
+export const IMAGE_CAPA_RECTIFIED: string = photo1_6;
+
+/**
+ * Fallback resolver that maps any image URL or category to guaranteed offline asset
  */
 export const getSafeImageUrl = (url?: string | null, categoryOrTitle?: string): string => {
   if (!url) {

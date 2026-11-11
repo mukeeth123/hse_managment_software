@@ -34,6 +34,16 @@ import {
 } from 'lucide-react';
 import { Badge } from './Badge';
 import { IncidentRecord, HazardRecord, NearMissRecord, SeverityLevel, IncidentStatus } from '../../types';
+import {
+  PHOTO_1_1,
+  PHOTO_1_2,
+  PHOTO_1_3,
+  PHOTO_1_4,
+  PHOTO_1_5,
+  PHOTO_1_6,
+  PHOTO_1_7,
+  PHOTO_1_8,
+} from '../../data/imageAssets';
 
 interface EnterpriseHSEDossierModalProps {
   isOpen: boolean;
@@ -115,80 +125,80 @@ export const EnterpriseHSEDossierModal: React.FC<EnterpriseHSEDossierModalProps>
     signatureSigned: true,
   };
 
-  // Extracted Evidence Photos directly from demosss.xlsx covering all 4 photo sections
+  // User-provided Evidence Photos (photo_1 (1).png through photo_1 (8).png) covering all 4 photo sections
   const allEvidencePhotos = [
     {
       id: 'p1-a',
       slot: 'Photo-01',
       label: 'Photo-01 (A)',
-      title: 'Scene Observation',
-      caption: `Field evidence Photo-01 (Part A) for ${record.reference} (${record.location})`,
-      url: '/evidence/image6.jpeg',
+      title: 'Ceiling Smoke Detector & HVAC Grid',
+      caption: `Field evidence Photo-01 (Part A) for ${record.reference} (${record.location}) - Smoke detector sensor inspection`,
+      url: PHOTO_1_5,
     },
     {
       id: 'p1-b',
       slot: 'Photo-01',
       label: 'Photo-01 (B)',
-      title: 'Location Surroundings',
-      caption: 'Field evidence Photo-01 (Part B) showing wider area context',
-      url: '/evidence/image7.jpeg',
+      title: 'HSE Incident & Activity Register',
+      caption: 'Field evidence Photo-01 (Part B) showing official HSE incident log and status entries',
+      url: PHOTO_1_2,
     },
     {
       id: 'p2-a',
       slot: 'Photo-02',
       label: 'Photo-02 (A)',
-      title: 'Affected Component',
-      caption: 'Field evidence Photo-02 (Part A) showing affected device and surface condition',
-      url: '/evidence/image8.jpeg',
+      title: 'Fire Alarm System Mimic Display',
+      caption: 'Field evidence Photo-02 (Part A) showing active loop status and alarm indicators',
+      url: PHOTO_1_4,
     },
     {
       id: 'p2-b',
       slot: 'Photo-02',
       label: 'Photo-02 (B)',
-      title: 'Ceiling Plenum / Area Detail',
-      caption: 'Field evidence Photo-02 (Part B) showing structural boundary and moisture/dust evidence',
-      url: '/evidence/image9.jpeg',
+      title: 'Ceiling Plenum & Diffuser Detail',
+      caption: 'Field evidence Photo-02 (Part B) showing structural boundary and false ceiling installation',
+      url: PHOTO_1_5,
     },
     {
       id: 'p3-a',
       slot: 'Photo-03',
       label: 'Photo-03 (A)',
-      title: 'Barricade Perimeter',
+      title: 'Restricted Access & Stairway Warning',
       caption: 'Field evidence Photo-03 (Part A) showing warning signage and isolation boundary',
-      url: '/evidence/image10.jpeg',
+      url: PHOTO_1_6,
     },
     {
       id: 'p3-b',
       slot: 'Photo-03',
       label: 'Photo-03 (B)',
-      title: 'Technical Inspection',
-      caption: 'Field evidence Photo-03 (Part B) showing maintenance team inspection above ceiling',
-      url: '/evidence/image11.jpeg',
+      title: 'Electrical Distribution Board Inspection',
+      caption: 'Field evidence Photo-03 (Part B) showing electrical safety check and danger tag',
+      url: PHOTO_1_8,
     },
     {
       id: 'p4-a',
       slot: 'Photo-04',
-      label: 'Photo-04 (A) — ID Badges',
-      title: 'Personnel ID Badges (Al Shaya & TDGISERV)',
-      caption: 'Photo-04 (Part A): Official Qatar University Contractor & Security ID Badges (Security Officer & Lead FAS Systems Specialist - FAS Technician #44373)',
-      url: '/evidence/photo4_id_cards_full.png',
+      label: 'Photo-04 (A) — SSSS ID Badges',
+      title: 'Personnel ID Badges (Site Safety Services)',
+      caption: 'Photo-04 (Part A): Official Site Safety Services (SSSS) Security & Safety Personnel ID Badge',
+      url: PHOTO_1_1,
       isHighlight: true,
     },
     {
       id: 'p4-b',
       slot: 'Photo-04',
-      label: 'Photo-04 (B)',
-      title: 'Device & Plate Identification',
-      caption: 'Photo-04 (Part B): Device serial number, tag plate, and physical housing confirmation',
-      url: '/evidence/image3.jpeg',
+      label: 'Photo-04 (B) — SSSS Technician',
+      title: 'Technician Identification (SSSS)',
+      caption: 'Photo-04 (Part B): Verified Site Safety Services Specialist ID Card and barcode badge',
+      url: PHOTO_1_3,
     },
     {
       id: 'p4-c',
       slot: 'Photo-04',
       label: 'Photo-04 (C)',
-      title: 'Access Equipment & Ladder Check',
-      caption: 'Photo-04 (Part C): Work at height access equipment verification and safety check',
-      url: '/evidence/image4.jpeg',
+      title: 'Spill Containment & Drum Inspection',
+      caption: 'Photo-04 (Part C): On-site chemical and liquid storage verification',
+      url: PHOTO_1_7,
     },
   ];
 
