@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {
   FileText,
+  FileSpreadsheet,
   CheckCircle2,
   AlertTriangle,
   Calendar,
@@ -56,7 +57,7 @@ export const EnterpriseHSEDossierModal: React.FC<EnterpriseHSEDossierModalProps>
   onExportPDF,
 }) => {
   const [activeTab, setActiveTab] = useState<'originator' | 'harm' | 'causes' | 'capa' | 'signoff'>('originator');
-  const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
+  const [selectedPhoto, setSelectedPhoto] = useState<{ url: string; title: string; caption: string; label: string } | null>(null);
 
   if (!isOpen || !record) return null;
 
@@ -113,6 +114,46 @@ export const EnterpriseHSEDossierModal: React.FC<EnterpriseHSEDossierModalProps>
     signatureDate: currentDate,
     signatureSigned: true,
   };
+
+  // Extracted Evidence Photos and Closeout Photos directly from demosss.xlsx
+  const evidencePhotos = [
+    {
+      id: 'photo-1',
+      label: 'Photo-01',
+      title: 'Scene Observation',
+      caption: `Field evidence Photo-01 for ${record.reference} (${record.location})`,
+      url: '/evidence/image6.jpeg',
+    },
+    {
+      id: 'photo-2',
+      label: 'Photo-02',
+      title: 'Component / Perimeter Inspection',
+      caption: 'Detailed physical condition of affected area prior to maintenance.',
+      url: '/evidence/image7.jpeg',
+    },
+    {
+      id: 'photo-3',
+      label: 'Photo-03',
+      title: 'Ceiling Grid & Isolation Boundary',
+      caption: 'Pre-task inspection perimeter and surrounding work area.',
+      url: '/evidence/image8.jpeg',
+    },
+    {
+      id: 'photo-4',
+      label: 'Photo-04',
+      title: 'Detector Head / Structural Fitting',
+      caption: 'Close-up evidence of the component before and during safe isolation.',
+      url: '/evidence/image9.jpeg',
+    },
+  ];
+
+  const closeoutPhotos = [
+    { id: 1, url: '/evidence/image10.jpeg', caption: 'Initial safety perimeter and warning signs placed.' },
+    { id: 2, url: '/evidence/image11.jpeg', caption: 'Technical inspection and plenum duct inspection completed.' },
+    { id: 3, url: '/evidence/image4.jpeg', caption: 'Mechanical rectification and seal joints restored.' },
+    { id: 4, url: '/evidence/image3.jpeg', caption: 'Final post-maintenance check, system back online.' },
+    { id: 5, url: '/evidence/image10.jpeg', caption: 'Preventive maintenance audit verification completed.' },
+  ];
 
   // Standard root causes list from Qatar University HSE Form
   const standardRootCauses = [
@@ -279,6 +320,16 @@ export const EnterpriseHSEDossierModal: React.FC<EnterpriseHSEDossierModalProps>
           </div>
 
           <div className="flex items-center gap-2 flex-shrink-0">
+            <a
+              href="/demosss.xlsx"
+              download="QU_FGSD_Incident_Report_demosss.xlsx"
+              className="px-3 py-1.5 bg-emerald-600/40 hover:bg-emerald-600/60 text-white font-semibold rounded-lg text-xs transition-colors flex items-center gap-1.5 border border-emerald-400/40 shadow-xs"
+              title="Download Source Excel Form (demosss.xlsx)"
+            >
+              <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-200" />
+              <span className="hidden sm:inline">Download Excel Form</span>
+            </a>
+
             {onExportPDF && (
               <button
                 onClick={onExportPDF}
@@ -520,26 +571,44 @@ export const EnterpriseHSEDossierModal: React.FC<EnterpriseHSEDossierModalProps>
               {/* Photo Attachments Grid (Photo-01 to Photo-04 as in Excel) */}
               <div className="bg-white p-3.5 rounded-xl border border-gray-200 space-y-2">
                 <div className="flex items-center justify-between pb-1.5 border-b border-gray-100">
-                  <h5 className="font-bold text-xs text-gray-900 flex items-center gap-1.5">
-                    <Camera className="w-3.5 h-3.5 text-[#087F5B]" />
-                    <span>Field Evidence Photos (Official Form Attachment)</span>
-                  </h5>
-                  <span className="text-[10px] text-gray-500 font-mono">Photo-01 to Photo-04</span>
+                  <div className="flex items-center gap-2">
+                    <h5 className="font-bold text-xs text-gray-900 flex items-center gap-1.5">
+                      <Camera className="w-3.5 h-3.5 text-[#087F5B]" />
+                      <span>Field Evidence Photos (From demosss.xlsx)</span>
+                    </h5>
+                    <span className="text-[10px] bg-emerald-100 text-[#073B2F] font-bold px-2 py-0.5 rounded-full font-mono">
+                      4 Embedded Photos
+                    </span>
+                  </div>
+                  <span className="text-[10px] text-gray-500 font-mono">Click any photo to inspect full size</span>
                 </div>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1">
-                  {['Photo-01', 'Photo-02', 'Photo-03', 'Photo-04'].map((photoLabel, pIdx) => (
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
+                  {evidencePhotos.map((photo, pIdx) => (
                     <div
-                      key={photoLabel}
-                      onClick={() => setSelectedPhoto(photoLabel)}
-                      className="p-2.5 bg-gray-50 hover:bg-emerald-50 border border-gray-200 hover:border-emerald-300 rounded-lg cursor-pointer transition-all text-center group"
+                      key={photo.id}
+                      onClick={() => setSelectedPhoto(photo)}
+                      className="group relative rounded-xl overflow-hidden border border-gray-200 hover:border-emerald-500 hover:shadow-md cursor-pointer transition-all bg-gray-900"
                     >
-                      <div className="w-full h-16 bg-gray-200 group-hover:bg-emerald-100 rounded flex flex-col items-center justify-center text-gray-500 group-hover:text-emerald-800 transition-colors">
-                        <Camera className="w-5 h-5 mb-1" />
-                        <span className="text-[10px] font-bold font-mono">{photoLabel}</span>
+                      <div className="h-32 w-full overflow-hidden bg-gray-100 flex items-center justify-center">
+                        <img
+                          src={photo.url}
+                          alt={photo.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
+                        />
                       </div>
-                      <span className="text-[9px] text-gray-400 group-hover:text-emerald-700 mt-1 block">
-                        Click to Inspect
-                      </span>
+                      <div className="p-2 bg-white flex items-center justify-between border-t border-gray-100">
+                        <div>
+                          <span className="font-mono font-bold text-[10px] text-[#073B2F] block">
+                            {photo.label}
+                          </span>
+                          <span className="text-[9px] text-gray-500 truncate block max-w-[120px]">
+                            {photo.title}
+                          </span>
+                        </div>
+                        <span className="p-1 rounded bg-emerald-50 text-emerald-700 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
+                          <Camera className="w-3.5 h-3.5" />
+                        </span>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -797,9 +866,10 @@ export const EnterpriseHSEDossierModal: React.FC<EnterpriseHSEDossierModalProps>
                     <tr>
                       <th className="py-2.5 px-3 w-10 text-center">#</th>
                       <th className="py-2.5 px-3">Recommended / Taken Action</th>
-                      <th className="py-2.5 px-3 w-32">Action By</th>
-                      <th className="py-2.5 px-3 w-28">Target Date</th>
+                      <th className="py-2.5 px-3 w-28">Action By</th>
+                      <th className="py-2.5 px-3 w-24">Target Date</th>
                       <th className="py-2.5 px-3 w-24 text-center">Status</th>
+                      <th className="py-2.5 px-3 w-28 text-center">Closeout Photo</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100 text-[11px]">
@@ -832,6 +902,32 @@ export const EnterpriseHSEDossierModal: React.FC<EnterpriseHSEDossierModalProps>
                           >
                             {act.status}
                           </span>
+                        </td>
+                        <td className="py-2 px-3 text-center">
+                          {(() => {
+                            const closeoutPhoto = closeoutPhotos.find(p => p.id === act.id) || closeoutPhotos[0];
+                            return (
+                              <div
+                                onClick={() => setSelectedPhoto({
+                                  url: closeoutPhoto.url,
+                                  title: `Closeout Photo #${act.id}`,
+                                  caption: act.closeoutNotes || closeoutPhoto.caption,
+                                  label: `Action #${act.id} Verification`
+                                })}
+                                className="inline-flex items-center gap-1.5 p-1 rounded-lg border border-gray-200 hover:border-emerald-400 bg-gray-50 hover:bg-emerald-50 cursor-pointer transition-all group"
+                                title="Click to view closeout photo"
+                              >
+                                <img
+                                  src={closeoutPhoto.url}
+                                  alt="Closeout"
+                                  className="w-8 h-8 rounded object-cover border border-gray-300"
+                                />
+                                <span className="text-[10px] text-gray-500 group-hover:text-emerald-800 font-mono">
+                                  View
+                                </span>
+                              </div>
+                            );
+                          })()}
                         </td>
                       </tr>
                     ))}
@@ -899,9 +995,24 @@ export const EnterpriseHSEDossierModal: React.FC<EnterpriseHSEDossierModalProps>
                         {currentReviewedBy.signatureDate || currentDate}
                       </span>
                     </div>
-                    <div className="pt-2 border-t border-gray-200 flex items-center justify-between text-[10px] text-gray-500">
-                      <span>Digital Certificate:</span>
-                      <span className="font-mono text-[#073B2F] font-bold">SHA256: 7f8a9...b401</span>
+                    <div className="pt-2 border-t border-gray-200">
+                      <div className="flex items-center justify-between mb-1.5">
+                        <span className="text-[10px] text-gray-500">Official Signature:</span>
+                        <span className="text-[9px] font-mono text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">
+                          Verified on Form
+                        </span>
+                      </div>
+                      <div className="bg-white p-1.5 rounded-lg border border-gray-200 flex items-center justify-center">
+                        <img
+                          src="/evidence/image5.jpeg"
+                          alt="Reviewer Signature"
+                          className="h-10 object-contain"
+                        />
+                      </div>
+                      <div className="flex items-center justify-between text-[9px] text-gray-400 font-mono mt-1">
+                        <span>Digital Seal:</span>
+                        <span>SHA256: 7f8a9...b401</span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -933,9 +1044,24 @@ export const EnterpriseHSEDossierModal: React.FC<EnterpriseHSEDossierModalProps>
                         {currentApprovedBy.signatureDate || currentDate}
                       </span>
                     </div>
-                    <div className="pt-2 border-t border-gray-200 flex items-center justify-between text-[10px] text-gray-500">
-                      <span>Digital Certificate:</span>
-                      <span className="font-mono text-[#073B2F] font-bold">SHA256: 3c19e...88ad</span>
+                    <div className="pt-2 border-t border-gray-200">
+                      <div className="flex items-center justify-between mb-1.5">
+                        <span className="text-[10px] text-gray-500">Official Signature:</span>
+                        <span className="text-[9px] font-mono text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">
+                          Verified on Form
+                        </span>
+                      </div>
+                      <div className="bg-white p-1.5 rounded-lg border border-gray-200 flex items-center justify-center">
+                        <img
+                          src="/evidence/image2.jpeg"
+                          alt="Approver Signature"
+                          className="h-10 object-contain"
+                        />
+                      </div>
+                      <div className="flex items-center justify-between text-[9px] text-gray-400 font-mono mt-1">
+                        <span>Digital Seal:</span>
+                        <span>SHA256: 3c19e...88ad</span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -991,6 +1117,64 @@ export const EnterpriseHSEDossierModal: React.FC<EnterpriseHSEDossierModalProps>
             </div>
           )}
         </div>
+
+
+      {/* Full-Screen Evidence Photo Lightbox */}
+      {selectedPhoto && (
+        <div
+          className="fixed inset-0 z-70 bg-black/85 backdrop-blur-xs flex items-center justify-center p-3 sm:p-6 animate-in fade-in duration-150"
+          onClick={() => setSelectedPhoto(null)}
+        >
+          <div
+            className="bg-white rounded-2xl max-w-2xl w-full overflow-hidden shadow-2xl border border-gray-800 text-gray-900 flex flex-col"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="bg-gradient-to-r from-[#073B2F] to-[#087F5B] text-white px-4 py-3 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Camera className="w-4 h-4 text-emerald-300" />
+                <span className="font-bold text-xs">{selectedPhoto.title}</span>
+                <span className="text-[10px] bg-black/30 px-2 py-0.5 rounded font-mono text-emerald-200 border border-white/10">
+                  {selectedPhoto.label}
+                </span>
+              </div>
+              <button
+                onClick={() => setSelectedPhoto(null)}
+                className="p-1 rounded-lg text-white/80 hover:text-white hover:bg-white/10"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <div className="p-4 bg-slate-950 flex items-center justify-center min-h-[300px] max-h-[65vh]">
+              <img
+                src={selectedPhoto.url}
+                alt={selectedPhoto.title}
+                className="max-h-[60vh] max-w-full object-contain rounded-lg shadow-lg border border-slate-800"
+              />
+            </div>
+            <div className="p-3.5 bg-gray-50 border-t border-gray-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs">
+              <p className="text-gray-700 font-medium text-[11px] leading-relaxed">
+                {selectedPhoto.caption}
+              </p>
+              <div className="flex items-center gap-2 flex-shrink-0">
+                <a
+                  href={selectedPhoto.url}
+                  download={selectedPhoto.label + '.jpeg'}
+                  className="px-2.5 py-1 bg-white hover:bg-gray-100 text-gray-700 border border-gray-300 rounded font-semibold text-[11px] flex items-center gap-1 shadow-2xs"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  <span>Download Image</span>
+                </a>
+                <button
+                  onClick={() => setSelectedPhoto(null)}
+                  className="px-3 py-1 bg-[#073B2F] text-white rounded font-bold text-[11px]"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
         {/* Modal Bottom Footer Bar */}
         <div className="bg-[#F4F7F5] border-t border-gray-200 px-5 py-3 flex items-center justify-between flex-shrink-0 text-xs">
