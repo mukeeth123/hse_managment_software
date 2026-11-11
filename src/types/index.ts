@@ -247,6 +247,8 @@ export interface IncidentRecord {
   rootCauseSummary?: string;
   correctiveActionsCount: number;
   closedAt?: string;
+  imageUrl?: string;
+  imageCaption?: string;
   closedBy?: string;
   reopenReason?: string;
 
@@ -336,6 +338,8 @@ export interface NearMissRecord {
   status: 'Reported' | 'Reviewed' | 'Closed';
   assignedReviewer: string;
   reviewNotes?: string;
+  imageUrl?: string;
+  imageCaption?: string;
 
   // In-depth Form Fields
   zone?: string;

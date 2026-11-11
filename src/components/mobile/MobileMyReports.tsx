@@ -138,14 +138,40 @@ export const MobileMyReports: React.FC = () => {
                   <p className="text-[11px] text-gray-500 line-clamp-2">{item.description}</p>
                 </div>
 
-                {/* Photo Evidence Bar if Attached */}
+                {/* Photo Evidence Bar with Live Worksite Thumbnail */}
                 {hasImg && (
-                  <div className="flex items-center justify-between p-1.5 bg-emerald-50/70 border border-emerald-200/60 rounded-lg text-[10px]">
-                    <div className="flex items-center gap-1.5 text-emerald-800 font-medium truncate">
-                      <ImageIcon className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" />
-                      <span className="truncate">Photo Evidence Attached</span>
+                  <div
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setActivePhoto({
+                        imageUrl: (item as any).imageUrl,
+                        title: item.title,
+                        caption: (item as any).imageCaption,
+                        location: item.location,
+                        reference: item.reference,
+                      });
+                    }}
+                    className="flex items-center gap-2 p-1.5 bg-emerald-50/80 border border-emerald-200 rounded-lg text-[10px] cursor-pointer hover:bg-emerald-100/70 transition-colors"
+                  >
+                    <img
+                      src={(item as any).imageUrl}
+                      alt="Uploaded Field Photo"
+                      className="w-11 h-10 object-cover rounded-md border border-emerald-300 flex-shrink-0 bg-white"
+                      onError={(e) => {
+                        (e.currentTarget as HTMLElement).style.display = 'none';
+                      }}
+                    />
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-1 text-emerald-900 font-bold text-[10px]">
+                        <ImageIcon className="w-3 h-3 text-emerald-600 flex-shrink-0" />
+                        <span>Uploaded Field Photo Attached</span>
+                      </div>
+                      <p className="text-[10px] text-gray-600 truncate mt-0.5">
+                        {(item as any).imageCaption || 'Worksite verified observation evidence'}
+                      </p>
                     </div>
                     <button
+                      type="button"
                       onClick={(e) => {
                         e.stopPropagation();
                         setActivePhoto({
@@ -156,9 +182,9 @@ export const MobileMyReports: React.FC = () => {
                           reference: item.reference,
                         });
                       }}
-                      className="px-2 py-0.5 rounded bg-emerald-600 text-white font-bold hover:bg-emerald-700 transition-colors flex items-center gap-1 flex-shrink-0 shadow-xs"
+                      className="px-2 py-1 rounded bg-[#005A36] text-white font-bold text-[9px] hover:bg-[#00472B] transition-colors flex items-center gap-1 flex-shrink-0 shadow-2xs"
                     >
-                      <span>View Photo</span>
+                      <span>View</span>
                     </button>
                   </div>
                 )}

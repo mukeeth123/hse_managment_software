@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useHSE } from '../../context/HSEContext';
-import { ArrowLeft, Send, AlertOctagon, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft, Send, AlertOctagon, CheckCircle2, Camera, Image as ImageIcon, X } from 'lucide-react';
 import { IncidentCategory, SeverityLevel } from '../../types';
+import { PHOTO_1_1, PHOTO_1_2, PHOTO_1_3, PHOTO_1_4, PHOTO_1_5, PHOTO_1_6, PHOTO_1_7, PHOTO_1_8 } from '../../data/imageAssets';
 
 export const MobileReportIncident: React.FC = () => {
   const { currentUser, setMobileScreen, projects, locations, createIncident, addToast, setActiveDesktopModule, setSelectedRecordRef } = useHSE();
@@ -15,6 +16,19 @@ export const MobileReportIncident: React.FC = () => {
   const [immediateActions, setImmediateActions] = useState('');
   const [injuryDetails, setInjuryDetails] = useState('');
   const [submittedRef, setSubmittedRef] = useState<string | null>(null);
+
+  // Evidence Photo State
+  const [imageUrl, setImageUrl] = useState<string | null>(PHOTO_1_2);
+  const [imageCaption, setImageCaption] = useState('Evidence: Incident location and medical response log');
+
+  const photoPresets = [
+    { title: 'Incident Register', url: PHOTO_1_2, caption: 'Official field observation sequence log and register entry' },
+    { title: 'Safety ID Badge', url: PHOTO_1_1, caption: 'Site Safety Services ID credential and pre-task inspection verification' },
+    { title: 'Alarm Mimic Display', url: PHOTO_1_4, caption: 'Fire alarm mimic schematic panel with active loop indicator' },
+    { title: 'Ceiling Detector', url: PHOTO_1_5, caption: 'Ceiling plenum smoke detector head inspection in False ceiling' },
+    { title: 'Chemical Spill', url: PHOTO_1_7, caption: 'Hydrocarbon drum leak on warehouse floor without secondary containment' },
+    { title: 'Electrical Panel', url: PHOTO_1_8, caption: 'Electrical power supply panel inspection with high-voltage danger sign' },
+  ];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,6 +53,8 @@ export const MobileReportIncident: React.FC = () => {
       injuryDetails,
       requiresInvestigation: severity === 'High' || severity === 'Critical',
       status: 'Reported',
+      imageUrl: imageUrl || undefined,
+      imageCaption: imageCaption || undefined,
     });
 
     setSubmittedRef(created.reference);
@@ -210,6 +226,73 @@ export const MobileReportIncident: React.FC = () => {
             placeholder="e.g. Escorted to site clinic; work halted"
             className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg text-xs outline-none"
           />
+        </div>
+
+        {/* Photo Attachment Section */}
+        <div className="bg-white p-3 rounded-xl border border-gray-200 space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="font-bold text-gray-800 flex items-center gap-1.5">
+              <Camera className="w-3.5 h-3.5 text-red-600" />
+              <span>Evidence Photo (photo_1 presets)</span>
+            </span>
+            {imageUrl && (
+              <button
+                type="button"
+                onClick={() => setImageUrl(null)}
+                className="text-[10px] text-red-600 hover:underline flex items-center gap-0.5"
+              >
+                <X className="w-3 h-3" /> Remove
+              </button>
+            )}
+          </div>
+
+          {imageUrl ? (
+            <div className="space-y-1.5">
+              <div className="relative rounded-lg overflow-hidden border border-gray-200 bg-black/5 h-28 flex items-center justify-center">
+                <img
+                  src={imageUrl}
+                  alt="Incident preview"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <input
+                type="text"
+                value={imageCaption}
+                onChange={(e) => setImageCaption(e.target.value)}
+                placeholder="Caption for incident photo..."
+                className="w-full px-2.5 py-1.5 bg-gray-50 border border-gray-200 rounded-lg text-[11px] outline-none"
+              />
+            </div>
+          ) : (
+            <div className="p-3 bg-gray-50 border border-dashed border-gray-300 rounded-lg text-center text-gray-500 text-[11px]">
+              No photo selected. Pick a worksite photo below:
+            </div>
+          )}
+
+          {/* Quick Presets */}
+          <div>
+            <span className="text-[10px] font-bold text-gray-400 block mb-1">Select Worksite Photo:</span>
+            <div className="grid grid-cols-3 gap-1.5">
+              {photoPresets.map((p) => (
+                <button
+                  key={p.title}
+                  type="button"
+                  onClick={() => {
+                    setImageUrl(p.url);
+                    setImageCaption(p.caption);
+                  }}
+                  className={`p-1 rounded-lg border text-left transition-all ${
+                    imageUrl === p.url
+                      ? 'border-red-600 bg-red-50 ring-1 ring-red-600'
+                      : 'border-gray-200 bg-gray-50 hover:bg-gray-100'
+                  }`}
+                >
+                  <img src={p.url} alt={p.title} className="w-full h-10 object-cover rounded mb-1 bg-white" />
+                  <span className="text-[9px] font-bold text-gray-700 block truncate">{p.title}</span>
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
 
         <div className="pt-2">

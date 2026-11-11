@@ -26,6 +26,14 @@ import {
   IMAGE_ELECTRICAL_CABLE,
   getSafeImageUrl,
   getFallbackHazardImage,
+  PHOTO_1_1,
+  PHOTO_1_2,
+  PHOTO_1_3,
+  PHOTO_1_4,
+  PHOTO_1_5,
+  PHOTO_1_6,
+  PHOTO_1_7,
+  PHOTO_1_8,
 } from '../../data/imageAssets';
 
 export const MobileReportHazard: React.FC = () => {
@@ -62,27 +70,47 @@ export const MobileReportHazard: React.FC = () => {
   const [isParsingVoice, setIsParsingVoice] = useState(false);
   const [submittedRef, setSubmittedRef] = useState<string | null>(null);
 
-  // Curated Qatar Safety Photo Presets (100% Offline-Resilient Vector SVGs)
+  // Curated Worksite Photo Presets (including photo_1 (1) to photo_1 (8))
   const photoPresets = [
     {
-      title: 'Floor Void Opening',
-      url: IMAGE_FLOOR_OPENING,
-      caption: 'Mechanical floor penetration without rigid cover on slab level',
+      title: 'Safety ID Badge',
+      url: PHOTO_1_1,
+      caption: 'Site Safety Services ID credential and pre-task inspection verification',
     },
     {
-      title: 'Scaffold Defect',
-      url: IMAGE_SCAFFOLD_DEFECT,
-      caption: 'Working platform missing edge toe-board and handrail clamp',
+      title: 'Incident Register',
+      url: PHOTO_1_2,
+      caption: 'Official field observation sequence log and register entry',
     },
     {
-      title: 'Electrical Hazard',
-      url: IMAGE_ELECTRICAL_CABLE,
-      caption: 'Temporary 380V power distribution cable submerged in water',
+      title: 'Technician Credential',
+      url: PHOTO_1_3,
+      caption: 'Verified SSSS technician credential and safety authorization barcode',
     },
     {
-      title: 'Chemical Leak',
-      url: IMAGE_CHEMICAL_LEAK,
-      caption: 'Solvent drum leaking near perimeter drainage channel',
+      title: 'Alarm System Mimic Display',
+      url: PHOTO_1_4,
+      caption: 'Fire alarm mimic schematic panel with active loop indicator',
+    },
+    {
+      title: 'Ceiling Smoke Detector',
+      url: PHOTO_1_5,
+      caption: 'Ceiling plenum smoke detector head inspection in False ceiling',
+    },
+    {
+      title: 'Staircase Restriction',
+      url: PHOTO_1_6,
+      caption: 'Stairway barrier with pedestrian access prohibited warning sign',
+    },
+    {
+      title: 'Chemical / Drum Spill',
+      url: PHOTO_1_7,
+      caption: 'Hydrocarbon drum leak on warehouse floor without secondary containment',
+    },
+    {
+      title: 'Electrical Distribution Board',
+      url: PHOTO_1_8,
+      caption: 'Electrical power supply panel inspection with high-voltage danger sign',
     },
   ];
 

@@ -12,6 +12,8 @@ import photo1_5 from './photo_1 (5).png';
 import photo1_6 from './photo_1 (6).png';
 import photo1_7 from './photo_1 (7).png';
 import photo1_8 from './photo_1 (8).png';
+import sign1 from './sign1.png';
+import sign2 from './sign2.png';
 
 export const PHOTO_1_1 = photo1_1;
 export const PHOTO_1_2 = photo1_2;
@@ -21,6 +23,8 @@ export const PHOTO_1_5 = photo1_5;
 export const PHOTO_1_6 = photo1_6;
 export const PHOTO_1_7 = photo1_7;
 export const PHOTO_1_8 = photo1_8;
+export const PHOTO_SIGN1 = sign1;
+export const PHOTO_SIGN2 = sign2;
 
 // Helper to create clean SVG data URI
 const createSvgDataUri = (svgString: string): string => {

@@ -43,6 +43,8 @@ import {
   PHOTO_1_6,
   PHOTO_1_7,
   PHOTO_1_8,
+  PHOTO_SIGN1,
+  PHOTO_SIGN2,
 } from '../../data/imageAssets';
 
 interface EnterpriseHSEDossierModalProps {
@@ -68,6 +70,7 @@ export const EnterpriseHSEDossierModal: React.FC<EnterpriseHSEDossierModalProps>
 }) => {
   const [activeTab, setActiveTab] = useState<'originator' | 'harm' | 'causes' | 'capa' | 'signoff'>('originator');
   const [selectedPhoto, setSelectedPhoto] = useState<{ url: string; title: string; caption: string; label: string } | null>(null);
+  const [isSignaturesInterchanged, setIsSignaturesInterchanged] = useState(true);
 
   if (!isOpen || !record) return null;
 
@@ -1015,16 +1018,27 @@ export const EnterpriseHSEDossierModal: React.FC<EnterpriseHSEDossierModalProps>
           {/* TAB 5: REVIEW, APPROVALS & SIGN-OFF */}
           {activeTab === 'signoff' && (
             <div className="space-y-4 animate-in fade-in duration-100">
-              <div className="bg-white p-3.5 rounded-xl border border-gray-200 flex items-center justify-between">
+              <div className="bg-white p-3.5 rounded-xl border border-gray-200 flex flex-wrap items-center justify-between gap-2">
                 <div>
                   <h4 className="font-bold text-xs text-gray-900">
                     Section 5: Reviewer & Approver Sign-Off
                   </h4>
                   <p className="text-[10px] text-gray-500">Official QHSE Governance & Verification Signatures</p>
                 </div>
-                <span className="text-[10px] font-mono bg-emerald-50 text-emerald-800 px-2 py-0.5 rounded border border-emerald-200 font-bold">
-                  Compliant with HSMS Section 4
-                </span>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setIsSignaturesInterchanged((prev) => !prev)}
+                    className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg border border-gray-300 bg-white hover:bg-gray-50 text-gray-700 font-bold text-[10px] transition-colors shadow-2xs"
+                    title="Click to interchange Reviewer and Approver signatures"
+                  >
+                    <RotateCcw className="w-3 h-3 text-[#005A36]" />
+                    <span>Interchange Signatures ({isSignaturesInterchanged ? 'Sign-2 / Sign-1' : 'Sign-1 / Sign-2'})</span>
+                  </button>
+                  <span className="text-[10px] font-mono bg-emerald-50 text-emerald-800 px-2 py-0.5 rounded border border-emerald-200 font-bold">
+                    Compliant with HSMS Section 4
+                  </span>
+                </div>
               </div>
 
               {/* Two Official Sign-off Cards matching Excel */}
@@ -1060,14 +1074,14 @@ export const EnterpriseHSEDossierModal: React.FC<EnterpriseHSEDossierModalProps>
                       <div className="flex items-center justify-between mb-1.5">
                         <span className="text-[10px] text-gray-500">Official Signature:</span>
                         <span className="text-[9px] font-mono text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">
-                          Verified on Form
+                          {isSignaturesInterchanged ? 'Sign-2 (Verified)' : 'Sign-1 (Verified)'}
                         </span>
                       </div>
-                      <div className="bg-white p-1.5 rounded-lg border border-gray-200 flex items-center justify-center">
+                      <div className="bg-white p-2 rounded-lg border border-gray-200 flex items-center justify-center">
                         <img
-                          src="/evidence/image5.jpeg"
+                          src={isSignaturesInterchanged ? PHOTO_SIGN2 : PHOTO_SIGN1}
                           alt="Reviewer Signature"
-                          className="h-10 object-contain"
+                          className="h-12 w-auto object-contain"
                         />
                       </div>
                       <div className="flex items-center justify-between text-[9px] text-gray-400 font-mono mt-1">
@@ -1109,14 +1123,14 @@ export const EnterpriseHSEDossierModal: React.FC<EnterpriseHSEDossierModalProps>
                       <div className="flex items-center justify-between mb-1.5">
                         <span className="text-[10px] text-gray-500">Official Signature:</span>
                         <span className="text-[9px] font-mono text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">
-                          Verified on Form
+                          {isSignaturesInterchanged ? 'Sign-1 (Verified)' : 'Sign-2 (Verified)'}
                         </span>
                       </div>
-                      <div className="bg-white p-1.5 rounded-lg border border-gray-200 flex items-center justify-center">
+                      <div className="bg-white p-2 rounded-lg border border-gray-200 flex items-center justify-center">
                         <img
-                          src="/evidence/image2.jpeg"
+                          src={isSignaturesInterchanged ? PHOTO_SIGN1 : PHOTO_SIGN2}
                           alt="Approver Signature"
-                          className="h-10 object-contain"
+                          className="h-12 w-auto object-contain"
                         />
                       </div>
                       <div className="flex items-center justify-between text-[9px] text-gray-400 font-mono mt-1">
