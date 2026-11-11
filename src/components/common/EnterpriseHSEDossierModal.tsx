@@ -115,39 +115,84 @@ export const EnterpriseHSEDossierModal: React.FC<EnterpriseHSEDossierModalProps>
     signatureSigned: true,
   };
 
-  // Extracted Evidence Photos and Closeout Photos directly from demosss.xlsx
-  const evidencePhotos = [
+  // Extracted Evidence Photos directly from demosss.xlsx covering all 4 photo sections
+  const allEvidencePhotos = [
     {
-      id: 'photo-1',
-      label: 'Photo-01',
+      id: 'p1-a',
+      slot: 'Photo-01',
+      label: 'Photo-01 (A)',
       title: 'Scene Observation',
-      caption: `Field evidence Photo-01 for ${record.reference} (${record.location})`,
+      caption: `Field evidence Photo-01 (Part A) for ${record.reference} (${record.location})`,
       url: '/evidence/image6.jpeg',
     },
     {
-      id: 'photo-2',
-      label: 'Photo-02',
-      title: 'Component / Perimeter Inspection',
-      caption: 'Detailed physical condition of affected area prior to maintenance.',
+      id: 'p1-b',
+      slot: 'Photo-01',
+      label: 'Photo-01 (B)',
+      title: 'Location Surroundings',
+      caption: 'Field evidence Photo-01 (Part B) showing wider area context',
       url: '/evidence/image7.jpeg',
     },
     {
-      id: 'photo-3',
-      label: 'Photo-03',
-      title: 'Ceiling Grid & Isolation Boundary',
-      caption: 'Pre-task inspection perimeter and surrounding work area.',
+      id: 'p2-a',
+      slot: 'Photo-02',
+      label: 'Photo-02 (A)',
+      title: 'Affected Component',
+      caption: 'Field evidence Photo-02 (Part A) showing affected device and surface condition',
       url: '/evidence/image8.jpeg',
     },
     {
-      id: 'photo-4',
-      label: 'Photo-04',
-      title: 'Detector Head / Structural Fitting',
-      caption: 'Close-up evidence of the component before and during safe isolation.',
+      id: 'p2-b',
+      slot: 'Photo-02',
+      label: 'Photo-02 (B)',
+      title: 'Ceiling Plenum / Area Detail',
+      caption: 'Field evidence Photo-02 (Part B) showing structural boundary and moisture/dust evidence',
       url: '/evidence/image9.jpeg',
+    },
+    {
+      id: 'p3-a',
+      slot: 'Photo-03',
+      label: 'Photo-03 (A)',
+      title: 'Barricade Perimeter',
+      caption: 'Field evidence Photo-03 (Part A) showing warning signage and isolation boundary',
+      url: '/evidence/image10.jpeg',
+    },
+    {
+      id: 'p3-b',
+      slot: 'Photo-03',
+      label: 'Photo-03 (B)',
+      title: 'Technical Inspection',
+      caption: 'Field evidence Photo-03 (Part B) showing maintenance team inspection above ceiling',
+      url: '/evidence/image11.jpeg',
+    },
+    {
+      id: 'p4-a',
+      slot: 'Photo-04',
+      label: 'Photo-04 (A) — ID Badges',
+      title: 'Personnel ID Badges (Al Shaya & TDGISERV)',
+      caption: 'Photo-04 (Part A): Official Qatar University Contractor & Security ID Badges (Imran Saeed & Siraj Shaukatali Ansari - FAS Technician #44373)',
+      url: '/evidence/photo4_id_cards_full.png',
+      isHighlight: true,
+    },
+    {
+      id: 'p4-b',
+      slot: 'Photo-04',
+      label: 'Photo-04 (B)',
+      title: 'Device & Plate Identification',
+      caption: 'Photo-04 (Part B): Device serial number, tag plate, and physical housing confirmation',
+      url: '/evidence/image3.jpeg',
+    },
+    {
+      id: 'p4-c',
+      slot: 'Photo-04',
+      label: 'Photo-04 (C)',
+      title: 'Access Equipment & Ladder Check',
+      caption: 'Photo-04 (Part C): Work at height access equipment verification and safety check',
+      url: '/evidence/image4.jpeg',
     },
   ];
 
-  const closeoutPhotos = [
+    const closeoutPhotos = [
     { id: 1, url: '/evidence/image10.jpeg', caption: 'Initial safety perimeter and warning signs placed.' },
     { id: 2, url: '/evidence/image11.jpeg', caption: 'Technical inspection and plenum duct inspection completed.' },
     { id: 3, url: '/evidence/image4.jpeg', caption: 'Mechanical rectification and seal joints restored.' },
@@ -568,49 +613,90 @@ export const EnterpriseHSEDossierModal: React.FC<EnterpriseHSEDossierModalProps>
                 </div>
               </div>
 
-              {/* Photo Attachments Grid (Photo-01 to Photo-04 as in Excel) */}
-              <div className="bg-white p-3.5 rounded-xl border border-gray-200 space-y-2">
-                <div className="flex items-center justify-between pb-1.5 border-b border-gray-100">
+              {/* Photo Attachments Grid: All Photos including Photo-04 ID Badges */}
+              <div className="bg-white p-3.5 rounded-xl border border-gray-200 space-y-3">
+                <div className="flex flex-wrap items-center justify-between gap-2 pb-2 border-b border-gray-100">
                   <div className="flex items-center gap-2">
                     <h5 className="font-bold text-xs text-gray-900 flex items-center gap-1.5">
-                      <Camera className="w-3.5 h-3.5 text-[#087F5B]" />
-                      <span>Field Evidence Photos (From demosss.xlsx)</span>
+                      <Camera className="w-4 h-4 text-[#087F5B]" />
+                      <span>Official Field Evidence Photos (From demosss.xlsx)</span>
                     </h5>
                     <span className="text-[10px] bg-emerald-100 text-[#073B2F] font-bold px-2 py-0.5 rounded-full font-mono">
-                      4 Embedded Photos
+                      All Photos (Photo-01 to Photo-04)
                     </span>
                   </div>
-                  <span className="text-[10px] text-gray-500 font-mono">Click any photo to inspect full size</span>
+                  <span className="text-[10px] text-gray-500 font-mono">
+                    Click any photo to zoom full size with field captions
+                  </span>
                 </div>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
-                  {evidencePhotos.map((photo, pIdx) => (
-                    <div
-                      key={photo.id}
-                      onClick={() => setSelectedPhoto(photo)}
-                      className="group relative rounded-xl overflow-hidden border border-gray-200 hover:border-emerald-500 hover:shadow-md cursor-pointer transition-all bg-gray-900"
-                    >
-                      <div className="h-32 w-full overflow-hidden bg-gray-100 flex items-center justify-center">
-                        <img
-                          src={photo.url}
-                          alt={photo.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
-                        />
-                      </div>
-                      <div className="p-2 bg-white flex items-center justify-between border-t border-gray-100">
-                        <div>
-                          <span className="font-mono font-bold text-[10px] text-[#073B2F] block">
-                            {photo.label}
-                          </span>
-                          <span className="text-[9px] text-gray-500 truncate block max-w-[120px]">
-                            {photo.title}
+
+                {/* 4 Official Photo Boxes matching Excel Layout */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                  {['Photo-01', 'Photo-02', 'Photo-03', 'Photo-04'].map((slotName) => {
+                    const slotPhotos = allEvidencePhotos.filter((p) => p.slot === slotName);
+                    const isPhoto4 = slotName === 'Photo-04';
+                    
+                    return (
+                      <div
+                        key={slotName}
+                        className={`rounded-xl border overflow-hidden flex flex-col ${
+                          isPhoto4
+                            ? 'border-emerald-400 bg-emerald-50/30 shadow-xs'
+                            : 'border-gray-200 bg-[#F8FAF9]'
+                        }`}
+                      >
+                        {/* Box Header matching Excel Form blue title */}
+                        <div
+                          className={`px-3 py-1.5 flex items-center justify-between text-xs font-bold ${
+                            isPhoto4
+                              ? 'bg-gradient-to-r from-emerald-700 to-[#073B2F] text-white'
+                              : 'bg-gradient-to-r from-slate-700 to-slate-800 text-white'
+                          }`}
+                        >
+                          <span className="font-mono">{slotName}</span>
+                          <span className="text-[9px] font-normal opacity-90">
+                            {slotPhotos.length} {slotPhotos.length === 1 ? 'photo' : 'photos'}
                           </span>
                         </div>
-                        <span className="p-1 rounded bg-emerald-50 text-emerald-700 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
-                          <Camera className="w-3.5 h-3.5" />
-                        </span>
+
+                        {/* Box Photos Body */}
+                        <div className="p-2 space-y-2 flex-1 flex flex-col justify-between">
+                          {slotPhotos.map((photo) => (
+                            <div
+                              key={photo.id}
+                              onClick={() => setSelectedPhoto(photo)}
+                              className="group relative rounded-lg overflow-hidden border border-gray-200 hover:border-emerald-500 cursor-pointer bg-white transition-all shadow-2xs hover:shadow-sm"
+                            >
+                              <div
+                                className={`w-full overflow-hidden bg-gray-900 flex items-center justify-center ${
+                                  photo.isHighlight ? 'h-36' : 'h-24'
+                                }`}
+                              >
+                                <img
+                                  src={photo.url}
+                                  alt={photo.title}
+                                  className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-200"
+                                />
+                              </div>
+                              <div className="p-1.5 bg-white flex items-center justify-between border-t border-gray-100 text-[10px]">
+                                <div className="min-w-0 pr-1">
+                                  <span className="font-bold text-gray-900 truncate block text-[10px]">
+                                    {photo.label}
+                                  </span>
+                                  <span className="text-[9px] text-gray-500 truncate block">
+                                    {photo.title}
+                                  </span>
+                                </div>
+                                <span className="p-1 rounded bg-emerald-50 text-emerald-700 group-hover:bg-emerald-600 group-hover:text-white transition-colors flex-shrink-0">
+                                  <Camera className="w-3 h-3" />
+                                </span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
 
