@@ -192,14 +192,6 @@ export const EnterpriseHSEDossierModal: React.FC<EnterpriseHSEDossierModalProps>
     },
   ];
 
-    const closeoutPhotos = [
-    { id: 1, url: '/evidence/image10.jpeg', caption: 'Initial safety perimeter and warning signs placed.' },
-    { id: 2, url: '/evidence/image11.jpeg', caption: 'Technical inspection and plenum duct inspection completed.' },
-    { id: 3, url: '/evidence/image4.jpeg', caption: 'Mechanical rectification and seal joints restored.' },
-    { id: 4, url: '/evidence/image3.jpeg', caption: 'Final post-maintenance check, system back online.' },
-    { id: 5, url: '/evidence/image10.jpeg', caption: 'Preventive maintenance audit verification completed.' },
-  ];
-
   // Standard root causes list from Qatar University HSE Form
   const standardRootCauses = [
     'Weather/Temperature Factors',
@@ -952,10 +944,9 @@ export const EnterpriseHSEDossierModal: React.FC<EnterpriseHSEDossierModalProps>
                     <tr>
                       <th className="py-2.5 px-3 w-10 text-center">#</th>
                       <th className="py-2.5 px-3">Recommended / Taken Action</th>
-                      <th className="py-2.5 px-3 w-28">Action By</th>
-                      <th className="py-2.5 px-3 w-24">Target Date</th>
-                      <th className="py-2.5 px-3 w-24 text-center">Status</th>
-                      <th className="py-2.5 px-3 w-28 text-center">Closeout Photo</th>
+                      <th className="py-2.5 px-3 w-32">Action By</th>
+                      <th className="py-2.5 px-3 w-28">Target Date</th>
+                      <th className="py-2.5 px-3 w-28 text-center">Status</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100 text-[11px]">
@@ -988,32 +979,6 @@ export const EnterpriseHSEDossierModal: React.FC<EnterpriseHSEDossierModalProps>
                           >
                             {act.status}
                           </span>
-                        </td>
-                        <td className="py-2 px-3 text-center">
-                          {(() => {
-                            const closeoutPhoto = closeoutPhotos.find(p => p.id === act.id) || closeoutPhotos[0];
-                            return (
-                              <div
-                                onClick={() => setSelectedPhoto({
-                                  url: closeoutPhoto.url,
-                                  title: `Closeout Photo #${act.id}`,
-                                  caption: act.closeoutNotes || closeoutPhoto.caption,
-                                  label: `Action #${act.id} Verification`
-                                })}
-                                className="inline-flex items-center gap-1.5 p-1 rounded-lg border border-gray-200 hover:border-emerald-400 bg-gray-50 hover:bg-emerald-50 cursor-pointer transition-all group"
-                                title="Click to view closeout photo"
-                              >
-                                <img
-                                  src={closeoutPhoto.url}
-                                  alt="Closeout"
-                                  className="w-8 h-8 rounded object-cover border border-gray-300"
-                                />
-                                <span className="text-[10px] text-gray-500 group-hover:text-emerald-800 font-mono">
-                                  View
-                                </span>
-                              </div>
-                            );
-                          })()}
                         </td>
                       </tr>
                     ))}
